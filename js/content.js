@@ -17,7 +17,7 @@ window.SITE = {
   /* Die fünf Bereiche der bisherigen Website */
   areas: [
     {
-      slug: 'heizung-kaelte', no: '01', band: 'Wir verbauen, was wir besprechen.', title: 'Heizung und Kälte', img: 'heizung-schweissen', pos: '62% 72%',
+      slug: 'heizung-kaelte', no: '01', band: 'Wir verbauen, was wir versprechen.', title: 'Heizung und Kälte', img: 'heizung-schweissen', pos: '62% 72%',
       short: 'Wir planen, bauen, warten und sanieren Heizungsanlagen und Kälteanlagen.',
       lead: 'Ob Neubau oder Sanierung: Wir planen, bauen, warten und sanieren Heizungsanlagen und Kälteanlagen. Als Fachberater unterstützen wir Planer bei der Auslegung, und wir reparieren auch Anlagen, die nicht von uns gebaut wurden.',
       items: ['Planung, Bau und Inbetriebnahme von Heizungsanlagen', 'Planung, Bau und Wartung von Kälteanlagen', 'Sanierung bestehender Anlagen', 'Fachberatung für Planerinnen und Planer bei der Auslegung', 'Reparaturen auch an Fremdanlagen'],
@@ -38,7 +38,7 @@ window.SITE = {
       related: ['sanierungen', 'umbauten', 'service-wartung']
     },
     {
-      slug: 'erneuerbare-energien', no: '04', band: 'Wir verbauen, was wir besprechen.', title: 'Erneuerbare Energien', img: 'speicher', pos: '50% 50%',
+      slug: 'erneuerbare-energien', no: '04', band: 'Wir verbauen, was wir versprechen.', title: 'Erneuerbare Energien', img: 'speicher', pos: '50% 50%',
       short: 'Wärmepumpen, Speicher und Solarthermie, sauber eingebunden.',
       lead: 'Wir binden Wärmepumpen, Speicher und Solarthermie in Ihr Gebäude ein, erweitern bestehende Anlagen, arbeiten mit Wärmeverbünden, bauen Wärmerückgewinnung und erstellen Energiesimulationen und Gebäudesimulationen.',
       items: ['Wärmepumpen, Speicher und Solarthermie', 'Erweiterung bestehender Haustechnik', 'Anbindung an Wärmeverbünde', 'Wärmerückgewinnung', 'Energiesimulation und Gebäudesimulation'],

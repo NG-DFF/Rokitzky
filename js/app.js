@@ -29,6 +29,7 @@
   };
   const ringLock = (cls = '') => `<div class="ringlock ${cls}" aria-hidden="true"><div class="ring">${svg.ring()}</div><div class="hexc">${svg.iconWhite()}</div></div>`;
   const sw = (t) => `<span class="sw">${t}<span class="sw__mark">${svg.swoosh()}</span></span>`;
+  const swLast = (t) => { const i = t.lastIndexOf(' '); return i < 0 ? sw(t) : `${t.slice(0, i)} ${sw(t.slice(i + 1))}`; };
   const btn = (href, label, cls = 'btn--solid', icon = svg.arrow(), extra = '') => `<a class="btn ${cls}" href="${href}" ${extra}>${label}${icon ? ' ' + icon : ''}</a>`;
   const tel = (cls = 'btn--ghost') => `<a class="btn ${cls} btn--tel" href="tel:${S.company.pikettHref}"><span class="pulse" aria-hidden="true"></span>Pikett 24/7: ${S.company.pikett}</a>`;
   const img = (name, alt = '', pos = '50% 50%', eager = false) => `<img src="img/${name}.webp" alt="${alt}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${pos}">`;
@@ -54,7 +55,7 @@
         <div>
           ${crumb}
           ${o.kicker ? `<p class="hero__kicker" data-hero="fade">${svg.mark()}<span>${o.kicker}</span></p>` : ''}
-          <h1 class="${o.home ? 'display' : 'h1'}${longest > 13 ? ' is-long' : ''}" id="page-title">${lines}</h1>
+          <h1 class="${o.home ? 'display' : 'h1'}${longest > 13 ? ' is-long' : ''}" id="page-title" style="--lw:${longest}">${lines}</h1>
           ${o.sub ? `<p class="hero__sub" data-hero="fade">${o.sub}</p>` : ''}
           ${o.btns ? `<div class="btns" data-hero="fade">${o.btns}</div>` : ''}
         </div>
@@ -72,7 +73,7 @@
       <div class="cta__media" data-parallax="10">${img(pic[0], '', pic[1])}</div>
       <div class="slate" data-reveal>
         <span class="lbl lbl--light">So erreichen Sie uns</span>
-        <h2 class="h2">${sw(title)}</h2>
+        <h2 class="h2">${swLast(title)}</h2>
         <p>${text}</p>
         <div class="btns">${btn('#kontakt', 'Kontakt aufnehmen', 'btn--white')}${btn('mailto:' + S.company.mail, S.company.mail, 'btn--ghost', svg.mail())}${tel()}</div>
       </div>
@@ -97,7 +98,7 @@
   ];
 
   const topicsGrid = () => `<div class="tgroups">${S.groups.map(g => `<div class="tgroup" data-reveal><span class="tgroup__t">${svg.hex()}${g.title}</span><div class="tchips">${g.items.map(s => `<a class="tchip" href="#${s}">${focusBy(s).title}${svg.arrow()}</a>`).join('')}</div></div>`).join('')}</div>`;
-  const markImgs = () => `<img class="mark" src="img/toplehrbetrieb.svg" alt="Toplehrbetrieb Gebäudetechnik" loading="lazy" width="350" height="108"><img class="mark" src="img/gebaeudetechniker.svg" alt="Wir, die Gebäudetechniker" loading="lazy" width="350" height="157"><span class="mark mark--iso" role="img" aria-label="ISO zertifiziert">${svg.icon()}<b>ISO</b><small>zertifiziert</small></span>`;
+  const markImgs = () => `<img class="mark" src="img/toplehrbetrieb.svg" alt="Toplehrbetrieb Gebäudetechnik" loading="lazy" width="350" height="108"><img class="mark" src="img/gebaeudetechniker.svg" alt="Wir, die Gebäudetechniker" loading="lazy" width="350" height="157"><img class="mark mark--seal" src="img/iso-9001.webp" alt="SQS Zertifiziertes Managementsystem ISO 9001" loading="lazy" width="240" height="240"><img class="mark mark--seal" src="img/iso-14001-45001.webp" alt="SQS Zertifiziertes Managementsystem ISO 14001 und 45001" loading="lazy" width="240" height="240">`;
   const marks = (plain = false) => `<div class="marks ${plain ? 'marks--plain' : ''}" data-reveal>${plain ? '' : '<span class="marks__lbl">Ausgezeichnet und zertifiziert</span>'}<div class="marks__row">${markImgs()}</div></div>`;
   const quoteRotator = () => `<div class="qrot" data-qrot data-reveal>${S.quotes.map(([q, a], i) => `<figure class="qrot__item${i ? '' : ' is-on'}"><blockquote>«${q}»</blockquote><figcaption>${a}</figcaption></figure>`).join('')}<div class="qrot__dots" aria-hidden="true">${S.quotes.map((_, i) => `<i class="${i ? '' : 'is-on'}"></i>`).join('')}</div></div>`;
   const portraitWall = () => {
@@ -135,7 +136,7 @@
         { src: 'team-dach', m: 'team-dach-m', pos: '40% 55%', alt: 'Drei Monteure von Rokitzky besprechen sich auf dem Dach neben einem Lüftungsgerät' }
       ],
       kicker: 'Heizung | Lüftung | Klima | Kälte | Sanitär',
-      title: ['Wir verbauen,', `was wir ${sw('besprechen.')}`],
+      title: ['Wir verbauen,', `was wir ${sw('versprechen.')}`],
       sub: 'Seit 1970 planen, bauen, warten und sanieren wir Haustechnik. Persönlich und verbindlich, mit Pikettdienst rund um die Uhr.',
       btns: btn('#dienstleistungen', 'Unsere Dienstleistungen', 'btn--white') + tel()
     })}
@@ -316,7 +317,7 @@
     return `
     ${hero({ img: 'team-dach', m: 'team-dach-m', pos: '35% 55%', alt: 'Monteure von Rokitzky besprechen sich auf dem Dach einer Baustelle', crumb: [['Home', '#start'], ['Unternehmen']], kicker: 'Unternehmen seit 1970', title: ['Seit 1970.', 'Persönlich geblieben.'], sub: 'Vom Einmannbetrieb in Embrach zum inhabergeführten Unternehmen mit über 80 Mitarbeitenden. Geblieben ist, was uns ausmacht: Zuverlässigkeit und Nähe zu unseren Kundinnen und Kunden.', btns: btn('#kontakt', 'Kontakt', 'btn--white') + btn('#mitarbeitende', 'Mitarbeitende', 'btn--ghost') })}
     <section class="sec wrap intro" aria-label="Über uns">
-      <div>${ruleBox('Persönlich &amp; Verbindlich', true)}<p class="lead" data-reveal>Persönlich und verbindlich: Das ist unser Anspruch an jede Anlage und an jede Begegnung. Wir verbauen, was wir besprechen, und bleiben auch nach der Inbetriebnahme für Sie da.</p></div>
+      <div>${ruleBox('Persönlich &amp; Verbindlich', true)}<p class="lead" data-reveal>Persönlich und verbindlich: Das ist unser Anspruch an jede Anlage und an jede Begegnung. Wir verbauen, was wir versprechen, und bleiben auch nach der Inbetriebnahme für Sie da.</p></div>
       <div class="facts" style="grid-template-columns:1fr 1fr" data-reveal>
         <div class="fact"><span class="fact__n">1970</span><span class="fact__t">gegründet in Embrach</span></div>
         <div class="fact"><span class="fact__n">80+</span><span class="fact__t">Mitarbeitende</span></div>
@@ -649,7 +650,7 @@
         const tl = gsap.timeline({ delay: opts.fromWipe ? .25 : .15 });
         const swm = $$('.sw__mark', hero), ring = $$('.hero__ring', hero);
         tl.from(media, { scale: 1.16, duration: 2.4, ease: 'power3.out' }, 0)
-          .from($$('.ln > span', hero), { yPercent: 108, duration: 1.15, stagger: .1, ease: 'power4.out' }, .2)
+          .from($$('.ln > span', hero), { yPercent: 130, duration: 1.15, stagger: .1, ease: 'power4.out' }, .2)
           .from($$('[data-hero="fade"]', hero), { y: 22, opacity: 0, duration: .9, stagger: .07, ease: 'power3.out' }, .45);
         if (swm.length) tl.from(swm, { clipPath: 'inset(0 100% 0 0)', duration: .9, ease: 'power3.inOut' }, 1.05);
         if (ring.length) tl.from(ring, { scale: .6, opacity: 0, rotate: -40, duration: 1.4, ease: 'power3.out' }, .5);
