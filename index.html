@@ -29,15 +29,15 @@
   <div class="hd__bar wrap">
     <a class="hd__logo" href="#start" aria-label="W. Rokitzky AG, zur Startseite" data-svg="wordmark"></a>
     <nav class="hd__nav" aria-label="Hauptnavigation">
-      <a href="#start" data-nav="start">Home</a>
-      <a href="#dienstleistungen" data-nav="dienstleistungen" class="has-mega" aria-haspopup="true" aria-expanded="false">Dienstleistungen</a>
+      <a href="#dienstleistungen" data-nav="dienstleistungen" class="has-mega" aria-haspopup="true" aria-expanded="false">Leistungen</a>
       <a href="#unternehmen" data-nav="unternehmen">Unternehmen</a>
       <a href="#mitarbeitende" data-nav="mitarbeitende">Mitarbeitende</a>
+      <a href="#karriere" data-nav="karriere">Karriere</a>
       <a href="#kontakt" data-nav="kontakt">Kontakt</a>
     </nav>
     <div class="hd__act">
     <a class="hd__pikett" href="tel:+41764341717" aria-label="Pikettdienst 24/7 anrufen: 076 434 17 17">
-      <span class="pulse" aria-hidden="true"></span><span class="hd__pikett-l">Pikett 24/7</span><span class="hd__pikett-n">076 434 17 17</span>
+      <span class="hd__pikett-l">Pikett 24/7</span><span class="hd__pikett-n">076 434 17 17</span>
     </a>
     <button class="hd__burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="menu"><span data-svg="icon"></span></button>
     </div>
@@ -47,17 +47,8 @@
     <span class="hd__hex" data-svg="icon"></span>
     <span class="hd__label" id="hdLabel">Gebäudetechnik seit 1970</span>
   </div>
-  <div class="mega" id="mega" aria-label="Dienstleistungen">
-    <div class="mega__in wrap">
-      <div class="mega__areas" id="megaAreas"></div>
-      <div class="mega__groups" id="megaGroups"></div>
-      <a class="mega__pikett" href="tel:+41764341717">
-        <span class="mega__pikett-img"><img src="img/van-wide.webp" alt="" loading="lazy"></span>
-        <span class="lbl">Störungsdienst</span>
-        <strong>076 434 17 17</strong>
-        <span>24/7 persönlich für Sie da</span>
-      </a>
-    </div>
+  <div class="mega" id="mega" aria-label="Leistungen">
+    <div class="mega__in wrap" id="megaAreas"></div>
   </div>
 </header>
 
@@ -66,7 +57,6 @@
     <nav class="menu__nav" id="menuNav" aria-label="Mobile Navigation"></nav>
     <div class="menu__foot">
       <a class="menu__pikett" href="tel:+41764341717"><span class="lbl">Pikett 24/7</span><strong>076 434 17 17</strong></a>
-      <div class="menu__ring" data-svg="ringlock"></div>
     </div>
   </div>
 </div>
@@ -76,11 +66,9 @@
 <footer class="ft" id="ft"></footer>
 
 <div class="wipe" id="wipe" aria-hidden="true"><span class="wipe__icon" data-svg="icon"></span></div>
-<div class="cimg" id="cimg" aria-hidden="true"><div class="cimg__in"></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.1/dist/SplitText.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
 <script src="js/brand.js"></script>
 <script src="js/content.js"></script>
