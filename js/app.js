@@ -33,7 +33,10 @@
   const swKey = (t) => { const w = t.split(' '); let k = 0; w.forEach((x, i) => { if (x.replace(/[^\p{L}]/gu, '').length >= w[k].replace(/[^\p{L}]/gu, '').length) k = i; }); w[k] = sw(w[k]); return w.join(' '); };
   const btn = (href, label, cls = 'btn--solid', icon = svg.arrow(), extra = '') => `<a class="btn ${cls}" href="${href}" ${extra}>${label}${icon ? ' ' + icon : ''}</a>`;
   const tel = (cls = 'btn--ghost') => `<a class="btn ${cls} btn--tel" href="tel:${S.company.pikettHref}">Pikett 24/7: ${S.company.pikett}</a>`;
-  const img = (name, alt = '', pos = '50% 50%', eager = false) => `<img src="img/${name}.webp" alt="${alt}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${pos}">`;
+  const img = (name, alt = '', pos = '50% 50%', eager = false, m = null, mpos = null) => {
+    const tag = `<img class="ob" src="img/${name}.webp" alt="${alt}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="--op:${pos};--opm:${mpos || pos}">`;
+    return m ? `<picture><source media="(max-width: 820px)" srcset="img/${m}.webp">${tag}</picture>` : tag;
+  };
   const ruleBox = (label, hex = false, light = false) => `<div class="rulebox ${hex ? 'rulebox--hex' : ''}" data-reveal><span class="rule"></span>${hex ? svg.mark() : ''}<span class="lbl ${light ? 'lbl--light' : ''}">${label}</span></div>`;
   const focusBy = (slug) => S.focus[slug];
   const groupOf = (gid) => S.groups.find(g => g.id === gid);
@@ -43,9 +46,9 @@
   /* ---------- page parts ---------- */
   function hero(o) {
     const crumb = o.crumb ? `<nav class="hero__crumb" aria-label="Brotkrumen" data-hero="fade">${o.crumb.map((c, i) => (i ? '<span aria-hidden="true">/</span>' : '') + (c[1] ? `<a href="${c[1]}">${c[0]}</a>` : `<span aria-current="page">${c[0]}</span>`)).join('')}</nav>` : '';
-    const slides = (o.slides || [{ src: o.img, m: o.m, pos: o.pos, alt: o.alt || '' }]).map((s, i) => s.m
-      ? `<picture class="hero__still" data-slide="${i}"><source media="(max-width: 820px)" srcset="img/${s.m}.webp"><img src="img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} style="object-position:${s.pos || '50% 50%'}"></picture>`
-      : `<img class="hero__still" data-slide="${i}" src="img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} style="object-position:${s.pos || '50% 50%'}">`).join('');
+    const slides = (o.slides || [{ src: o.img, m: o.m, pos: o.pos, mpos: o.mpos, alt: o.alt || '' }]).map((s, i) => s.m
+      ? `<picture class="hero__still" data-slide="${i}"><source media="(max-width: 820px)" srcset="img/${s.m}.webp"><img src="img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} class="ob" style="--op:${s.pos || '50% 50%'};--opm:${s.mpos || s.pos || '50% 50%'}"></picture>`
+      : `<img class="hero__still ob" data-slide="${i}" src="img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} style="--op:${s.pos || '50% 50%'};--opm:${s.mpos || s.pos || '50% 50%'}">`).join('');
     const tArr = Array.isArray(o.title) ? o.title : [o.title];
     const longest = Math.max(...tArr.join(' ').replace(/<[^>]+>/g, ' ').split(/\s+/).map(w => w.length));
     const lines = tArr.map(l => `<span class="split-line ln"><span style="display:block">${l}</span></span>`).join('');
@@ -70,7 +73,7 @@
 
   const ctaBlock = (title = 'Persönlich &amp; Verbindlich', text = 'Sprechen wir über Ihr Projekt. Wir hören zu, schauen genau hin und verbauen, was wir besprochen haben.', pic = ['action-team', '45% 45%']) => `
     <section class="cta on-dark" aria-label="Kontakt">
-      <div class="cta__media">${img(pic[0], '', pic[1])}</div>
+      <div class="cta__media">${img(pic[0], '', pic[1], false, pic[2], pic[3])}</div>
       <div class="cta__txt">
         ${ruleBox('So erreichen Sie uns', true, true)}
         <h2 class="h2" data-reveal>${swLast(title)}</h2>
@@ -78,7 +81,7 @@
         <div class="btns" data-reveal>${btn('#kontakt', 'Kontakt aufnehmen', 'btn--white')}${btn('mailto:' + S.company.mail, S.company.mail, 'btn--ghost', svg.mail())}${tel()}</div>
       </div>
     </section>`;
-  const band = (pic, pos, label, text) => `<section class="band on-dark" aria-label="${label}">${img(pic, '', pos)}<div class="wrap band__in">${ruleBox(label, true, true)}<p class="h2" data-reveal>${swKey(text)}</p></div></section>`;
+  const band = (pic, pos, label, text, m = null, mpos = null) => `<section class="band on-dark" aria-label="${label}">${img(pic, '', pos, false, m, mpos)}<div class="wrap band__in">${ruleBox(label, true, true)}<p class="h2" data-reveal>${swKey(text)}</p></div></section>`;
 
 
   const faqBlock = (items, title = 'Häufige Fragen') => `
@@ -121,8 +124,8 @@
       home: true,
       slides: [
         { src: 'hero-funken', m: 'hero-funken-m', pos: '64% 50%', alt: 'Monteur von Rokitzky kürzt ein Lüftungsrohr, die Funken fliegen' },
-        { src: 'hero-dach', m: 'hero-dach-m', pos: '50% 42%', alt: 'Monteure von Rokitzky auf dem Dach einer Baustelle' },
-        { src: 'team-dach', m: 'team-dach-m', pos: '40% 55%', alt: 'Drei Monteure von Rokitzky besprechen sich auf dem Dach neben einem Lüftungsgerät' }
+        { src: 'weste-kraene', m: 'weste-kraene-t', pos: '50% 50%', mpos: '61% 50%', alt: 'Monteur von Rokitzky in Warnweste mit Logo vor zwei Baukränen' },
+        { src: 'kran-einhub', m: 'kran-einhub-t', pos: '50% 50%', mpos: '72% 50%', alt: 'Monteure von Rokitzky führen eine Kälteanlage am Kran auf das Dach' }
       ],
       kicker: 'Heizung | Lüftung | Klima | Kälte | Sanitär',
       title: ['Wir verbauen,', `was wir ${sw('versprechen.')}`],
@@ -192,7 +195,7 @@
     <section class="sec sec--paper" aria-label="Mitarbeitende">${teamBlock()}<div class="wrap">${marks()}</div></section>
 
     ${mapSection()}
-    ${ctaBlock()}`;
+    ${ctaBlock(undefined, undefined, ['team-logo-t', '50% 32%', 'team-logo', '50% 50%'])}`;
   }
 
   function mapSection(heading = 'Vier Standorte im Kanton Zürich') {
@@ -223,7 +226,7 @@
 
   function pageServices() {
     return `
-    ${hero({ img: 'umbau-hebebuehne', pos: '45% 30%', alt: 'Monteur von Rokitzky mit Helm und Warnweste auf einer Hebebühne', crumb: [['Home', '#start'], ['Leistungen']], kicker: 'Fachwissen &amp; Service', title: ['Leistungen'], sub: 'Zu heiss? Zu kalt? Rokitzky! Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien aus einer Hand.', btns: btn('#kontakt', 'Projekt besprechen', 'btn--white') + tel() })}
+    ${hero({ img: 'montage-team', m: 'montage-team-t', pos: '50% 50%', mpos: '14% 50%', alt: 'Zwei Monteure von Rokitzky in Warnwesten montieren eine Kälteanlage', crumb: [['Home', '#start'], ['Leistungen']], kicker: 'Fachwissen &amp; Service', title: ['Leistungen'], sub: 'Zu heiss? Zu kalt? Rokitzky! Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien aus einer Hand.', btns: btn('#kontakt', 'Projekt besprechen', 'btn--white') + tel() })}
     <section class="sec wrap intro intro--solo" aria-label="Einleitung">
       <div>${ruleBox('Was wir tun')}<p class="lead" data-reveal>Wir kennen unsere Stärken und unsere Grenzen, in der Planung wie in der Ausführung. Deshalb sagen wir klar, was wir können, und verbauen, was wir besprochen haben.</p></div>
     </section>
@@ -241,7 +244,7 @@
       </div>
     </section>
     ${faqBlock(generalFaq)}
-    ${ctaBlock()}`;
+    ${ctaBlock(undefined, undefined, ['montage-helme-t', '50% 76%', 'montage-helme', '50% 50%'])}`;
   }
 
   function pageArea(a) {
@@ -265,9 +268,9 @@
         </article>`).join('')}
       </div>
     </div></section>
-    ${band(a.img, a.pos, 'Unser Versprechen', a.band)}
+    ${band(a.bandImg, '50% 50%', 'Unser Versprechen', a.band, a.bandImg + '-t', a.bandMpos)}
     ${faqBlock(generalFaq)}
-    ${ctaBlock()}`;
+    ${ctaBlock(undefined, undefined, a.cta)}`;
   }
 
   function pageFocus(slug, f) {
@@ -275,7 +278,7 @@
     const siblings = parent.related.filter(s => s !== slug).map(s => [s, focusBy(s)]).filter(([, x]) => x);
     const faq = [...f.faq, generalFaq[1], generalFaq[2]];
     return `
-    ${hero({ img: f.img, pos: f.pos, alt: f.title, crumb: [['Home', '#start'], ['Leistungen', '#dienstleistungen'], [parent.title, '#' + parent.slug], [f.title]], kicker: parent.title, title: [f.h1], sub: `${f.sub}. Von unseren Standorten in ${locNames}.`, btns: btn('#kontakt', 'Anfrage stellen', 'btn--white') + tel() })}
+    ${hero({ img: f.img, m: f.m, pos: f.pos, mpos: f.mpos, alt: f.title, crumb: [['Home', '#start'], ['Leistungen', '#dienstleistungen'], [parent.title, '#' + parent.slug], [f.title]], kicker: parent.title, title: [f.h1], sub: `${f.sub}. Von unseren Standorten in ${locNames}.`, btns: btn('#kontakt', 'Anfrage stellen', 'btn--white') + tel() })}
     <section class="sec wrap intro" aria-label="Leistungen">
       <div>${ruleBox(f.title + ' bei Rokitzky')}<p class="lead" data-reveal>${f.lead}</p></div>
       <ul class="checks" data-reveal>${f.items.map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul>
@@ -285,7 +288,7 @@
       <div>${ruleBox(parent.title)}<h2 class="h2" id="mo-t">Weitere Themen</h2></div>
       <ul class="more__l" data-reveal>${siblings.map(([s, x]) => `<li><a href="#${s}"><span>${x.title}</span>${svg.arrow()}</a></li>`).join('')}<li><a href="#${parent.slug}"><span>Zurück zu ${parent.title}</span>${svg.arrow()}</a></li></ul>
     </div></section>
-    ${ctaBlock()}`;
+    ${ctaBlock(undefined, undefined, f.cta)}`;
   }
 
   function pageCompany() {
@@ -311,7 +314,7 @@
       ${marks()}
       <div class="chips" style="margin-top:2rem" data-reveal>${S.legal.map(([t, u]) => `<a class="chip" href="${u}" target="_blank" rel="noopener">${t} (PDF)</a>`).join('')}</div>
     </section>
-    ${ctaBlock()}`;
+    ${ctaBlock(undefined, undefined, ['team-dach-himmel-t', '50% 71%', 'team-dach-himmel', '50% 50%'])}`;
   }
 
   const personCard = ([n, r, slug], big = false) => `<figure class="person${big ? ' person--big' : ''}"${big ? ' data-reveal' : ''}><div class="person__img"><img src="img/team/${slug}${big ? '-xl' : ''}.webp" alt="${n}, ${r}" loading="lazy" decoding="async" width="${big ? 450 : 300}" height="${big ? 600 : 400}"></div><figcaption><b>${n}</b><span>${r}</span></figcaption></figure>`;
@@ -337,9 +340,9 @@
       ${valuesGrid()}
       ${marks()}
     </div></section>
-    ${band('team-dach', '40% 50%', 'Aus dem Team', 'Wer zusammen lachen kann, kann auch zusammen anpacken.')}
+    ${band('team-lachend', '50% 50%', 'Aus dem Team', 'Wer zusammen lachen kann, kann auch zusammen anpacken.', 'team-lachend-t', '27% 50%')}
     <section class="sec sec--navy on-dark" aria-labelledby="jobs-t"><div class="wrap split">
-      <div class="split__media" data-img>${img('service-check-tall', 'Servicetechniker von Rokitzky bei der Arbeit', '50% 35%')}</div>
+      <div class="split__media" data-img>${img('weste-logo-nah-t', 'Monteur von Rokitzky in Warnweste mit Logo', '50% 40%')}</div>
       <div class="split__txt">
         ${ruleBox('Offene Stellen und Lehre', true, true)}
         <p class="bigquote" id="jobs-t" data-reveal>«Ich arbeite gern dort, wo man mir vertraut.»</p>
@@ -347,7 +350,7 @@
         <div class="btns" data-reveal>${btn('#karriere', 'Offene Stellen und Lehre', 'btn--white')}${btn('mailto:' + S.company.mail, 'Bewerbung senden', 'btn--ghost', svg.mail())}</div>
       </div>
     </div></section>
-    ${ctaBlock()}`;
+    ${ctaBlock(undefined, undefined, ['helm-logo-t', '50% 96%', 'helm-logo', '50% 50%'])}`;
   }
 
   function pageCareer() {
@@ -373,7 +376,7 @@
         <ul class="checks" data-reveal>${S.documents.map(d => `<li>${svg.hex()}${d}</li>`).join('')}</ul>
       </div>
     </div></section>
-    ${ctaBlock('Persönlich &amp; Verbindlich', 'Fragen zur Lehre oder zu offenen Stellen? Wir nehmen uns Zeit für Sie.', ['team-dach', '40% 55%'])}`;
+    ${ctaBlock('Persönlich &amp; Verbindlich', 'Fragen zur Lehre oder zu offenen Stellen? Wir nehmen uns Zeit für Sie.', ['lernende-t', '50% 63%', 'lernende', '50% 50%'])}`;
   }
 
   function pageContact() {
