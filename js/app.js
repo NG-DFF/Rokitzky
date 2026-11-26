@@ -128,8 +128,8 @@
         { src: 'kran-einhub', m: 'kran-einhub-t', pos: '50% 50%', mpos: '72% 50%', alt: 'Monteure von Rokitzky führen eine Kälteanlage am Kran auf das Dach' }
       ],
       kicker: 'Heizung | Lüftung | Klima | Kälte | Sanitär',
-      title: ['Wir verbauen,', `was wir ${sw('besprechen.')}`],
-      sub: 'Seit 1970 planen, bauen, warten und sanieren wir Haustechnik. Persönlich und verbindlich, mit Pikettdienst rund um die Uhr.',
+      title: ['Persönlich &amp;', sw('verbindlich.')],
+      sub: 'Wir verbauen, was wir besprechen. Seit 1970 planen, bauen, warten und sanieren wir Haustechnik, mit Pikettdienst rund um die Uhr.',
       btns: btn('#dienstleistungen', 'Unsere Leistungen', 'btn--white') + tel()
     })}
 
@@ -196,7 +196,7 @@
     <section class="sec sec--paper" aria-label="Mitarbeitende">${teamBlock()}<div class="wrap">${marks()}</div></section>
 
     ${mapSection()}
-    ${ctaBlock(undefined, undefined, ['team-logo-t', '50% 32%', 'team-logo', '50% 50%'])}`;
+    ${ctaBlock('Sprechen wir über Ihr Projekt.', 'Wir hören zu, schauen genau hin und verbauen, was wir besprochen haben.', ['team-logo-t', '50% 32%', 'team-logo', '50% 50%'])}`;
   }
 
   function mapSection(heading = 'Vier Standorte im Kanton Zürich') {
