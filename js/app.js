@@ -441,7 +441,7 @@
       <div class="sec__head"><div>${ruleBox('Referenzliste', true)}<h2 class="h2" id="rf-t">Unsere Referenzobjekte</h2></div><p class="lead" data-reveal>Hier finden Sie die Liste unserer Referenzobjekte.</p></div>
       <div class="refembed" data-refembed="${REF_EMBED}" data-reveal>
         <div class="refembed__gate">
-          <p>Die Liste wird von referenz-verwaltung.ch geladen. Dabei übermittelt Ihr Browser Ihre Internetadresse an diesen Anbieter. Mehr dazu in der <a class="link" href="${u('datenschutz')}">Datenschutzerklärung</a>.</p>
+          <p>Die Liste wird vom externen Dienst Referenzverwaltung geladen. Dabei übermittelt Ihr Browser Ihre Internetadresse an diesen Anbieter. Mehr dazu in der <a class="link" href="${u('datenschutz')}">Datenschutzerklärung</a>.</p>
           <button type="button" class="btn btn--solid" data-refload>Referenzliste laden ${svg.arrow()}</button>
         </div>
       </div>
@@ -520,7 +520,7 @@
         <h2>Ihre Rechte</h2>
         <p>Sie können Auskunft über Ihre Personendaten verlangen und diese berichtigen oder löschen lassen. Einer Bearbeitung können Sie widersprechen, soweit keine gesetzliche Pflicht entgegensteht. Schreiben Sie dazu an ${mail}. Zudem können Sie sich bei der Aufsichtsbehörde des Bundes für den Datenschutz (EDÖB) beschweren.</p>
         <h2>Referenzliste</h2>
-        <p>Auf der Seite Referenzen können Sie die Liste unserer Referenzobjekte laden. Sie stammt vom Dienst referenz-verwaltung.ch. Erst wenn Sie die Liste laden, übermittelt Ihr Browser Ihre Internetadresse an diesen Anbieter.</p>
+        <p>Auf der Seite Referenzen können Sie die Liste unserer Referenzobjekte laden. Sie stammt vom externen Dienst Referenzverwaltung. Erst wenn Sie die Liste laden, übermittelt Ihr Browser Ihre Internetadresse an diesen Anbieter.</p>
         <h2>Links zu sozialen Netzwerken</h2>
         <p>Die Links zu Instagram, LinkedIn und Facebook sind einfache Links. Erst wenn Sie einen davon anklicken, gelangen Sie auf die Seite des jeweiligen Anbieters; dort gilt dessen Datenschutzerklärung.</p>
         <h2>Änderungen</h2>
