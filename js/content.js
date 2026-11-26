@@ -32,7 +32,7 @@ window.SITE = {
       short: 'Lüftungsanlagen und Klimaanlagen für ein gutes Raumklima.',
       lead: 'Wir konzipieren und bauen Lüftungsanlagen und Klimaanlagen, sanieren und warten sie und verbessern das Raumklima in bestehenden Gebäuden. Zudem beraten wir und erstellen Expertisen.',
       items: ['Wir konzipieren und bauen Lüftungsanlagen und Klimaanlagen', 'Wir sanieren und warten Lüftungsanlagen', 'Wir überprüfen und verbessern das Raumklima', 'Wir beraten und erstellen Expertisen'],
-      related: ['lueftungsanlagen', 'klimaanlagen', 'lueftungsreinigung', 'brandschutzklappen']
+      related: ['lueftungsanlagen', 'klimaanlagen', 'lueftungsreinigung', 'brandschutzklappen', 'retrofit']
     },
     {
       slug: 'sanitaer', zu: 'zu Sanitär', no: '03', band: 'Wir planen, installieren und unterhalten Sanitäranlagen.', title: 'Sanitär', img: 'sanitaer-flex', pos: '50% 40%', bandImg: 'pressfittings', bandMpos: '51% 50%', cta: ['rohrgang-team-t', '50% 55%', 'rohrgang-team', '50% 50%'],
@@ -86,6 +86,8 @@ window.SITE = {
         ['Was tun bei einer Störung ausserhalb der Bürozeiten?', 'Unser Pikettdienst ist 24/7 unter 076 434 17 17 erreichbar.']
       ]
     },
+    /* TODO K07 (B14): Retrofit und die übrigen Schwerpunkte auf 300 bis 600 Wörter ausbauen, Inhalte im Gespräch mit einer Fachperson
+       von Rokitzky erheben (wann es sich lohnt, typische Anlagen, Ablauf, Region, Beispielprojekt, 5 bis 8 echte Kundenfragen). */
     'retrofit': {
       title: 'Retrofit', zu: 'zu Retrofit', group: 'klima', img: 'monteur-himmel', m: 'monteur-himmel-t', pos: '50% 50%', mpos: '100% 50%', cta: ['weste-kranlast-t', '50% 76%', 'weste-kranlast', '50% 50%'],
       h1: 'Retrofit', sub: 'Bestehende Anlagen modernisieren',
