@@ -716,3 +716,10 @@ button.link:hover{border-bottom-color:currentColor}
 .refembed__gate{display:grid;gap:1.4rem;justify-items:start;padding:clamp(1.6rem,4vw,3rem);max-width:46rem}
 .refembed__gate p{margin:0}
 .refembed__frame{display:block;width:100%;height:min(1400px,170vh);border:0;background:#fff}
+
+/* B20: auf dem Handy liegt der Titel über dem unteren Bildteil, darum dort ein kräftigerer Verlauf */
+@media (max-width:820px){
+  .hero--sub .hero__shade{background:
+    linear-gradient(180deg,rgba(15,21,34,.62) 0,rgba(15,21,34,.28) 120px,rgba(15,21,34,0) 210px),
+    linear-gradient(0deg,rgba(15,21,34,.94) 0%,rgba(20,30,50,.82) 38%,rgba(30,44,70,.55) 62%,rgba(38,64,107,.12) 82%,rgba(38,64,107,0) 92%)}
+}
