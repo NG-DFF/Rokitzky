@@ -390,13 +390,13 @@
     </section>
     <section class="sec sec--paper" aria-labelledby="fo-t"><div class="wrap intro">
       <div>${ruleBox('Anfrage')}<h2 class="h2" id="fo-t">Worum geht es?</h2><p class="lead" data-reveal style="margin-top:1.4rem">Beschreiben Sie kurz Ihr Anliegen. Wir melden uns persönlich bei Ihnen.</p></div>
-      <form class="form" id="form" data-reveal novalidate>
-        <label>Name<input name="name" autocomplete="name" required></label>
-        <label>Telefon<input name="tel" type="tel" autocomplete="tel"></label>
-        <label class="full">Mail<input name="mail" type="email" autocomplete="email" required></label>
-        <label class="full">Thema<select name="thema"><option>Bitte wählen</option>${S.areas.map(a => `<option>${a.title}</option>`).join('')}<option>Pikett und Störung</option><option>Offene Stellen und Lehre</option></select></label>
-        <label class="full">Nachricht<textarea name="msg"></textarea></label>
-        <div class="full btns"><button class="btn btn--solid" type="submit">Anfrage senden ${svg.arrow()}</button></div>
+      <form class="form" id="anfrage" data-form="anfrage" data-reveal novalidate>
+        ${fld('anfrage', 'name', 'Name', { req: true, auto: 'name' })}
+        ${fld('anfrage', 'tel', 'Telefon', { type: 'tel', auto: 'tel' })}
+        ${fld('anfrage', 'mail', 'Mail', { req: true, type: 'email', auto: 'email', full: true })}
+        ${fld('anfrage', 'thema', 'Thema', { full: true, opts: [['', 'Bitte wählen'], ...S.areas.map(a => a.title), 'Pikett und Störung', 'Offene Stellen und Lehre'] })}
+        ${fld('anfrage', 'msg', 'Nachricht', { full: true, area: true })}
+        ${formFoot('anfrage', 'Anfrage senden')}
       </form>
     </div></section>
     ${mapSection()}`;
@@ -439,6 +439,20 @@
         <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br>W. Rokitzky AG, ${w.street}, ${w.city}<br><a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a></p>
       </div>`);
   }
+  /* ---------- Formulare (B02, B06): Versand über /api/anfrage ---------- */
+  const fld = (form, name, label, o = {}) => {
+    const id = `${form}-${name}`;
+    const attrs = `id="${id}" name="${name}"${o.req ? ' required aria-required="true"' : ''} aria-describedby="${id}-err"${o.auto ? ` autocomplete="${o.auto}"` : ''}${o.type ? ` type="${o.type}"` : ''}${o.extra || ''}`;
+    const ctl = o.opts ? `<select ${attrs}>${o.opts.map(v => Array.isArray(v) ? `<option value="${v[0]}">${v[1]}</option>` : `<option>${v}</option>`).join('')}</select>`
+      : o.area ? `<textarea ${attrs}></textarea>` : `<input ${attrs}>`;
+    return `<div class="fld${o.full ? ' full' : ''}"><label for="${id}">${label}${o.req ? '<span class="req" aria-hidden="true">*</span>' : ''}</label>${ctl}${o.hint ? `<small class="hint">${o.hint}</small>` : ''}<p class="err" id="${id}-err" hidden></p></div>`;
+  };
+  const formFoot = (form, label, du = false) => `
+        <div class="full btns"><button class="btn btn--solid" type="submit">${label} ${svg.arrow()}</button></div>
+        <p class="form__note full"><span aria-hidden="true">* Pflichtfeld. </span>${du ? 'Wir verwenden deine Angaben nur, um deine Anfrage zu beantworten.' : 'Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten.'} Mehr dazu in der <a class="link" href="${u('datenschutz')}">Datenschutzerklärung</a>.</p>
+        <p class="form__status full" role="status" aria-live="polite"></p>
+        <div class="hp" aria-hidden="true"><label for="${form}-website">Website</label><input id="${form}-website" name="website" tabindex="-1" autocomplete="off"></div>`;
+
   function pageNotFound() {
     return `
     ${hero({ dim: true, img: 'helm-logo', m: 'helm-logo-t', pos: '50% 50%', mpos: '78% 50%', alt: '', kicker: 'Seite nicht gefunden', title: ['Diese Seite', 'gibt es nicht.'], sub: 'Die Adresse ist falsch oder die Seite wurde verschoben.', btns: btn(u(), 'Zur Startseite', 'btn--white') + btn(u('dienstleistungen'), 'Leistungen', 'btn--ghost') + btn(u('kontakt'), 'Kontakt', 'btn--ghost') })}
@@ -650,6 +664,71 @@
     lastY = y;
   }
 
+  /* ---------- Formularversand ---------- */
+  const MAILRE = /^[^@\s<>"]+@[^@\s<>"]+\.[^@\s<>"]+$/;
+  const FORMS = {
+    anfrage: {
+      check: (v) => [!v.name && ['name', 'Bitte geben Sie Ihren Namen an.'], !MAILRE.test(v.mail) && ['mail', 'Bitte geben Sie eine gültige Mailadresse an.']],
+      done: () => `<h3>Danke, Ihre Anfrage ist bei uns angekommen.</h3><p>Wir melden uns persönlich bei Ihnen. Bei einer Störung erreichen Sie unseren Pikettdienst rund um die Uhr unter <a class="link" href="tel:${S.company.pikettHref}">${S.company.pikett}</a>.</p>`
+    },
+    bewerbung: {
+      check: (v) => [!v.name && ['name', 'Bitte geben Sie Ihren Namen an.'], !v.tel && ['tel', 'Bitte geben Sie Ihre Telefonnummer an, damit wir Sie zurückrufen können.'], !v.beruf && ['beruf', 'Bitte geben Sie Ihren Beruf an.'], v.mail && !MAILRE.test(v.mail) && ['mail', 'Bitte prüfen Sie die Mailadresse.']],
+      done: () => `<h3>Danke, Ihre Kurzbewerbung ist bei uns angekommen.</h3><p>Wir melden uns bei Ihnen.</p>`
+    },
+    lehre: {
+      du: true,
+      check: (v) => [!v.name && ['name', 'Bitte gib deinen Namen an.'], !v.tel && !v.mail && ['tel', 'Bitte gib eine Telefonnummer oder eine Mailadresse an.'], v.mail && !MAILRE.test(v.mail) && ['mail', 'Bitte prüf deine Mailadresse.'], !v.lehrberuf && ['lehrberuf', 'Bitte wähl einen Lehrberuf.']],
+      done: () => `<h3>Danke, deine Anfrage ist bei uns angekommen.</h3><p>Wir melden uns bei dir.</p>`
+    }
+  };
+  const toB64 = (file) => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1] || ''); r.onerror = no; r.readAsDataURL(file); });
+  function bindForm(form) {
+    const kind = form.dataset.form, cfg = FORMS[kind]; if (!cfg) return;
+    const shown = Date.now(), du = !!cfg.du;
+    const status = $('.form__status', form);
+    const mark = (name, msg) => {
+      const inp = form.elements[name], err = $(`#${form.id}-${name}-err`, form);
+      if (inp) inp.setAttribute('aria-invalid', 'true');
+      if (err) { err.textContent = msg; err.hidden = false; }
+      return inp;
+    };
+    const failMsg = (code) => code === 'zu_schnell'
+      ? (du ? 'Bitte warte einen Moment und sende die Anfrage noch einmal.' : 'Bitte warten Sie einen Moment und senden Sie die Anfrage noch einmal.')
+      : code === 'datei' ? (du ? 'Bitte lade eine Datei im Format PDF, JPG oder PNG bis 3 MB hoch.' : 'Bitte laden Sie eine Datei im Format PDF, JPG oder PNG bis 3 MB hoch.')
+      : (du ? 'Deine Anfrage konnte leider nicht gesendet werden. Ruf uns bitte an unter ' : 'Ihre Anfrage konnte leider nicht gesendet werden. Bitte rufen Sie uns an unter ')
+        + `<a class="link" href="tel:${S.company.phoneHref}">${S.company.phone}</a> ${du ? 'oder schreib an' : 'oder schreiben Sie an'} <a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a>.`;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = new FormData(form), v = {};
+      for (const [k, x] of f.entries()) if (typeof x === 'string') v[k] = x.trim();
+      $$('.err', form).forEach(x => { x.hidden = true; x.textContent = ''; });
+      $$('[aria-invalid]', form).forEach(x => x.removeAttribute('aria-invalid'));
+      status.className = 'form__status full'; status.textContent = '';
+      const bad = cfg.check(v).filter(Boolean).map(([n, m]) => mark(n, m)).filter(Boolean);
+      const file = form.elements.cv && form.elements.cv.files && form.elements.cv.files[0];
+      if (file && (file.size > 3 * 1024 * 1024 || !/^(application\/pdf|image\/jpeg|image\/png)$/.test(file.type))) bad.push(mark('cv', failMsg('datei')));
+      if (bad.length) { bad[0].focus(); return; }
+      const btn = $('button[type="submit"]', form), label = btn.innerHTML;
+      btn.disabled = true; btn.textContent = 'Wird gesendet';
+      try {
+        const data = { ...v, kind, page: location.pathname, t: Date.now() - shown };
+        if (file) data.attachment = { name: file.name, type: file.type, data: await toB64(file) };
+        const res = await fetch(BASE + 'api/anfrage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        const j = await res.json().catch(() => ({}));
+        if (!res.ok || !j.ok) {
+          if (j.error === 'felder' && Array.isArray(j.fields)) { const m = j.fields.map(n => mark(n, du ? 'Bitte prüf dieses Feld.' : 'Bitte prüfen Sie dieses Feld.')).filter(Boolean); if (m[0]) m[0].focus(); }
+          throw new Error(j.error || String(res.status));
+        }
+        form.innerHTML = `<div class="form__done full" tabindex="-1">${cfg.done(v)}</div>`;
+        $('.form__done', form).focus();
+      } catch (err) {
+        status.className = 'form__status full is-err';
+        status.innerHTML = failMsg(err && err.message);
+        btn.disabled = false; btn.innerHTML = label;
+      }
+    });
+  }
+
   /* ---------- per page bindings ---------- */
   function bindPage() {
     const h = $('[data-hero]', main); heroBottom = h ? h.offsetHeight : 0;
@@ -665,18 +744,7 @@
         ScrollTrigger.refresh();
       } else vis.forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
     }));
-    const form = $('#form', main);
-    if (form) form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const f = new FormData(form), name = (f.get('name') || '').trim(), mail = (f.get('mail') || '').trim(), tel = (f.get('tel') || '').trim(), msg = (f.get('msg') || '').trim();
-      let thema = f.get('thema') || ''; if (thema === 'Bitte wählen') thema = '';
-      const old = $('.ok', form); if (old) old.remove();
-      if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) { form.insertAdjacentHTML('beforeend', '<p class="ok ok--err">Bitte geben Sie Ihren Namen und eine gültige Mailadresse an.</p>'); return; }
-      const to = /Service|Pikett/.test(thema) ? S.company.serviceMail : S.company.mail;
-      const body = `${msg}\n\n${name}${tel ? '\nTelefon: ' + tel : ''}\nMail: ${mail}`;
-      location.href = `mailto:${to}?subject=${encodeURIComponent('Anfrage' + (thema ? ': ' + thema : ''))}&body=${encodeURIComponent(body)}`;
-      form.insertAdjacentHTML('beforeend', `<p class="ok">Danke. Ihr Mailprogramm öffnet sich mit Ihrer Anfrage an ${to}. Bei einem Notfall erreichen Sie uns direkt unter ${S.company.pikett}.</p>`);
-    });
+    $$('form[data-form]', main).forEach(bindForm);
     $$('.loc', main).forEach(l => {
       const pin = $(`[data-pin="${l.dataset.loc}"]`, main);
       if (!pin) return;

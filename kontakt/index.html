@@ -94,13 +94,17 @@
     </section>
     <section class="sec sec--paper" aria-labelledby="fo-t"><div class="wrap intro">
       <div><div class="rulebox " data-reveal=""><span class="rule"></span><span class="lbl ">Anfrage</span></div><h2 class="h2" id="fo-t">Worum geht es?</h2><p class="lead" data-reveal="" style="margin-top:1.4rem">Beschreiben Sie kurz Ihr Anliegen. Wir melden uns persönlich bei Ihnen.</p></div>
-      <form class="form" id="form" data-reveal="" novalidate="">
-        <label>Name<input name="name" autocomplete="name" required=""></label>
-        <label>Telefon<input name="tel" type="tel" autocomplete="tel"></label>
-        <label class="full">Mail<input name="mail" type="email" autocomplete="email" required=""></label>
-        <label class="full">Thema<select name="thema"><option>Bitte wählen</option><option>Heizung und Kälte</option><option>Lüftung und Klima</option><option>Sanitär</option><option>Erneuerbare Energien</option><option>Service und Unterhalt</option><option>Pikett und Störung</option><option>Offene Stellen und Lehre</option></select></label>
-        <label class="full">Nachricht<textarea name="msg"></textarea></label>
+      <form class="form" id="anfrage" data-form="anfrage" data-reveal="" novalidate="">
+        <div class="fld"><label for="anfrage-name">Name<span class="req" aria-hidden="true">*</span></label><input id="anfrage-name" name="name" required="" aria-required="true" aria-describedby="anfrage-name-err" autocomplete="name"><p class="err" id="anfrage-name-err" hidden=""></p></div>
+        <div class="fld"><label for="anfrage-tel">Telefon</label><input id="anfrage-tel" name="tel" aria-describedby="anfrage-tel-err" autocomplete="tel" type="tel"><p class="err" id="anfrage-tel-err" hidden=""></p></div>
+        <div class="fld full"><label for="anfrage-mail">Mail<span class="req" aria-hidden="true">*</span></label><input id="anfrage-mail" name="mail" required="" aria-required="true" aria-describedby="anfrage-mail-err" autocomplete="email" type="email"><p class="err" id="anfrage-mail-err" hidden=""></p></div>
+        <div class="fld full"><label for="anfrage-thema">Thema</label><select id="anfrage-thema" name="thema" aria-describedby="anfrage-thema-err"><option value="">Bitte wählen</option><option>Heizung und Kälte</option><option>Lüftung und Klima</option><option>Sanitär</option><option>Erneuerbare Energien</option><option>Service und Unterhalt</option><option>Pikett und Störung</option><option>Offene Stellen und Lehre</option></select><p class="err" id="anfrage-thema-err" hidden=""></p></div>
+        <div class="fld full"><label for="anfrage-msg">Nachricht</label><textarea id="anfrage-msg" name="msg" aria-describedby="anfrage-msg-err"></textarea><p class="err" id="anfrage-msg-err" hidden=""></p></div>
+        
         <div class="full btns"><button class="btn btn--solid" type="submit">Anfrage senden <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h15M13.5 6l6 6-6 6"></path></svg></button></div>
+        <p class="form__note full"><span aria-hidden="true">* Pflichtfeld. </span>Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. Mehr dazu in der <a class="link" href="/datenschutz/">Datenschutzerklärung</a>.</p>
+        <p class="form__status full" role="status" aria-live="polite"></p>
+        <div class="hp" aria-hidden="true"><label for="anfrage-website">Website</label><input id="anfrage-website" name="website" tabindex="-1" autocomplete="off"></div>
       </form>
     </div></section>
     <section class="sec sec--navy on-dark" aria-labelledby="map-t">

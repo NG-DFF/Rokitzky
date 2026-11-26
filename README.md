@@ -40,6 +40,22 @@ python3 -m http.server 8080
 
 Dann http://localhost:8080/ öffnen.
 
+## Kontaktformular und Bewerbungen
+
+Die Formulare senden an `api/anfrage.js` (Vercel Function). Der Versand läuft über Resend. In Vercel unter Settings, Environment Variables setzen:
+
+| Variable | Inhalt |
+| --- | --- |
+| `RESEND_API_KEY` | Pflicht. Ohne Schlüssel zeigt die Website die Fehlermeldung mit Telefonnummer, nie eine falsche Dankesmeldung. |
+| `MAIL_FROM` | Absender, z. B. `Website Rokitzky <noreply@rokitzky.ch>`. Die Domain muss in Resend bestätigt sein. Bis dahin eine bestätigte Neroli-Domain verwenden. |
+| `MAIL_TO_INFO` | Allgemeine Anfragen, Standard `info@rokitzky.ch` |
+| `MAIL_TO_SERVICE` | Themen Service und Pikett, Standard `service@rokitzky.ch` |
+| `MAIL_TO_JOBS` | Kurzbewerbung, Lehre, Schnuppertag, Standard wie `MAIL_TO_INFO` |
+
+Für Tests vor dem Livegang `MAIL_TO_*` auf eigene Adressen setzen, damit Rokitzky keine Testmails erhält.
+Spamschutz: verstecktes Feld und Mindestzeit von 2,5 Sekunden zwischen Anzeigen und Absenden.
+Die Antwortadresse jeder Mail ist die Mailadresse aus dem Formular.
+
 ## Livegang
 
 * `siteUrl` in `js/content.js` auf die Hauptadresse setzen (z. B. `https://www.rokitzky.ch`), danach `node prerender.mjs`. Damit stimmen canonical, og:url, og:image, JSON-LD, `sitemap.xml` und `robots.txt`.
