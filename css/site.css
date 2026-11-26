@@ -710,3 +710,9 @@ button.link:hover{border-bottom-color:currentColor}
 .cards + .apply,.rvideo + .apply{margin-top:clamp(3.5rem,7vw,6rem)}
 .rvideo{margin-top:clamp(2rem,4vw,3rem)}
 .form input[type=file]::file-selector-button{font:inherit;font-size:.92rem;font-weight:600;padding:.55rem .95rem;margin-right:.9rem;border:1px solid var(--line-strong);background:var(--brand-100);color:var(--navy-700);cursor:pointer}
+
+/* Referenzliste (B13) */
+.refembed{border:1px solid var(--line-strong);background:var(--paper,#f3f5f8)}
+.refembed__gate{display:grid;gap:1.4rem;justify-items:start;padding:clamp(1.6rem,4vw,3rem);max-width:46rem}
+.refembed__gate p{margin:0}
+.refembed__frame{display:block;width:100%;height:min(1400px,170vh);border:0;background:#fff}

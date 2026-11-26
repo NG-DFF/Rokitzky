@@ -116,6 +116,7 @@
     const P = S.portraits, cols = [[0, 3, 6], [1, 4], [2, 5]];
     return `<div class="pwall" data-pwall>${cols.map((c, k) => `<div class="pwall__col" data-parallax-y="${[-5, 4, -2][k]}">${c.filter(i => P[i]).map((i, j) => `<img class="pwall__img${j ? '' : ' is-on'}" src="${BASE}img/${P[i]}.webp" alt="Mitarbeiter von Rokitzky" loading="lazy">`).join('')}</div>`).join('')}</div>`;
   };
+  /* TODO K04 (B17): Zahl der Lernenden von Rokitzky bestätigen (pro Jahr neu oder gesamt). Vorkommen: teamBlock, Karriere (Hero, Lehre), Mitarbeitende (Band), META karriere. */
   const teamBlock = (title = 'Über 80 Mitarbeitende.', lead = 'In Wallisellen, Winterthur, Hinwil und Zürich, in Projektleitung, Montage, Service und Administration. Dazu bilden wir jedes Jahr 15 bis 20 Lernende aus.', btns = true) => `
     <div class="wrap team">
       <div class="team__txt">
@@ -319,7 +320,7 @@
       <div class="sec__head"><div>${ruleBox('Qualität')}<h2 class="h2" id="zp-t">Zertifikate und Referenzen</h2></div></div>
       <div class="cgrid cgrid--2">
         <div class="ccard" data-reveal><span class="lbl">Zertifikate</span><h3>ISO 9001, 14001 und 45001</h3><p>Unser Managementsystem ist von der SQS nach ISO 9001, ISO 14001 und ISO 45001 zertifiziert. Wir lassen unseren Betrieb regelmässig überprüfen.</p></div>
-        <div class="ccard" data-reveal><span class="lbl">Referenzen</span><h3>Ausgeführte Projekte</h3><p>Wir haben zahlreiche kleine, grosse und sehr grosse Projekte geplant und ausgeführt.</p><a href="https://referenz-verwaltung.ch/preview/embed?i=gYTzvHf1JRGq" target="_blank" rel="noopener">Referenzobjekte ansehen</a></div>
+        <div class="ccard" data-reveal><span class="lbl">Referenzen</span><h3>Ausgeführte Projekte</h3><p>Wir haben zahlreiche kleine, grosse und sehr grosse Projekte geplant und ausgeführt.</p><a href="${u('referenzen')}">Referenzobjekte ansehen</a></div>
       </div>
       ${marks()}
       <div class="chips" style="margin-top:2rem" data-reveal>${S.legal.map(([t, u]) => `<a class="chip" href="${u}" target="_blank" rel="noopener">${t} (PDF)</a>`).join('')}</div>
@@ -426,6 +427,24 @@
     ${ctaBlock('Persönlich &amp; Verbindlich', `Fragen zur Stelle? Rufen Sie uns an: ${S.company.phone}.`, ['lernende-t', '50% 63%', 'lernende', '50% 50%'])}`;
   }
 
+  /* B13: Referenzliste von referenz-verwaltung.ch (LOSYS) als Einbettung, erst nach Klick geladen (Datenschutz).
+     TODO K06: eigene Referenzen mit 6 bis 8 freigegebenen Projekten (Bild, Ort, Gebäudeart, Leistung) auf Startseite und Unternehmen. */
+  const REF_EMBED = 'https://referenz-verwaltung.ch/preview/embed?i=gYTzvHf1JRGq';
+  function pageReferences() {
+    return `
+    ${hero({ img: 'kran-einhub', m: 'kran-einhub-t', pos: '50% 50%', mpos: '72% 50%', alt: 'Monteure von Rokitzky führen eine Kälteanlage am Kran auf das Dach', crumb: [['Home', u()], ['Unternehmen', u('unternehmen')], ['Referenzen']], kicker: 'Unternehmen', title: ['Referenzen.'], sub: 'Wir haben zahlreiche kleine, grosse und sehr grosse Projekte geplant und ausgeführt.', btns: btn(u('kontakt'), 'Projekt besprechen', 'btn--white') + tel() })}
+    <section class="sec wrap" aria-labelledby="rf-t">
+      <div class="sec__head"><div>${ruleBox('Referenzliste', true)}<h2 class="h2" id="rf-t">Unsere Referenzobjekte</h2></div><p class="lead" data-reveal>Hier finden Sie die Liste unserer Referenzobjekte.</p></div>
+      <div class="refembed" data-refembed="${REF_EMBED}" data-reveal>
+        <div class="refembed__gate">
+          <p>Die Liste wird von referenz-verwaltung.ch geladen. Dabei übermittelt Ihr Browser Ihre Internetadresse an diesen Anbieter. Mehr dazu in der <a class="link" href="${u('datenschutz')}">Datenschutzerklärung</a>.</p>
+          <button type="button" class="btn btn--solid" data-refload>Referenzliste laden ${svg.arrow()}</button>
+        </div>
+      </div>
+    </section>
+    ${ctaBlock(undefined, undefined, ['team-dach-himmel-t', '50% 71%', 'team-dach-himmel', '50% 50%'])}`;
+  }
+
   function pageContact() {
     const [w, wi] = S.locations;
     return `
@@ -497,6 +516,8 @@
         <p>Anfragen bewahren wir so lange auf, wie es für die Bearbeitung und für gesetzliche Aufbewahrungspflichten nötig ist. Bewerbungsunterlagen löschen wir nach Abschluss des Verfahrens, ausser Sie sind einverstanden, dass wir sie für spätere Stellen aufbewahren.</p>
         <h2>Ihre Rechte</h2>
         <p>Sie können Auskunft über Ihre Personendaten verlangen und diese berichtigen oder löschen lassen. Einer Bearbeitung können Sie widersprechen, soweit keine gesetzliche Pflicht entgegensteht. Schreiben Sie dazu an ${mail}. Zudem können Sie sich bei der Aufsichtsbehörde des Bundes für den Datenschutz (EDÖB) beschweren.</p>
+        <h2>Referenzliste</h2>
+        <p>Auf der Seite Referenzen können Sie die Liste unserer Referenzobjekte laden. Sie stammt vom Dienst referenz-verwaltung.ch. Erst wenn Sie die Liste laden, übermittelt Ihr Browser Ihre Internetadresse an diesen Anbieter.</p>
         <h2>Links zu sozialen Netzwerken</h2>
         <p>Die Links zu Instagram, LinkedIn und Facebook sind einfache Links. Erst wenn Sie einen davon anklicken, gelangen Sie auf die Seite des jeweiligen Anbieters; dort gilt dessen Datenschutzerklärung.</p>
         <h2>Änderungen</h2>
@@ -535,10 +556,11 @@
     karriere: { t: 'Karriere und Lehre | W. Rokitzky AG', d: 'Offene Stellen und Lehre bei Rokitzky: 15 bis 20 Lernende pro Jahr in fünf Berufen der Gebäudetechnik.', label: 'Mitarbeiter & Unternehmenskultur', nav: 'karriere', fn: pageCareer },
     impressum: { t: 'Impressum | W. Rokitzky AG', d: 'Impressum der W. Rokitzky AG, Kriesbachstrasse 3b, 8304 Wallisellen.', label: 'Impressum', nav: '', fn: pageImprint },
     datenschutz: { t: 'Datenschutz | W. Rokitzky AG', d: 'Datenschutzerklärung der W. Rokitzky AG.', label: 'Datenschutz', nav: '', fn: pagePrivacy },
+    referenzen: { t: 'Referenzen | W. Rokitzky AG', d: 'Referenzobjekte der W. Rokitzky AG: kleine, grosse und sehr grosse Projekte in Heizung, Lüftung, Klima, Kälte und Sanitär.', label: 'Unternehmen seit 1970', nav: 'unternehmen', fn: pageReferences },
     kontakt: { t: 'Kontakt | W. Rokitzky AG | Pikett 24/7 076 434 17 17', d: 'Kontakt W. Rokitzky AG: Wallisellen 044 312 34 41, Winterthur 052 551 88 99, Pikettdienst 24/7 076 434 17 17.', label: 'Persönlich & Verbindlich', nav: 'kontakt', fn: pageContact }
   };
   META.notfound = { t: 'Seite nicht gefunden | W. Rokitzky AG', d: 'Diese Adresse gibt es nicht oder nicht mehr.', label: 'Gebäudetechnik seit 1970', nav: '', fn: pageNotFound, noindex: true };
-  const CRUMB = { dienstleistungen: 'Leistungen', unternehmen: 'Unternehmen', mitarbeitende: 'Mitarbeitende', karriere: 'Karriere', kontakt: 'Kontakt', impressum: 'Impressum', datenschutz: 'Datenschutz' };
+  const CRUMB = { dienstleistungen: 'Leistungen', unternehmen: 'Unternehmen', referenzen: 'Referenzen', mitarbeitende: 'Mitarbeitende', karriere: 'Karriere', kontakt: 'Kontakt', impressum: 'Impressum', datenschutz: 'Datenschutz' };
 
   function resolve(k) {
     if (!k) return null;
@@ -560,7 +582,7 @@
     if (seg[0] === 'leistungen') return seg.length === 1 ? 'dienstleistungen' : seg.length === 2 && (areaBy(seg[1]) || focusBy(seg[1])) ? seg[1] : null;
     return seg.length === 1 && CRUMB[seg[0]] && seg[0] !== 'dienstleistungen' ? seg[0] : null;
   }
-  const routes = () => ['start', 'dienstleistungen', ...S.areas.map(a => a.slug), ...Object.keys(S.focus), 'unternehmen', 'mitarbeitende', 'karriere', ...(S.jobs || []).map(j => 'stelle-' + j.slug), 'kontakt', 'impressum', 'datenschutz'];
+  const routes = () => ['start', 'dienstleistungen', ...S.areas.map(a => a.slug), ...Object.keys(S.focus), 'unternehmen', 'referenzen', 'mitarbeitende', 'karriere', ...(S.jobs || []).map(j => 'stelle-' + j.slug), 'kontakt', 'impressum', 'datenschutz'];
 
   function trail(r) {
     const t = [['Home', 'start']];
@@ -569,6 +591,7 @@
     if (r.area) t.push([r.area.title, r.key]);
     else if (r.focus) { const p = parentOf(r.key); t.push([p.title, p.slug], [r.focus.title, r.key]); }
     else if (r.key === 'karriere') t.push(['Mitarbeitende', 'mitarbeitende'], ['Karriere', 'karriere']);
+    else if (r.key === 'referenzen') t.push(['Unternehmen', 'unternehmen'], ['Referenzen', 'referenzen']);
     else if (r.job) t.push(['Mitarbeitende', 'mitarbeitende'], ['Karriere', 'karriere'], [r.job.title, r.key]);
     else if (r.key !== 'dienstleistungen') t.push([CRUMB[r.key], r.key]);
     return t;
@@ -735,7 +758,7 @@
       <div class="ft__top">
         <div class="ft__brand"><a class="ft__logo" href="${u()}" aria-label="Zur Startseite">${svg.wordmark()}</a><p class="ft__claim">Persönlich &amp;<br>Verbindlich</p><p>Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.</p></div>
         <div><h2 class="ft__h">Leistungen</h2><ul>${S.areas.map(a => `<li><a href="${u(a.slug)}">${a.title}</a></li>`).join('')}<li><a href="${u('stoerungsdienst-pikett')}">Pikettdienst 24/7</a></li></ul></div>
-        <div><h2 class="ft__h">Unternehmen</h2><ul><li><a href="${u('unternehmen')}">Unternehmen</a></li><li><a href="${u('mitarbeitende')}">Mitarbeitende</a></li><li><a href="${u('karriere')}">Karriere und Lehre</a></li><li><a href="${u('kontakt')}">Kontakt</a></li>${S.social.map(([n, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul></div>
+        <div><h2 class="ft__h">Unternehmen</h2><ul><li><a href="${u('unternehmen')}">Unternehmen</a></li><li><a href="${u('referenzen')}">Referenzen</a></li><li><a href="${u('mitarbeitende')}">Mitarbeitende</a></li><li><a href="${u('karriere')}">Karriere und Lehre</a></li><li><a href="${u('kontakt')}">Kontakt</a></li>${S.social.map(([n, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul></div>
         <div><h2 class="ft__h">Kontakt</h2><p>W. Rokitzky AG<br>${w.street}, ${w.city}<br><a href="tel:${w.href}">${w.phone}</a></p><p style="margin-top:.8rem">${wi.street}, ${wi.city}<br><a href="tel:${wi.href}">${wi.phone}</a></p><p style="margin-top:.8rem"><a href="mailto:${S.company.mail}">${S.company.mail}</a><br><a href="mailto:${S.company.serviceMail}">${S.company.serviceMail}</a></p><p style="margin-top:.8rem">Pikett 24/7: <a href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
       </div>
       <div class="ft__big">
@@ -840,6 +863,11 @@
       } else vis.forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
     }));
     $$('form[data-form]', main).forEach(bindForm);
+    $$('[data-refload]', main).forEach(bt => bt.addEventListener('click', () => {
+      const box = bt.closest('[data-refembed]');
+      box.innerHTML = `<iframe class="refembed__frame" src="${box.dataset.refembed}" title="Referenzobjekte der W. Rokitzky AG" loading="eager"></iframe>`;
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }));
     $$('.loc', main).forEach(l => {
       const pin = $(`[data-pin="${l.dataset.loc}"]`, main);
       if (!pin) return;
