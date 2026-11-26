@@ -229,6 +229,8 @@ window.SITE = {
     ]
   },
 
+  /* TODO B15: Die drei PDFs liegen noch auf der heutigen Website und verschwinden beim Livegang.
+     Dateien in /docs/ ablegen und hier relativ verlinken, z. B. '/docs/IGCH-Verhaltenskodex-v01.06.26.pdf'. */
   legal: [
     ['Verhaltenskodex', 'https://rokitzky.ch/assets/images/IGCH-Verhaltenskodex-v01.06.26.pdf'],
     ['Verhaltenskodex für Lieferanten', 'https://rokitzky.ch/assets/images/IGCH-Verhaltenskodex-f%C3%BCr-Lieferanten-v01.06.26.pdf'],

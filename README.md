@@ -9,6 +9,7 @@ Statische Website ohne Build. Vercel veröffentlicht den Ordner so, wie er im Re
 | `js/content.js` | Alle Texte und Daten (Bereiche, Schwerpunkte, Standorte, Fragen) |
 | `js/app.js` | Seitenvorlagen, Router, Animationen |
 | `css/site.css` | Gestaltung |
+| `vendor/` | Schrift Afacad Flux, GSAP 3.15.1 und Lenis 1.3.27, lokal statt über Google Fonts und jsDelivr |
 | `scripts/shell.html` | Vorlage für Kopf, Navigation und Footer aller Seiten |
 | `scripts/prerender.mjs` | Erzeugt aus Vorlage und Inhalten das fertige HTML jeder Seite |
 | `index.html`, `leistungen/…`, `unternehmen/…` usw. | Fertiges HTML, erzeugt von `scripts/prerender.mjs`. Nicht von Hand ändern. |
