@@ -46,15 +46,15 @@ window.SITE = {
     {
       slug: 'erneuerbare-energien', zu: 'zu erneuerbaren Energien', no: '04', band: 'Erneuerbare Energien für neue und bestehende Anlagen.', title: 'Erneuerbare Energien', img: 'speicher', pos: '50% 50%', bandImg: 'photovoltaik', bandMpos: '28% 50%', cta: ['weste-dach-t', '50% 58%', 'weste-dach', '50% 50%'],
       short: 'Wärmepumpen, Speicher und thermische Solaranlagen in der Haustechnik.',
-      lead: 'Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein und ergänzen bestehende Systeme. Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus, bauen Anlagen zur Energierückgewinnung und erstellen Energiesimulationen und Gebäudesimulationen.',
-      items: ['Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein', 'Wir ergänzen bestehende Systeme für Heizung, Lüftung und Klima', 'Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus', 'Wir bauen Anlagen zur Energierückgewinnung', 'Wir konzipieren und stehen beratend zur Seite', 'Wir erstellen Energiesimulationen und Gebäudesimulationen'],
+      lead: 'Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein und ergänzen bestehende Systeme. Wir kennen uns mit Nahwärmeverbünden und Spezialanlagen aus, bauen Anlagen zur Energierückgewinnung und erstellen Energiesimulationen und Gebäudesimulationen.',
+      items: ['Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein', 'Wir ergänzen bestehende Systeme für Heizung, Lüftung und Klima', 'Wir kennen uns mit Nahwärmeverbünden und Spezialanlagen aus', 'Wir bauen Anlagen zur Energierückgewinnung', 'Wir konzipieren und stehen beratend zur Seite', 'Wir erstellen Energiesimulationen und Gebäudesimulationen'],
       related: ['energetische-modernisierung', 'waermepumpen-service', 'retrofit']
     },
     {
       slug: 'service-unterhalt', zu: 'zu Service und Unterhalt', no: '05', band: 'Pikettdienst rund um die Uhr: 076 434 17 17.', title: 'Service und Unterhalt', img: 'service-check', pos: '62% 45%', bandImg: 'service-tablet', bandMpos: '30% 50%', cta: ['abstimmung-t', '50% 71%', 'abstimmung', '50% 50%'],
       short: 'Wartung, Service und Pikettdienst rund um die Uhr.',
-      lead: 'Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt Ihrer Anlagen für Heizung, Lüftung, Klima und Sanitär, kennen die Servicezyklen und planen die regelmässigen Wartungen über die gesamte Lebensdauer, auch bei Anlagen, die nicht wir installiert haben.',
-      items: ['Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt', 'Wir kennen die Servicezyklen und planen die regelmässigen Wartungen', 'Wir betreuen auch Anlagen, die nicht wir installiert haben', 'Unser Pikettdienst ist 24/7 erreichbar: 076 434 17 17'],
+      lead: 'Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt Ihrer Anlagen für Heizung, Lüftung, Klima und Sanitär, kennen die Servicezyklen und planen die regelmässigen Wartungen über die gesamte Lebensdauer, auch bei Anlagen, die wir nicht installiert haben.',
+      items: ['Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt', 'Wir kennen die Servicezyklen und planen die regelmässigen Wartungen', 'Wir betreuen auch Anlagen, die wir nicht installiert haben', 'Unser Pikettdienst ist 24/7 erreichbar: 076 434 17 17'],
       related: ['service-wartung', 'wartungsvertraege', 'stoerungsdienst-pikett', 'waermepumpen-service']
     }
   ],
@@ -147,7 +147,7 @@ window.SITE = {
       items: ['Regelmässige Wartung nach Plan', 'Persönliche Betreuung', 'Auch für Anlagen anderer Installateure', 'Pikettdienst rund um die Uhr'],
       faq: [
         ['Gibt es Wartungsverträge auch für bestehende Anlagen?', 'Ja. Wir übernehmen den Service auch für Anlagen, die nicht von uns gebaut wurden.'],
-        ['Wie kommen wir zu einem Wartungsvertrag?', 'Schreiben Sie an service@rokitzky.ch. Wir besprechen Ihre Anlage und machen Ihnen ein Angebot.']
+        ['Wie komme ich zu einem Wartungsvertrag?', 'Schreiben Sie an service@rokitzky.ch. Wir besprechen Ihre Anlage und machen Ihnen ein Angebot.']
       ]
     },
     'stoerungsdienst-pikett': {
@@ -186,7 +186,7 @@ window.SITE = {
       lead: 'Bei Umbauten passen wir die Haustechnik an: Wir erweitern bestehende Anlagen, planen neue Installationen und führen alles sauber aus.',
       items: ['Erweiterung bestehender Haustechnik', 'Neue Installationen für Heizung, Lüftung und Sanitär', 'Planung und Ausführung', 'Service nach dem Umbau'],
       faq: [
-        ['Übernehmen Sie alle Gewerke der Haustechnik?', 'Wir können Heizung und Kälte, Lüftung und Klima, Sanitär sowie Service und Unterhalt und koordinieren diese Bereiche im eigenen Haus.'],
+        ['Übernehmen Sie alle Gewerke der Haustechnik?', 'Wir decken Heizung und Kälte, Lüftung und Klima, Sanitär sowie Service und Unterhalt ab und koordinieren diese Bereiche im eigenen Haus.'],
         ['Arbeiten Sie auch für Planer?', 'Ja. Wir unterstützen Planerinnen und Planer auch als Fachberater.']
       ]
     },
@@ -196,7 +196,7 @@ window.SITE = {
       lead: 'Wir modernisieren Haustechnik energetisch: mit Wärmepumpen, Speichern und Solarthermie, mit Wärmerückgewinnung und der Anbindung an Wärmeverbünde. Energiesimulationen und Gebäudesimulationen zeigen, was sich lohnt.',
       items: ['Wärmepumpen, Speicher und Solarthermie', 'Wärmerückgewinnung', 'Anbindung an Wärmeverbünde', 'Energiesimulation und Gebäudesimulation'],
       faq: [
-        ['Kennen Sie sich mit Wärmeverbünden aus?', 'Ja. Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus und binden Anlagen an Wärmeverbünde an.'],
+        ['Kennen Sie sich mit Wärmeverbünden aus?', 'Ja. Wir kennen uns mit Nahwärmeverbünden und Spezialanlagen aus und binden Anlagen an Wärmeverbünde an.'],
         ['Können Sie vorab berechnen, was eine Modernisierung bringt?', 'Ja. Wir erstellen Energiesimulationen und Gebäudesimulationen.']
       ]
     }
@@ -251,7 +251,7 @@ window.SITE = {
   legal: [
     ['Verhaltenskodex', 'https://rokitzky.ch/assets/images/IGCH-Verhaltenskodex-v01.06.26.pdf'],
     ['Verhaltenskodex für Lieferanten', 'https://rokitzky.ch/assets/images/IGCH-Verhaltenskodex-f%C3%BCr-Lieferanten-v01.06.26.pdf'],
-    ['Whistleblower Richtlinie', 'https://rokitzky.ch/assets/images/IGCH-Whistleblower-Richtlinie-v01.06.26.pdf']
+    ['Richtlinie für Whistleblower', 'https://rokitzky.ch/assets/images/IGCH-Whistleblower-Richtlinie-v01.06.26.pdf']
   ],
 
   social: [
