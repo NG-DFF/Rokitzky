@@ -742,3 +742,7 @@ button.link:hover{border-bottom-color:currentColor}
   /* Links im Fliesstext: grössere Trefferfläche ohne Einfluss auf den Zeilenabstand */
   p a.link:not(.ccard p a){padding:11px 0;margin:-11px 0}
 }
+
+/* B23: SQS-Zeichen liegen nur als helle Linienversion vor und sind auf Weiss kaum sichtbar.
+   Übergangsweise dunkler dargestellt, bis Rokitzky die dunkle Version liefert (über Andrej). */
+.mark--seal{filter:brightness(.42) saturate(1.15) drop-shadow(0 0 .35px rgba(20,28,44,.9))}

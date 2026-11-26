@@ -110,6 +110,7 @@
     ['Wo sind Ihre Standorte?', `Unser Hauptsitz ist in Wallisellen, weitere Standorte haben wir in Winterthur, Hinwil und Zürich.`]
   ];
 
+  // TODO B23: dunkle Version der SQS-Zeichen von Rokitzky einsetzen (über Andrej), danach den Filter bei .mark--seal in site.css entfernen.
   const markImgs = () => `<img class="mark" src="${BASE}img/toplehrbetrieb.svg" alt="Toplehrbetrieb Gebäudetechnik" loading="lazy" width="350" height="108"><img class="mark" src="${BASE}img/gebaeudetechniker.svg" alt="Wir, die Gebäudetechniker" loading="lazy" width="350" height="157"><img class="mark mark--seal" src="${BASE}img/iso-9001.webp" alt="SQS Zertifiziertes Managementsystem ISO 9001" loading="lazy" width="240" height="240"><img class="mark mark--seal" src="${BASE}img/iso-14001-45001.webp" alt="SQS Zertifiziertes Managementsystem ISO 14001 und 45001" loading="lazy" width="240" height="240">`;
   const marks = (plain = false) => `<div class="marks ${plain ? 'marks--plain' : ''}" data-reveal>${plain ? '' : '<span class="marks__lbl">Ausgezeichnet und zertifiziert</span>'}<div class="marks__row">${markImgs()}</div></div>`;
   const portraitWall = () => {
