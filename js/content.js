@@ -15,7 +15,9 @@ window.SITE = {
     { id: 'wallisellen', name: 'Wallisellen', role: 'Hauptsitz', street: 'Kriesbachstrasse 3b', city: '8304 Wallisellen', phone: '044 312 34 41', href: '+41443123441' },
     { id: 'winterthur', name: 'Winterthur', role: 'Standort', street: 'Riedhofstrasse 67', city: '8408 Winterthur', phone: '052 551 88 99', href: '+41525518899' },
     /* TODO K01 (B12): Adressen und Telefonnummern für Hinwil und Zürich von Rokitzky bestätigen lassen. Laut Handelsregister
-       besteht eine Zweigniederlassung an der Winterthurerstrasse 284, 8057 Zürich. Danach hier, im Footer und im JSON-LD ergänzen. */
+       besteht eine Zweigniederlassung an der Winterthurerstrasse 284, 8057 Zürich. Danach nur hier street, city, phone und href
+       ergänzen: Kontakt, Karte, Footer und JSON-LD übernehmen die Angaben. Danach prerender neu ausführen und die
+       Kontaktseite ansehen (dann sieben Karten im Raster). */
     { id: 'hinwil', name: 'Hinwil', role: 'Standort' },
     { id: 'zuerich', name: 'Zürich', role: 'Standort' }
   ],

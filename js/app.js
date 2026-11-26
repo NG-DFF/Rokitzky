@@ -450,18 +450,17 @@
   }
 
   function pageContact() {
-    const [w, wi] = S.locations;
+    const withAddr = S.locations.filter(l => l.street), noAddr = S.locations.filter(l => !l.street);
     return `
     ${hero({ dim: true, ring: false, img: 'van-wide', pos: '40% 50%', alt: 'Servicefahrzeug von Rokitzky', crumb: [['Home', u()], ['Kontakt']], kicker: 'Kontakt', title: ['So erreichen', 'Sie uns.'], sub: 'Persönlich und verbindlich, an vier Standorten und mit Pikettdienst rund um die Uhr.', btns: btn('mailto:' + S.company.mail, S.company.mail, 'btn--white', svg.mail()) + tel() })}
     <section class="sec wrap" aria-labelledby="kd-t">
       <h2 class="sr" id="kd-t">Kontaktdaten</h2>
       <div class="cgrid">
         <div class="ccard ccard--navy" data-reveal><span class="lbl lbl--light">Pikett 24/7</span><strong>${S.company.pikett}</strong><p>Störungsdienst rund um die Uhr, auch nachts und am Wochenende.</p>${btn('tel:' + S.company.pikettHref, 'Jetzt anrufen', 'btn--white', svg.phone())}</div>
-        <div class="ccard" data-reveal><span class="lbl">Hauptsitz</span><h3>${w.name}</h3><p>W. Rokitzky AG<br>${w.street}<br>${w.city}</p><a href="tel:${w.href}">${w.phone}</a></div>
-        <div class="ccard" data-reveal><span class="lbl">Standort</span><h3>${wi.name}</h3><p>W. Rokitzky AG<br>${wi.street}<br>${wi.city}</p><a href="tel:${wi.href}">${wi.phone}</a></div>
+        ${withAddr.map(l => `<div class="ccard" data-reveal><span class="lbl">${l.role}</span><h3>${l.name}</h3><p>W. Rokitzky AG<br>${l.street}<br>${l.city}</p>${l.phone ? `<a href="tel:${l.href}">${l.phone}</a>` : ''}</div>`).join('')}
         <div class="ccard" data-reveal><span class="lbl">Allgemein</span><h3>Mail</h3><p>Für Anfragen, Offerten und Bewerbungen.</p><a href="mailto:${S.company.mail}">${S.company.mail}</a></div>
         <div class="ccard" data-reveal><span class="lbl">Service</span><h3>Service</h3><p>Für Wartung, Service und Wartungsverträge.</p><a href="mailto:${S.company.serviceMail}">${S.company.serviceMail}</a></div>
-        <div class="ccard" data-reveal><span class="lbl">Standorte</span><h3>Hinwil und Zürich</h3><p>Kontakt über den Hauptsitz in Wallisellen.</p><a href="tel:${S.company.phoneHref}">${S.company.phone}</a></div>
+        ${noAddr.length ? `<div class="ccard" data-reveal><span class="lbl">${noAddr.length > 1 ? 'Standorte' : 'Standort'}</span><h3>${noAddr.map(l => l.name).join(' und ')}</h3><p>Kontakt über den Hauptsitz in ${S.locations[0].name}.</p><a href="tel:${S.company.phoneHref}">${S.company.phone}</a></div>` : ''}
       </div>
     </section>
     <section class="sec sec--paper" aria-labelledby="fo-t"><div class="wrap intro">
@@ -621,6 +620,18 @@
     if (pageFaq.length) g.push({ '@type': 'FAQPage', mainEntity: pageFaq.map(([q, a]) => ({ '@type': 'Question', name: plain(q), acceptedAnswer: { '@type': 'Answer', text: plain(a) } })) });
     return JSON.stringify({ '@context': 'https://schema.org', '@graph': g });
   }
+  // Organisation im JSON-LD: Hauptsitz und weitere Standorte mit Adresse kommen aus S.locations (B12)
+  function ldOrg() {
+    const el = $('#ld-org'); if (!el) return;
+    let o; try { o = JSON.parse(el.textContent); } catch (e) { return; }
+    const tel = (h) => h.replace(/^\+41(\d{2})(\d{3})(\d{2})(\d{2})$/, '+41 $1 $2 $3 $4');
+    const adr = (l) => { const [zip, ...c] = l.city.split(' '); return { '@type': 'PostalAddress', streetAddress: l.street, postalCode: zip, addressLocality: c.join(' '), addressCountry: 'CH' }; };
+    const [hq, ...rest] = S.locations;
+    o.telephone = tel(hq.href); o.address = adr(hq);
+    o.department = rest.filter(l => l.street).map(l => ({ '@type': 'HVACBusiness', name: `W. Rokitzky AG ${l.name}`, ...(l.href ? { telephone: tel(l.href) } : {}), address: adr(l) }));
+    o.areaServed = S.locations.map(l => l.name);
+    el.textContent = JSON.stringify(o);
+  }
   function setMeta(attr, key, val) {
     let el = document.head.querySelector(`meta[${attr}="${key}"]`);
     if (val == null) { if (el) el.remove(); return; }
@@ -760,13 +771,12 @@
   function openMenu() { $('#menu').inert = false; document.body.classList.add('menu-open'); $('#burger').setAttribute('aria-expanded', 'true'); $('#burger').setAttribute('aria-label', 'Menü schliessen'); lenis && lenis.stop(); }
   function closeMenu() { $('#menu').inert = true; document.body.classList.remove('menu-open'); $('#burger').setAttribute('aria-expanded', 'false'); $('#burger').setAttribute('aria-label', 'Menü öffnen'); lenis && lenis.start(); }
   function footer() {
-    const [w, wi] = S.locations;
     return `<div class="wrap">
       <div class="ft__top">
         <div class="ft__brand"><a class="ft__logo" href="${u()}" aria-label="Zur Startseite">${svg.wordmark()}</a><p class="ft__claim">Persönlich &amp;<br>Verbindlich</p><p>Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.</p></div>
         <div><h2 class="ft__h">Leistungen</h2><ul>${S.areas.map(a => `<li><a href="${u(a.slug)}">${a.title}</a></li>`).join('')}<li><a href="${u('stoerungsdienst-pikett')}">Pikettdienst 24/7</a></li></ul></div>
         <div><h2 class="ft__h">Unternehmen</h2><ul><li><a href="${u('unternehmen')}">Unternehmen</a></li><li><a href="${u('referenzen')}">Referenzen</a></li><li><a href="${u('mitarbeitende')}">Mitarbeitende</a></li><li><a href="${u('karriere')}">Karriere und Lehre</a></li><li><a href="${u('kontakt')}">Kontakt</a></li>${S.social.map(([n, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul></div>
-        <div><h2 class="ft__h">Kontakt</h2><p>W. Rokitzky AG<br>${w.street}, ${w.city}<br><a href="tel:${w.href}">${w.phone}</a></p><p style="margin-top:.8rem">${wi.street}, ${wi.city}<br><a href="tel:${wi.href}">${wi.phone}</a></p><p style="margin-top:.8rem"><a href="mailto:${S.company.mail}">${S.company.mail}</a><br><a href="mailto:${S.company.serviceMail}">${S.company.serviceMail}</a></p><p style="margin-top:.8rem">Pikett 24/7: <a href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
+        <div><h2 class="ft__h">Kontakt</h2>${S.locations.filter(l => l.street).map((l, i) => `<p${i ? ' style="margin-top:.8rem"' : ''}>${i ? '' : 'W. Rokitzky AG<br>'}${l.street}, ${l.city}${l.phone ? `<br><a href="tel:${l.href}">${l.phone}</a>` : ''}</p>`).join('')}<p style="margin-top:.8rem"><a href="mailto:${S.company.mail}">${S.company.mail}</a><br><a href="mailto:${S.company.serviceMail}">${S.company.serviceMail}</a></p><p style="margin-top:.8rem">Pikett 24/7: <a href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
       </div>
       <div class="ft__big">
         <div class="ft__bl">
@@ -1013,6 +1023,7 @@
     return keyOf(location.pathname) || 'notfound';
   }
   if (PRE) window.__RK__ = { siteUrl: SITE_URL, routes: () => routes().map(k => ({ key: k, path: u(k) })) };
+  ldOrg();
   const start = () => { render(initialKey(), { initial: true }); const h = decodeURIComponent(location.hash.slice(1)); if (h && !isKey(h)) setTimeout(() => scrollToId(h, true), 80); };
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
 })();
