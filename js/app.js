@@ -302,11 +302,10 @@
     </div></section>
     ${mapSection('Vier Standorte im Kanton Zürich')}
     <section class="sec wrap" aria-labelledby="zp-t">
-      <div class="sec__head"><div>${ruleBox('Qualität und Partner')}<h2 class="h2" id="zp-t">Zertifikate, Referenzen und Partner</h2></div></div>
-      <div class="cgrid">
+      <div class="sec__head"><div>${ruleBox('Qualität')}<h2 class="h2" id="zp-t">Zertifikate und Referenzen</h2></div></div>
+      <div class="cgrid cgrid--2">
         <div class="ccard" data-reveal><span class="lbl">Zertifikate</span><h3>ISO 9001, 14001 und 45001</h3><p>Unser Managementsystem ist von der SQS nach ISO 9001, ISO 14001 und ISO 45001 zertifiziert. Wir lassen unseren Betrieb regelmässig überprüfen.</p></div>
         <div class="ccard" data-reveal><span class="lbl">Referenzen</span><h3>Ausgeführte Projekte</h3><p>Wir haben zahlreiche kleine, grosse und sehr grosse Projekte geplant und ausgeführt.</p><a href="https://referenz-verwaltung.ch/preview/embed?i=gYTzvHf1JRGq" target="_blank" rel="noopener">Referenzobjekte ansehen</a></div>
-        <div class="ccard" data-reveal><span class="lbl">Wärmeverbund</span><h3>Holz AG für Energie</h3><p>2011 gebaut: ein Wärmeverbund mit 2 MW Holzschnitzelheizung.</p><a href="https://www.holzag.ch" target="_blank" rel="noopener">Zur Holz AG für Energie</a></div>
       </div>
       ${marks()}
       <div class="chips" style="margin-top:2rem" data-reveal>${S.legal.map(([t, u]) => `<a class="chip" href="${u}" target="_blank" rel="noopener">${t} (PDF)</a>`).join('')}</div>

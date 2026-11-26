@@ -188,7 +188,7 @@ window.SITE = {
       lead: 'Wir modernisieren Haustechnik energetisch: mit Wärmepumpen, Speichern und Solarthermie, mit Wärmerückgewinnung und der Anbindung an Wärmeverbünde. Energiesimulationen und Gebäudesimulationen zeigen, was sich lohnt.',
       items: ['Wärmepumpen, Speicher und Solarthermie', 'Wärmerückgewinnung', 'Anbindung an Wärmeverbünde', 'Energiesimulation und Gebäudesimulation'],
       faq: [
-        ['Haben Sie Erfahrung mit Wärmeverbünden?', 'Ja. 2011 haben wir zusammen mit der Holz AG für Energie einen Wärmeverbund mit 2 MW Holzschnitzelheizung gebaut.'],
+        ['Kennen Sie sich mit Wärmeverbünden aus?', 'Ja. Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus und binden Anlagen an Wärmeverbünde an.'],
         ['Können Sie vorab berechnen, was eine Modernisierung bringt?', 'Ja. Wir erstellen Energiesimulationen und Gebäudesimulationen.']
       ]
     }
@@ -199,7 +199,7 @@ window.SITE = {
     ['1972', 'Erster Mitarbeiter', 'Aus dem Einmannbetrieb wird ein Zweimannbetrieb: Ein Sanitärinstallateur wird eingestellt.'],
     ['1985', 'Erster Lehrling', 'Der erste Lehrling als Sanitärinstallateur beginnt seine Lehre bei Rokitzky.'],
     ['1987', 'W. Rokitzky AG', 'Aus der Einzelfirma wird die Aktiengesellschaft W. Rokitzky AG.'],
-    ['2011', 'Generationenwechsel', 'Werner Rokitzky verkauft seine AG an die nächste Generation. Im gleichen Jahr entsteht mit der Holz AG für Energie ein Wärmeverbund mit 2 MW Holzschnitzelheizung.'],
+    ['2011', 'Generationenwechsel', 'Werner Rokitzky verkauft seine AG an die nächste Generation.'],
     ['2013', 'Pikettdienst', 'Wir führen den Pikettdienst ein. Seither sind wir rund um die Uhr erreichbar: 076 434 17 17.'],
     ['2019', 'Über 50 Mitarbeitende', 'Wir zählen mehr als fünfzig festangestellte Mitarbeiterinnen und Mitarbeiter.'],
     ['2020', 'K3 Handwerkcity', 'Wir beziehen unsere neuen Büroräume in der K3 Handwerkcity in Wallisellen.'],

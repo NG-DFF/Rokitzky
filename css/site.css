@@ -406,6 +406,7 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 44px) 42px)}
 .form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px rgba(77,97,130,.15)}
 .form .ok{grid-column:1 / -1;padding:1rem 1.2rem;border-radius:0;background:var(--brand-100);color:var(--navy-700);font-weight:600}
 .cgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.cgrid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .ccard{padding:1.7rem;border-radius:var(--r);background:#fff;border:1px solid var(--line);display:grid;gap:.75rem;align-content:start}
 .ccard h3{font-size:1.5rem;font-weight:800;text-transform:uppercase;line-height:1.1}
 .ccard p{color:var(--ink-2)}
