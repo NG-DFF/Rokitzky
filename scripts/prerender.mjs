@@ -52,16 +52,25 @@ const page = await context.newPage();
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message));
 
+async function ready(path) {
+  try {
+    await page.waitForFunction(() => window.__RK_READY__, null, { timeout: 20000 });
+  } catch {
+    console.error(`Seite ${path} wurde nicht fertig.` + (errors.length ? ' JavaScript-Fehler:\n' + errors.join('\n') : ''));
+    process.exit(1);
+  }
+}
+
 async function snapshot(path) {
   await page.goto(origin + path, { waitUntil: 'load' });
-  await page.waitForFunction(() => window.__RK_READY__, null, { timeout: 20000 });
+  await ready(path);
   const html = await page.evaluate(() => document.documentElement.outerHTML);
   if (!/<h1[\s>]/.test(html)) throw new Error(`Keine H1 auf ${path}`);
   return `<!DOCTYPE html>\n${html}\n`;
 }
 
 await page.goto(origin + '/', { waitUntil: 'load' });
-await page.waitForFunction(() => window.__RK__ && window.__RK_READY__, null, { timeout: 20000 });
+await ready('/');
 const { siteUrl, routes } = await page.evaluate(() => ({ siteUrl: window.__RK__.siteUrl, routes: window.__RK__.routes() }));
 
 for (const r of routes) {
