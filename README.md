@@ -54,6 +54,7 @@ Sichtbare Texte ohne Bindestriche und Gedankenstriche (Ausnahme UID und MWST), S
 | Marke | Datei | Inhalt |
 | --- | --- | --- |
 | `TODO K01` | `js/content.js` | Adressen und Telefonnummern Hinwil und Zürich |
+| `TODO K02` | `js/app.js` | Teamseite: Entscheid Variante A oder B (B05) |
 | `TODO K03` | `js/content.js` | Offene Stellen, Ansprechperson Bewerbungen, Recruiting-Video |
 | `TODO K04` | `js/content.js` | Zahl der Lernenden |
 | `TODO K05` | `js/app.js` | UID und MWST im Impressum bestätigen |

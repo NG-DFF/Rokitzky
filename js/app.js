@@ -334,6 +334,9 @@
 
   const personCard = ([n, r, slug], big = false) => `<figure class="person${big ? ' person--big' : ''}"${big ? ' data-reveal' : ''}><div class="person__img"><img src="${BASE}img/team/${slug}${big ? '-xl' : ''}.webp" alt="${n}, ${r}" loading="lazy" decoding="async" width="${big ? 450 : 300}" height="${big ? 600 : 400}"></div><figcaption><b>${n}</b><span>${r}</span></figcaption></figure>`;
 
+  /* TODO K02 (B05): Entscheid offen. Variante A: Inhaber und Geschäftsleitung mit Namen, Teams als Gruppenbilder ohne Namen,
+     Kennzahlen, Filter und Personenraster entfallen. Variante B: Verzeichnis bleibt, mit schriftlichen Einwilligungen und
+     einem Ablauf für Ein- und Austritte. Bis zum Entscheid mit Michele bleibt die Seite unverändert. */
   function pageTeam() {
     const T = S.team;
     return `
