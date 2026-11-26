@@ -430,7 +430,8 @@
     const [w, wi] = S.locations;
     return `
     ${hero({ dim: true, ring: false, img: 'van-wide', pos: '40% 50%', alt: 'Servicefahrzeug von Rokitzky', crumb: [['Home', u()], ['Kontakt']], kicker: 'Kontakt', title: ['So erreichen', 'Sie uns.'], sub: 'Persönlich und verbindlich, an vier Standorten und mit Pikettdienst rund um die Uhr.', btns: btn('mailto:' + S.company.mail, S.company.mail, 'btn--white', svg.mail()) + tel() })}
-    <section class="sec wrap" aria-label="Kontaktdaten">
+    <section class="sec wrap" aria-labelledby="kd-t">
+      <h2 class="sr" id="kd-t">Kontaktdaten</h2>
       <div class="cgrid">
         <div class="ccard ccard--navy" data-reveal><span class="lbl lbl--light">Pikett 24/7</span><strong>${S.company.pikett}</strong><p>Störungsdienst rund um die Uhr, auch nachts und am Wochenende.</p>${btn('tel:' + S.company.pikettHref, 'Jetzt anrufen', 'btn--white', svg.phone())}</div>
         <div class="ccard" data-reveal><span class="lbl">Hauptsitz</span><h3>${w.name}</h3><p>W. Rokitzky AG<br>${w.street}<br>${w.city}</p><a href="tel:${w.href}">${w.phone}</a></div>
@@ -724,16 +725,16 @@
     $('#burger').addEventListener('click', () => document.body.classList.contains('menu-open') ? closeMenu() : openMenu());
   }
   function closeMega() { const m = $('#mega'); if (m) { m.classList.remove('is-open'); $('.has-mega').setAttribute('aria-expanded', 'false'); } }
-  function openMenu() { document.body.classList.add('menu-open'); $('#burger').setAttribute('aria-expanded', 'true'); $('#burger').setAttribute('aria-label', 'Menü schliessen'); $('#menu').setAttribute('aria-hidden', 'false'); lenis && lenis.stop(); }
-  function closeMenu() { document.body.classList.remove('menu-open'); $('#burger').setAttribute('aria-expanded', 'false'); $('#burger').setAttribute('aria-label', 'Menü öffnen'); $('#menu').setAttribute('aria-hidden', 'true'); lenis && lenis.start(); }
+  function openMenu() { $('#menu').inert = false; document.body.classList.add('menu-open'); $('#burger').setAttribute('aria-expanded', 'true'); $('#burger').setAttribute('aria-label', 'Menü schliessen'); lenis && lenis.stop(); }
+  function closeMenu() { $('#menu').inert = true; document.body.classList.remove('menu-open'); $('#burger').setAttribute('aria-expanded', 'false'); $('#burger').setAttribute('aria-label', 'Menü öffnen'); lenis && lenis.start(); }
   function footer() {
     const [w, wi] = S.locations;
     return `<div class="wrap">
       <div class="ft__top">
         <div class="ft__brand"><a class="ft__logo" href="${u()}" aria-label="Zur Startseite">${svg.wordmark()}</a><p class="ft__claim">Persönlich &amp;<br>Verbindlich</p><p>Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.</p></div>
-        <div><h4>Leistungen</h4><ul>${S.areas.map(a => `<li><a href="${u(a.slug)}">${a.title}</a></li>`).join('')}<li><a href="${u('stoerungsdienst-pikett')}">Pikettdienst 24/7</a></li></ul></div>
-        <div><h4>Unternehmen</h4><ul><li><a href="${u('unternehmen')}">Unternehmen</a></li><li><a href="${u('mitarbeitende')}">Mitarbeitende</a></li><li><a href="${u('karriere')}">Karriere und Lehre</a></li><li><a href="${u('kontakt')}">Kontakt</a></li>${S.social.map(([n, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul></div>
-        <div><h4>Kontakt</h4><p>W. Rokitzky AG<br>${w.street}, ${w.city}<br><a href="tel:${w.href}">${w.phone}</a></p><p style="margin-top:.8rem">${wi.street}, ${wi.city}<br><a href="tel:${wi.href}">${wi.phone}</a></p><p style="margin-top:.8rem"><a href="mailto:${S.company.mail}">${S.company.mail}</a><br><a href="mailto:${S.company.serviceMail}">${S.company.serviceMail}</a></p><p style="margin-top:.8rem">Pikett 24/7: <a href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
+        <div><h2 class="ft__h">Leistungen</h2><ul>${S.areas.map(a => `<li><a href="${u(a.slug)}">${a.title}</a></li>`).join('')}<li><a href="${u('stoerungsdienst-pikett')}">Pikettdienst 24/7</a></li></ul></div>
+        <div><h2 class="ft__h">Unternehmen</h2><ul><li><a href="${u('unternehmen')}">Unternehmen</a></li><li><a href="${u('mitarbeitende')}">Mitarbeitende</a></li><li><a href="${u('karriere')}">Karriere und Lehre</a></li><li><a href="${u('kontakt')}">Kontakt</a></li>${S.social.map(([n, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul></div>
+        <div><h2 class="ft__h">Kontakt</h2><p>W. Rokitzky AG<br>${w.street}, ${w.city}<br><a href="tel:${w.href}">${w.phone}</a></p><p style="margin-top:.8rem">${wi.street}, ${wi.city}<br><a href="tel:${wi.href}">${wi.phone}</a></p><p style="margin-top:.8rem"><a href="mailto:${S.company.mail}">${S.company.mail}</a><br><a href="mailto:${S.company.serviceMail}">${S.company.serviceMail}</a></p><p style="margin-top:.8rem">Pikett 24/7: <a href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
       </div>
       <div class="ft__big">
         <div class="ft__bl">
