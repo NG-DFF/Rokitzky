@@ -167,7 +167,7 @@ window.SITE = {
       ]
     },
     'stoerungsdienst-pikett': {
-      title: 'Störungsdienst und Pikett', zu: 'zu Störungsdienst und Pikett', group: 'service', img: 'speicher-steuerung', m: 'speicher-steuerung-t', pos: '50% 50%', mpos: '0% 50%', cta: ['westen-tuer-t', '50% 63%', 'westen-tuer', '50% 50%'],
+      title: 'Störungsdienst und Pikett', zu: 'zu Störungsdienst und Pikett', group: 'service', img: 'speicher-steuerung', m: 'speicher-steuerung-t', pos: '50% 50%', mpos: '0% 50%', cta: ['weste-kraene-t', '61% 50%', 'weste-kraene', '50% 50%'],
       h1: 'Pikettdienst 24/7', sub: 'Störungsdienst rund um die Uhr',
       lead: 'Seit 2013 erreichen Sie unseren Pikettdienst rund um die Uhr, auch nachts und am Wochenende.',
       desc: 'Unser Pikettdienst ist seit 2013 rund um die Uhr erreichbar, auch nachts und am Wochenende: 076 434 17 17. Für Heizung, Lüftung, Klima, Kälte und Sanitär.',

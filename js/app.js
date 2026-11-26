@@ -9,7 +9,10 @@
   const HAS_GSAP = !!window.gsap;
   document.documentElement.classList.toggle('js', HAS_GSAP && !REDUCE);
 
-  /* Drohnenvideo: sobald die Datei vorliegt, hier eintragen (z. B. 'media/hero-drohne.mp4'). */
+  /* Drohnenvideo im Titelbild der Startseite (TODO K09): sobald es vorliegt, die Dateien unter media/ ablegen und hier eintragen.
+     MP4 (H.264) und WebM, je höchstens 4 MB, ohne Tonspur. Posterbild ist ein Bild aus img/ (Name ohne Endung),
+     ohne Angabe das erste Standbild. Bei reduzierter Bewegung und mit aktivem Datensparmodus bleibt es beim Standbild.
+     Beispiel: { mp4: 'media/hero-drohne.mp4', webm: 'media/hero-drohne.webm', poster: 'hero-drohne' } */
   const HERO_VIDEO = null;
 
   /* ---------- SVG ---------- */
@@ -66,7 +69,7 @@
     const tArr = Array.isArray(o.title) ? o.title : [o.title];
     const longest = Math.max(...tArr.join(' ').replace(/<[^>]+>/g, ' ').split(/\s+/).map(w => w.length));
     const lines = tArr.map(l => `<span class="split-line ln"><span style="display:block">${l}</span></span>`).join('');
-    return `<section class="hero ${o.home ? '' : 'hero--sub'} ${o.dim ? 'hero--dim' : ''}" data-hero>
+    return `<section class="hero ${o.home ? 'hero--home' : 'hero--sub'} ${o.dim ? 'hero--dim' : ''}" data-hero>
       <div class="hero__media" data-hero-media>${slides}</div>
       <div class="hero__shade"></div>
       <div class="wrap hero__in">
@@ -136,7 +139,7 @@
     ${hero({
       home: true,
       slides: [
-        { src: 'weste-kraene', m: 'weste-kraene-t', pos: '50% 50%', mpos: '61% 50%', alt: 'Monteur von Rokitzky in Warnweste mit Logo vor zwei Baukränen' },
+        { src: 'westen-tuer', m: 'westen-tuer-m', pos: '50% 50%', mpos: '50% 50%', alt: 'Zwei Mitarbeitende von Rokitzky in Warnwesten mit Logo' },
         { src: 'hero-funken', m: 'hero-funken-m', pos: '64% 50%', alt: 'Monteur von Rokitzky kürzt ein Lüftungsrohr, die Funken fliegen' },
         { src: 'kran-einhub', m: 'kran-einhub-t', pos: '50% 50%', mpos: '72% 50%', alt: 'Monteure von Rokitzky führen eine Kälteanlage am Kran auf das Dach' }
       ],
@@ -895,6 +898,18 @@
       timers.push(setTimeout(step, 5600));
     });
   }
+  function heroVideo(media, still) {
+    const v = document.createElement('video');
+    v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+    ['muted', 'playsinline', 'loop'].forEach(x => v.setAttribute(x, ''));
+    v.setAttribute('aria-hidden', 'true'); v.disablePictureInPicture = true;
+    const mob = still.tagName === 'PICTURE' && matchMedia('(max-width: 820px)').matches;
+    v.poster = HERO_VIDEO.poster ? `${BASE}img/${HERO_VIDEO.poster}.webp` : mob ? $('source', still).srcset : (still.currentSrc || still.src || $('img', still).src);
+    [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(([k, type]) => { if (HERO_VIDEO[k]) { const s = document.createElement('source'); s.src = BASE + HERO_VIDEO[k]; s.type = type; v.appendChild(s); } });
+    v.className = 'hero__still hero__video ob'; v.style.opacity = 0; v.style.zIndex = 999; media.appendChild(v);
+    v.addEventListener('playing', () => { if (cycle) { cycle.kill(); cycle = null; } gsap.to(v, { opacity: 1, duration: 1.2 }); }, { once: true });
+    const pr = v.play(); if (pr && pr.catch) pr.catch(() => {});
+  }
   function startCycle(slides) {
     let z = 2, i = 0;
     gsap.set(slides, { opacity: 0 }); gsap.set(slides[0], { opacity: 1, zIndex: z });
@@ -928,12 +943,7 @@
         // ruhige Bildfolge als Platzhalter, bis das Drohnenvideo eingebunden ist
         if (slides.length > 1) startCycle(slides);
         else if (slides[0]) gsap.fromTo(slides[0], { scale: 1.02 }, { scale: 1.1, duration: 16, ease: 'none', repeat: -1, yoyo: true });
-        if (HERO_VIDEO && $('[data-slide]', media)) {
-          const v = document.createElement('video');
-          Object.assign(v, { muted: true, loop: true, autoplay: true, playsInline: true, src: HERO_VIDEO });
-          v.className = 'hero__still'; v.style.opacity = 0; media.appendChild(v);
-          v.addEventListener('canplay', () => gsap.to(v, { opacity: 1, duration: 1.2 }), { once: true });
-        }
+        if (HERO_VIDEO && hero.classList.contains('hero--home') && slides[0] && !(navigator.connection && navigator.connection.saveData)) heroVideo(media, slides[0]);
       }
       // headings: masked line reveal
       $$('[data-split]', main).forEach(el => {
