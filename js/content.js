@@ -213,7 +213,20 @@ window.SITE = {
 
 
   portraits: ['portrait-1', 'portrait-2', 'portrait-3', 'portrait-4', 'portrait-5', 'portrait-6', 'portrait-7'],
-  apprenticeships: ['Heizungsinstallateur/in', 'Sanitärinstallateur/in', 'Gebäudetechnikplaner/in', 'Lüftungsanlagenbauer/in', 'Kaufmann/Kauffrau'],
+  apprenticeships: ['Heizungsinstallateur/in EFZ', 'Sanitärinstallateur/in EFZ', 'Gebäudetechnikplaner/in EFZ', 'Lüftungsanlagenbauer/in EFZ', 'Kaufmann/Kauffrau EFZ'],
+
+  /* TODO K03: Offene Stellen von Rokitzky. Jede Stelle bekommt eine eigene Seite /karriere/<slug>/ mit JobPosting für Google for Jobs.
+     Nur bestätigte Angaben eintragen. Beispiel:
+     { slug: 'servicetechniker-heizung', title: 'Servicetechniker/in Heizung', pensum: '100 %', ort: 'Wallisellen', loc: 'wallisellen',
+       start: 'nach Vereinbarung', anstellung: 'FULL_TIME', datePosted: '2026-12-01', validThrough: '2027-03-31',
+       lead: 'Ein Satz zur Stelle.', aufgaben: ['…'], profil: ['…'], angebot: ['…'] } */
+  jobs: [],
+
+  /* TODO K03: Ansprechperson für Bewerbungen (Name oder Funktion). Bis dahin gelten Hauptnummer und info@rokitzky.ch. */
+  careerContact: null,
+
+  /* TODO K03/K09: Recruitingvideos für die Karriereseite, z. B. { src: '/media/recruiting.mp4', poster: '/img/….webp', title: '…' } */
+  recruitingVideo: null,
   documents: ['Bewerbungsschreiben', 'Lebenslauf', 'Alle Zeugnisse'],
 
   team: {

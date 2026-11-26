@@ -44,6 +44,7 @@
   const groupOf = (gid) => S.groups.find(g => g.id === gid);
   const areaBy = (slug) => S.areas.find(a => a.slug === slug);
   const locNames = 'Wallisellen, Winterthur, Hinwil und Zürich';
+  const jobBy = (slug) => (S.jobs || []).find(j => j.slug === slug);
   const parentOf = (slug) => S.areas.find(a => a.related.includes(slug)) || S.areas[0];
 
   /* ---------- Adressen ---------- */
@@ -51,7 +52,7 @@
   const PRE = !!window.__PRERENDER__;
   const BASE = (() => { const el = document.querySelector('script[src*="js/app.js"]'); return el ? new URL('../', el.src).pathname : '/'; })();
   const SITE_URL = S.siteUrl.replace(/\/+$/, '');
-  const pathOf = (k) => k === 'start' ? '' : k === 'dienstleistungen' ? 'leistungen/' : (areaBy(k) || focusBy(k)) ? `leistungen/${k}/` : `${k}/`;
+  const pathOf = (k) => k === 'start' ? '' : k.startsWith('stelle-') ? `karriere/${k.slice(7)}/` : k === 'dienstleistungen' ? 'leistungen/' : (areaBy(k) || focusBy(k)) ? `leistungen/${k}/` : `${k}/`;
   const u = (k = 'start') => HASH ? '#' + k : BASE + pathOf(k);
   const abs = (k = 'start') => SITE_URL + '/' + pathOf(k);
   let pageFaq = [];
@@ -350,29 +351,79 @@
       <div class="split__txt">
         ${ruleBox('Offene Stellen und Lehre', true, true)}
         <p class="bigquote" id="jobs-t" data-reveal>Gute Fachleute sind bei uns immer gefragt.</p>
-        <p data-reveal>Ob Fachkraft oder Lernende: Schicken Sie uns Ihre Bewerbung per Mail an ${S.company.mail}.</p>
-        <div class="btns" data-reveal>${btn(u('karriere'), 'Offene Stellen und Lehre', 'btn--white')}${btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Bewerbung senden', 'btn--ghost', svg.mail())}</div>
+        <p data-reveal>Ob Fachkraft oder Lernende: Bewerben Sie sich mit einer Kurzbewerbung. Unterlagen können Sie später nachreichen.</p>
+        <div class="btns" data-reveal>${btn(u('karriere') + (HASH ? '' : '#kurzbewerbung'), 'Kurzbewerbung', 'btn--white')}${btn(u('karriere'), 'Offene Stellen und Lehre', 'btn--ghost')}</div>
       </div>
     </div></section>
     ${ctaBlock(undefined, undefined, ['helm-logo-t', '50% 96%', 'helm-logo', '50% 50%'])}`;
   }
 
-  function pageCareer() {
+  const careerContact = () => S.careerContact || { title: 'Fragen zur Bewerbung', phone: S.company.phone, phoneHref: S.company.phoneHref, mail: S.company.mail };
+  function applyGrid(stelle = '') {
+    const c = careerContact();
     return `
-    ${hero({ img: 'action-team-wide', m: 'action-team-tall', pos: '55% 40%', alt: 'Mitarbeitende von Rokitzky in Warnwesten in einer Technikzentrale', crumb: [['Home', u()], ['Mitarbeitende', u('mitarbeitende')], ['Karriere']], kicker: 'Karriere und Lehre', title: ['Arbeiten und lernen', 'bei Rokitzky.'], sub: 'Offene Stellen für Fachleute und Lehrstellen in fünf Berufen. Jedes Jahr bilden wir 15 bis 20 Lernende aus.', btns: btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Jetzt bewerben', 'btn--white', svg.mail()) + btn(u('mitarbeitende'), 'Unser Team', 'btn--ghost') })}
-    <section class="sec" aria-labelledby="os-t"><div class="wrap intro">
-      <div>${ruleBox('Offene Stellen', true)}<h2 class="h2" id="os-t">Gute Fachleute sind bei uns immer gefragt.</h2><p class="lead" data-reveal style="margin-top:1.4rem">Sie haben Erfahrung in Heizung, Lüftung, Klima, Kälte oder Sanitär und möchten bei uns mitarbeiten? Dann schicken Sie uns Ihre Bewerbung.</p></div>
-      <div class="ccard" data-reveal><span class="lbl">Bewerbung</span><h3>Bewerbung per Mail</h3><p>Lebenslauf, Zeugnisse und ein kurzes Anschreiben an ${S.company.mail}.</p><a class="btn btn--solid" href="mailto:${S.company.mail}?subject=Bewerbung" style="justify-self:start;margin-top:.6rem">Bewerbung senden ${svg.arrow()}</a></div>
+    <div class="intro apply" id="kurzbewerbung">
+      <div>
+        ${ruleBox('Kurzbewerbung', true)}
+        <h3 class="h2" id="kb-t">Bewerben ohne Unterlagen.</h3>
+        <p class="lead" data-reveal style="margin-top:1.4rem">Name, Telefon und Beruf genügen. Lebenslauf und Zeugnisse können Sie anhängen oder später nachreichen. Wir melden uns bei Ihnen.</p>
+        <div class="ccard apply__contact" data-reveal><span class="lbl">Kontakt</span><h3>${c.title}</h3><p><a class="link" href="tel:${c.phoneHref}">${c.phone}</a><br><a class="link" href="mailto:${c.mail}?subject=Bewerbung">${c.mail}</a></p><p class="muted">Lieber per Mail? Schicken Sie Lebenslauf und Zeugnisse an ${c.mail}.</p></div>
+      </div>
+      <form class="form" id="bewerbung" data-form="bewerbung" data-reveal novalidate>
+        ${fld('bewerbung', 'name', 'Name', { req: true, auto: 'name' })}
+        ${fld('bewerbung', 'tel', 'Telefon', { req: true, type: 'tel', auto: 'tel' })}
+        ${fld('bewerbung', 'beruf', 'Beruf', { req: true, full: true, extra: ' placeholder="Zum Beispiel Heizungsinstallateur EFZ"' })}
+        ${fld('bewerbung', 'erfahrung', 'Berufserfahrung', { opts: [['', 'Bitte wählen'], 'Weniger als 3 Jahre', '3 bis 10 Jahre', 'Mehr als 10 Jahre'] })}
+        ${fld('bewerbung', 'rueckruf', 'Wann dürfen wir anrufen?', { opts: [['', 'Jederzeit'], 'Vormittags', 'Über Mittag', 'Nachmittags', 'Abends'] })}
+        ${fld('bewerbung', 'mail', 'Mail', { type: 'email', auto: 'email', full: true })}
+        ${fld('bewerbung', 'cv', 'Lebenslauf (freiwillig)', { type: 'file', full: true, extra: ' accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"', hint: 'PDF, JPG oder PNG, höchstens 3 MB' })}
+        ${fld('bewerbung', 'msg', 'Nachricht (freiwillig)', { full: true, area: true })}
+        <input type="hidden" name="stelle" value="${stelle}">
+        ${formFoot('bewerbung', 'Kurzbewerbung senden')}
+      </form>
+    </div>`;
+  }
+
+  function pageCareer() {
+    const jobs = S.jobs || [], v = S.recruitingVideo;
+    return `
+    ${hero({ img: 'action-team-wide', m: 'action-team-tall', pos: '55% 40%', alt: 'Mitarbeitende von Rokitzky in Warnwesten in einer Technikzentrale', crumb: [['Home', u()], ['Mitarbeitende', u('mitarbeitende')], ['Karriere']], kicker: 'Karriere und Lehre', title: ['Arbeiten und lernen', 'bei Rokitzky.'], sub: 'Bewerben Sie sich mit einer Kurzbewerbung, Unterlagen können Sie später nachreichen. Lehrstellen und Schnuppertage bieten wir in fünf Berufen an.', btns: btn('#kurzbewerbung', 'Kurzbewerbung', 'btn--white') + btn('#lehre', 'Lehre und Schnuppertag', 'btn--ghost') })}
+    <section class="sec" aria-labelledby="os-t" id="stellen"><div class="wrap">
+      <div class="sec__head"><div>${ruleBox('Offene Stellen', true)}<h2 class="h2" id="os-t">Gute Fachleute sind bei uns immer gefragt.</h2></div><p class="lead" data-reveal>${jobs.length ? 'Unsere ausgeschriebenen Stellen. Nichts Passendes dabei? Bewerben Sie sich trotzdem mit einer Kurzbewerbung.' : 'Sie haben Erfahrung in Heizung, Lüftung, Klima, Kälte oder Sanitär und möchten bei uns mitarbeiten? Dann schicken Sie uns eine Kurzbewerbung.'}</p></div>
+      ${jobs.length ? `<div class="cards cards--jobs">${jobs.map(j => `<a class="card" href="${u('stelle-' + j.slug)}" data-reveal><span class="lbl">${j.pensum}, ${j.ort}</span><div><h3>${j.title}</h3></div><span class="card__go">Zur Stelle ${svg.arrow()}</span></a>`).join('')}</div>` : ''}
+      ${v ? `<video class="rvideo" controls preload="none" playsinline poster="${v.poster || ''}" src="${v.src}" title="${v.title || ''}"></video>` : ''}
+      ${applyGrid()}
     </div></section>
-    <section class="sec sec--paper" aria-labelledby="le-t"><div class="wrap">
-      <div class="sec__head"><div>${ruleBox('Lehre bei Rokitzky', true)}<h2 class="h2" id="le-t">15 bis 20 Lernende pro Jahr</h2></div><div data-reveal><p class="lead">Als Toplehrbetrieb bilden wir in fünf Berufen aus. Ob Schnuppertag, Praktikum oder Berufslehre: Bei uns gibt es viele Möglichkeiten, ins Berufsleben einzusteigen.</p>${marks(true)}</div></div>
-      <div class="cards cards--jobs">${S.apprenticeships.map((b, i) => `<a class="card" href="mailto:${S.company.mail}?subject=Lehrstelle%20${encodeURIComponent(b)}" data-reveal><span class="lbl">Lehrberuf</span><div><h3>${b}</h3></div><span class="card__go">Lehrstelle anfragen ${svg.arrow()}</span></a>`).join('')}</div>
-      <div class="intro" style="margin-top:clamp(3rem,6vw,5rem)">
-        <div>${ruleBox('Bewerbungsunterlagen')}<p class="lead" data-reveal>Interessiert an einer Lehrstelle? Schick uns deine Unterlagen als PDF an <a class="link" href="mailto:${S.company.mail}?subject=Bewerbung%20Lehrstelle">${S.company.mail}</a>.</p></div>
-        <ul class="checks" data-reveal>${S.documents.map(d => `<li>${svg.hex()}${d}</li>`).join('')}</ul>
+    <section class="sec sec--paper" aria-labelledby="le-t" id="lehre"><div class="wrap">
+      <div class="sec__head"><div>${ruleBox('Lehre bei Rokitzky', true)}<h2 class="h2" id="le-t">15 bis 20 Lernende pro Jahr</h2></div><div data-reveal><p class="lead">Als Toplehrbetrieb bilden wir in fünf Berufen aus. Ob Schnuppertag, Praktikum oder Berufslehre: Bei uns hast du viele Möglichkeiten, ins Berufsleben einzusteigen.</p>${marks(true)}</div></div>
+      <div class="cards cards--jobs">${S.apprenticeships.map(b => `<div class="card card--lehre" data-reveal><span class="lbl">Lehrberuf</span><div><h3>${b}</h3></div><div class="card__acts"><button type="button" class="btn btn--solid" data-lehre="${b}" data-anliegen="Schnuppertag">Schnuppertag anfragen ${svg.arrow()}</button><button type="button" class="link" data-lehre="${b}" data-anliegen="Lehrstelle">Lehrstelle anfragen</button></div></div>`).join('')}</div>
+      <div class="intro" style="margin-top:clamp(3rem,6vw,5rem)" id="lehre-anfrage">
+        <div>${ruleBox('Schnuppertag oder Lehrstelle')}<p class="lead" data-reveal>Wähl deinen Lehrberuf und sag uns, ob du schnuppern möchtest oder dich für eine Lehrstelle bewirbst. Für die Bewerbung brauchen wir diese Unterlagen, gerne als PDF:</p><ul class="checks" data-reveal>${S.documents.map(d => `<li>${svg.hex()}${d}</li>`).join('')}</ul></div>
+        <form class="form" id="lehranfrage" data-form="lehre" data-reveal novalidate>
+          ${fld('lehranfrage', 'name', 'Name', { req: true, auto: 'name' })}
+          ${fld('lehranfrage', 'tel', 'Telefon', { type: 'tel', auto: 'tel', hint: 'Telefon oder Mail genügt' })}
+          ${fld('lehranfrage', 'mail', 'Mail', { type: 'email', auto: 'email', full: true })}
+          ${fld('lehranfrage', 'lehrberuf', 'Lehrberuf', { req: true, opts: [['', 'Bitte wählen'], ...S.apprenticeships] })}
+          ${fld('lehranfrage', 'anliegen', 'Anliegen', { opts: ['Schnuppertag', 'Lehrstelle'] })}
+          ${fld('lehranfrage', 'cv', 'Unterlagen (freiwillig)', { type: 'file', full: true, extra: ' accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"', hint: 'PDF, JPG oder PNG, höchstens 3 MB' })}
+          ${fld('lehranfrage', 'msg', 'Nachricht (freiwillig)', { full: true, area: true, extra: ' placeholder="Zum Beispiel Schule, Klasse und Wunschtermin"' })}
+          ${formFoot('lehranfrage', 'Anfrage senden', true)}
+        </form>
       </div>
     </div></section>
     ${ctaBlock('Persönlich &amp; Verbindlich', `Fragen zur Lehre oder zu offenen Stellen? Rufen Sie uns an: ${S.company.phone}.`, ['lernende-t', '50% 63%', 'lernende', '50% 50%'])}`;
+  }
+
+  function pageJob(j) {
+    const lists = [['Ihre Aufgaben', j.aufgaben], ['Ihr Profil', j.profil], ['Wir bieten', j.angebot]].filter(([, l]) => l && l.length);
+    return `
+    ${hero({ img: j.img || 'action-team-wide', m: j.img ? null : 'action-team-tall', pos: '55% 40%', alt: '', crumb: [['Home', u()], ['Mitarbeitende', u('mitarbeitende')], ['Karriere', u('karriere')], [j.title]], kicker: `${j.pensum}, ${j.ort}`, title: [j.title], sub: j.lead, btns: btn('#kurzbewerbung', 'Jetzt bewerben', 'btn--white') + btn(u('karriere'), 'Alle Stellen', 'btn--ghost') })}
+    <section class="sec wrap" aria-label="Stelle">
+      <div class="jobgrid">${lists.map(([t, l]) => `<div data-reveal><h2 class="h3">${t}</h2><ul class="checks">${l.map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul></div>`).join('')}</div>
+      <p class="muted" data-reveal style="margin-top:2rem">Pensum ${j.pensum}. Arbeitsort ${j.ort}. Start ${j.start}.</p>
+    </section>
+    <section class="sec sec--paper" aria-labelledby="kb-t"><div class="wrap">${applyGrid(j.title)}</div></section>
+    ${ctaBlock('Persönlich &amp; Verbindlich', `Fragen zur Stelle? Rufen Sie uns an: ${S.company.phone}.`, ['lernende-t', '50% 63%', 'lernende', '50% 50%'])}`;
   }
 
   function pageContact() {
@@ -491,20 +542,22 @@
     if (META[k]) return { key: k, ...META[k], html: META[k].fn() };
     const a = areaBy(k);
     if (a) return { key: k, t: `${a.title} | W. Rokitzky AG`, d: a.lead, label: 'Fachwissen & Service', nav: 'dienstleistungen', html: pageArea(a), area: a };
+    if (k.startsWith('stelle-')) { const j = jobBy(k.slice(7)); if (j) return { key: k, t: `${j.title} | Karriere | W. Rokitzky AG`, d: j.lead || `${j.title}, ${j.pensum}, ${j.ort}.`, label: 'Karriere', nav: 'karriere', html: pageJob(j), job: j }; return null; }
     const f = focusBy(k);
     if (f) return { key: k, t: `${f.title} in ${locNames} | W. Rokitzky AG`, d: f.lead, label: 'Fachwissen & Service', nav: 'dienstleistungen', html: pageFocus(k, f), focus: f };
     return null;
   }
-  const isKey = (k) => !!k && k !== 'notfound' && (!!META[k] || !!areaBy(k) || !!focusBy(k));
+  const isKey = (k) => !!k && k !== 'notfound' && (!!META[k] || !!areaBy(k) || !!focusBy(k) || (k.startsWith('stelle-') && !!jobBy(k.slice(7))));
   function keyOf(pathname) {
     let p = pathname || '/';
     if (BASE !== '/' && p.startsWith(BASE)) p = '/' + p.slice(BASE.length);
     const seg = p.replace(/index\.html$/, '').split('/').filter(Boolean);
     if (!seg.length) return 'start';
+    if (seg[0] === 'karriere' && seg.length === 2) return jobBy(seg[1]) ? 'stelle-' + seg[1] : null;
     if (seg[0] === 'leistungen') return seg.length === 1 ? 'dienstleistungen' : seg.length === 2 && (areaBy(seg[1]) || focusBy(seg[1])) ? seg[1] : null;
     return seg.length === 1 && CRUMB[seg[0]] && seg[0] !== 'dienstleistungen' ? seg[0] : null;
   }
-  const routes = () => ['start', 'dienstleistungen', ...S.areas.map(a => a.slug), ...Object.keys(S.focus), 'unternehmen', 'mitarbeitende', 'karriere', 'kontakt', 'impressum', 'datenschutz'];
+  const routes = () => ['start', 'dienstleistungen', ...S.areas.map(a => a.slug), ...Object.keys(S.focus), 'unternehmen', 'mitarbeitende', 'karriere', ...(S.jobs || []).map(j => 'stelle-' + j.slug), 'kontakt', 'impressum', 'datenschutz'];
 
   function trail(r) {
     const t = [['Home', 'start']];
@@ -513,6 +566,7 @@
     if (r.area) t.push([r.area.title, r.key]);
     else if (r.focus) { const p = parentOf(r.key); t.push([p.title, p.slug], [r.focus.title, r.key]); }
     else if (r.key === 'karriere') t.push(['Mitarbeitende', 'mitarbeitende'], ['Karriere', 'karriere']);
+    else if (r.job) t.push(['Mitarbeitende', 'mitarbeitende'], ['Karriere', 'karriere'], [r.job.title, r.key]);
     else if (r.key !== 'dienstleistungen') t.push([CRUMB[r.key], r.key]);
     return t;
   }
@@ -524,6 +578,13 @@
     if (tr.length > 1) g.push({ '@type': 'BreadcrumbList', itemListElement: tr.map(([n, k], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: abs(k) })) });
     const sv = r.focus || r.area;
     if (sv) g.push({ '@type': 'Service', name: sv.title, serviceType: sv.title, description: plain(sv.lead), provider: org, areaServed: ['Wallisellen', 'Winterthur', 'Hinwil', 'Zürich'], url: abs(r.key) });
+    if (r.job) {
+      const j = r.job, loc = S.locations.find(l => l.id === j.loc) || {};
+      const [zip, ...town] = (loc.city || '').split(' ');
+      g.push({ '@type': 'JobPosting', title: j.title, description: [j.lead, ...(j.aufgaben || []), ...(j.profil || []), ...(j.angebot || [])].filter(Boolean).map(x => `<p>${x}</p>`).join(''), datePosted: j.datePosted, validThrough: j.validThrough, employmentType: j.anstellung || 'FULL_TIME', directApply: true,
+        hiringOrganization: { '@type': 'Organization', name: 'W. Rokitzky AG', sameAs: 'https://www.rokitzky.ch' },
+        jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', streetAddress: loc.street, postalCode: zip || undefined, addressLocality: town.join(' ') || j.ort, addressCountry: 'CH' } } });
+    }
     if (pageFaq.length) g.push({ '@type': 'FAQPage', mainEntity: pageFaq.map(([q, a]) => ({ '@type': 'Question', name: plain(q), acceptedAnswer: { '@type': 'Answer', text: plain(a) } })) });
     return JSON.stringify({ '@context': 'https://schema.org', '@graph': g });
   }
@@ -585,10 +646,11 @@
     if (HASH) { skipHash = true; location.hash = k; }
     else history.pushState(null, '', u(k));
   }
-  function go(k, x = innerWidth / 2, y = innerHeight / 2) {
+  function go(k, x = innerWidth / 2, y = innerHeight / 2, anchor = '') {
     if (busy) return;
     if (k === current) { lenis ? lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    if (!HAS_GSAP || REDUCE) { navigate(k); render(k); return; }
+    const after = () => { if (anchor) requestAnimationFrame(() => scrollToId(anchor, true)); };
+    if (!HAS_GSAP || REDUCE) { navigate(k); render(k); after(); return; }
     busy = true;
     const o = { r: 0 }, R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) * 1.2;
     const icon = $('.wipe__icon', wipe);
@@ -596,7 +658,7 @@
     gsap.timeline()
       .to(o, { r: R, duration: .62, ease: 'power3.inOut', onUpdate: () => { wipe.style.clipPath = hexPoly(x, y, o.r); } })
       .to(icon, { opacity: 1, scale: 1, duration: .25, ease: 'power2.out' }, .3)
-      .add(() => { navigate(k); render(k, { fromWipe: true }); })
+      .add(() => { navigate(k); render(k, { fromWipe: true }); after(); })
       .to(icon, { opacity: 0, duration: .2 }, '+=.04')
       .to(wipe, { yPercent: -100, duration: .66, ease: 'power3.inOut' }, '<')
       .add(() => { wipe.style.clipPath = hexPoly(innerWidth / 2, innerHeight / 2, 0); gsap.set(wipe, { yPercent: 0 }); busy = false; });
@@ -608,17 +670,37 @@
     const k = location.hash.slice(1);
     if (!busy && isKey(k)) render(k);
   });
+  function scrollToId(id, instant = false) {
+    const el = id && document.getElementById(id);
+    if (!el) return false;
+    if (lenis) lenis.scrollTo(el, { offset: -90, immediate: instant, force: true });
+    else el.scrollIntoView({ behavior: instant || REDUCE ? 'auto' : 'smooth', block: 'start' });
+    return true;
+  }
   document.addEventListener('click', (e) => {
+    const lb = e.target.closest('[data-lehre]');
+    if (lb) {
+      const f = $('#lehranfrage', main); if (!f) return;
+      f.elements.lehrberuf.value = lb.dataset.lehre; f.elements.anliegen.value = lb.dataset.anliegen;
+      scrollToId('lehre-anfrage'); setTimeout(() => f.elements.name.focus({ preventScroll: true }), 650);
+      return;
+    }
     const a = e.target.closest('a[href]');
     if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if ((a.target && a.target !== '_self') || a.hasAttribute('download')) return;
     const h = a.getAttribute('href') || '';
-    let k = null;
-    if (HASH) { if (h.startsWith('#')) k = h.slice(1); }
-    else if (!h.startsWith('#')) { const url = new URL(h, location.href); if (url.origin === location.origin && /^https?:$/.test(url.protocol)) k = keyOf(url.pathname); }
+    let k = null, anchor = '';
+    if (h.startsWith('#')) {
+      if (h !== '#main' && !(HASH && isKey(h.slice(1))) && scrollToId(h.slice(1))) { e.preventDefault(); return; }
+      if (HASH) k = h.slice(1);
+    } else if (!HASH) {
+      const url = new URL(h, location.href);
+      if (url.origin === location.origin && /^https?:$/.test(url.protocol)) { k = keyOf(url.pathname); anchor = url.hash.slice(1); }
+    }
     if (!isKey(k)) return;
     e.preventDefault();
-    go(k, e.clientX || innerWidth / 2, e.clientY || innerHeight / 2);
+    if (k === current && anchor && scrollToId(anchor)) return;
+    go(k, e.clientX || innerWidth / 2, e.clientY || innerHeight / 2, anchor);
   });
 
   /* ---------- header, mega menu, mobile menu ---------- */
@@ -891,6 +973,6 @@
     return keyOf(location.pathname) || 'notfound';
   }
   if (PRE) window.__RK__ = { siteUrl: SITE_URL, routes: () => routes().map(k => ({ key: k, path: u(k) })) };
-  const start = () => render(initialKey(), { initial: true });
+  const start = () => { render(initialKey(), { initial: true }); const h = decodeURIComponent(location.hash.slice(1)); if (h && !isKey(h)) setTimeout(() => scrollToId(h, true), 80); };
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
 })();
