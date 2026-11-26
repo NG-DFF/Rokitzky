@@ -924,7 +924,7 @@
   function animatePage(opts) {
     if (!HAS_GSAP) { startRotators(); return; }
     startRotators();
-    if (REDUCE) { gsap.set($$('[data-reveal]', main), { clearProps: 'all' }); $$('[data-morph]', main).forEach(m => m.style.setProperty('--m', 400)); return; }
+    if (REDUCE) { const rv = $$('[data-reveal]', main); if (rv.length) gsap.set(rv, { clearProps: 'all' }); $$('[data-morph]', main).forEach(m => m.style.setProperty('--m', 400)); return; }
     ctx = gsap.context(() => {
       // hero intro
       const hero = $('[data-hero]', main);
@@ -945,11 +945,6 @@
         else if (slides[0]) gsap.fromTo(slides[0], { scale: 1.02 }, { scale: 1.1, duration: 16, ease: 'none', repeat: -1, yoyo: true });
         if (HERO_VIDEO && hero.classList.contains('hero--home') && slides[0] && !(navigator.connection && navigator.connection.saveData)) heroVideo(media, slides[0]);
       }
-      // headings: masked line reveal
-      $$('[data-split]', main).forEach(el => {
-        const sp = SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'sl' });
-        gsap.from(sp.lines, { yPercent: 105, duration: 1.05, stagger: .08, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 86%' } });
-      });
       // rules draw
       $$('.rule', main).forEach(r => gsap.from(r, { scaleX: 0, duration: 1.2, ease: 'power3.inOut', scrollTrigger: { trigger: r, start: 'top 90%' } }));
       // generic reveal
