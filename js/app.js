@@ -548,28 +548,31 @@
   }
 
   /* ---------- routing ---------- */
+  // t = Thema im Seitentitel (Muster «{Thema} im Kanton Zürich | Rokitzky», höchstens 60 Zeichen), d = Beschreibung (120 bis 155 Zeichen)
   const META = {
-    start: { t: 'W. Rokitzky AG | Heizung, Lüftung, Klima, Kälte und Sanitär | Wallisellen, Winterthur, Hinwil, Zürich', d: 'Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Pikettdienst 24/7. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Gebäudetechnik seit 1970', nav: 'start', fn: pageHome },
-    dienstleistungen: { t: 'Leistungen | W. Rokitzky AG', d: 'Zu heiss? Zu kalt? Rokitzky! Heizung und Kälte, Lüftung und Klima, Sanitär, erneuerbare Energien sowie Service und Unterhalt.', label: 'Leistungen', nav: 'dienstleistungen', fn: pageServices },
-    unternehmen: { t: 'Unternehmen | W. Rokitzky AG seit 1970', d: 'Inhabergeführter Handwerksbetrieb mit Tradition: seit 1970, über 80 Mitarbeitende und Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Unternehmen', nav: 'unternehmen', fn: pageCompany },
-    mitarbeitende: { t: 'Mitarbeitende | W. Rokitzky AG', d: 'Über 80 Mitarbeiterinnen und Mitarbeiter in Wallisellen, Winterthur, Hinwil und Zürich. Inhaber, Team, offene Stellen und Lehre.', label: 'Mitarbeitende', nav: 'mitarbeitende', fn: pageTeam },
-    karriere: { t: 'Karriere und Lehre | W. Rokitzky AG', d: 'Offene Stellen und Lehre bei Rokitzky: 15 bis 20 Lernende pro Jahr in fünf Berufen der Gebäudetechnik.', label: 'Karriere', nav: 'karriere', fn: pageCareer },
-    impressum: { t: 'Impressum | W. Rokitzky AG', d: 'Impressum der W. Rokitzky AG, Kriesbachstrasse 3b, 8304 Wallisellen.', label: 'Impressum', nav: '', fn: pageImprint },
-    datenschutz: { t: 'Datenschutz | W. Rokitzky AG', d: 'Datenschutzerklärung der W. Rokitzky AG.', label: 'Datenschutz', nav: '', fn: pagePrivacy },
-    referenzen: { t: 'Referenzen | W. Rokitzky AG', d: 'Referenzobjekte der W. Rokitzky AG: kleine, grosse und sehr grosse Projekte in Heizung, Lüftung, Klima, Kälte und Sanitär.', label: 'Unternehmen', nav: 'unternehmen', fn: pageReferences },
-    kontakt: { t: 'Kontakt | W. Rokitzky AG | Pikett 24/7 076 434 17 17', d: 'Kontakt W. Rokitzky AG: Wallisellen 044 312 34 41, Winterthur 052 551 88 99, Pikettdienst 24/7 076 434 17 17.', label: 'Kontakt', nav: 'kontakt', fn: pageContact }
+    start: { t: 'Heizung, Lüftung, Klima, Sanitär', d: 'Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Pikett 24/7. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Gebäudetechnik seit 1970', nav: 'start', fn: pageHome },
+    dienstleistungen: { t: 'Leistungen Gebäudetechnik', d: 'Zu heiss? Zu kalt? Rokitzky! Heizung und Kälte, Lüftung und Klima, Sanitär, erneuerbare Energien sowie Service und Unterhalt.', label: 'Leistungen', nav: 'dienstleistungen', fn: pageServices },
+    unternehmen: { t: 'Handwerksbetrieb seit 1970', d: 'Inhabergeführter Handwerksbetrieb mit Tradition: seit 1970, über 80 Mitarbeitende und Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Unternehmen', nav: 'unternehmen', fn: pageCompany },
+    mitarbeitende: { t: 'Über 80 Mitarbeitende', d: 'Über 80 Mitarbeiterinnen und Mitarbeiter in Wallisellen, Winterthur, Hinwil und Zürich. Inhaber, Team, offene Stellen und Lehre.', label: 'Mitarbeitende', nav: 'mitarbeitende', fn: pageTeam },
+    karriere: { t: 'Karriere und Lehre', d: 'Bewerben Sie sich bei Rokitzky mit einer Kurzbewerbung, Unterlagen können Sie später nachreichen. Lehrstellen und Schnuppertage in fünf Berufen.', label: 'Karriere', nav: 'karriere', fn: pageCareer },
+    impressum: { t: 'Impressum | Rokitzky', d: 'Impressum der W. Rokitzky AG, Kriesbachstrasse 3b, 8304 Wallisellen: Betreiberin der Website, Registrierung mit UID und MWST, Pikettdienst und Richtlinien.', label: 'Impressum', nav: '', fn: pageImprint },
+    datenschutz: { t: 'Datenschutz | Rokitzky', d: 'Datenschutzerklärung der W. Rokitzky AG: welche Daten wir beim Besuch der Website und über die Formulare bearbeiten, wozu und welche Rechte Sie haben.', label: 'Datenschutz', nav: '', fn: pagePrivacy },
+    referenzen: { t: 'Referenzen Gebäudetechnik', d: 'Referenzobjekte der W. Rokitzky AG: kleine, grosse und sehr grosse Projekte in Heizung, Lüftung, Klima, Kälte und Sanitär.', label: 'Unternehmen', nav: 'unternehmen', fn: pageReferences },
+    kontakt: { t: 'Kontakt und Pikett 24/7', d: 'So erreichen Sie uns: 044 312 34 41, info@rokitzky.ch und Pikett 24/7 unter 076 434 17 17. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Kontakt', nav: 'kontakt', fn: pageContact }
   };
-  META.notfound = { t: 'Seite nicht gefunden | W. Rokitzky AG', d: 'Diese Adresse gibt es nicht oder nicht mehr.', label: 'Gebäudetechnik seit 1970', nav: '', fn: pageNotFound, noindex: true };
+  META.notfound = { t: 'Seite nicht gefunden | Rokitzky', d: 'Diese Adresse gibt es nicht oder nicht mehr. Über die Startseite finden Sie unsere Leistungen für Heizung, Kälte, Lüftung, Klima und Sanitär.', label: 'Gebäudetechnik seit 1970', nav: '', fn: pageNotFound, noindex: true };
+  const ttl = (x) => x.includes('|') ? x : `${x} im Kanton Zürich | Rokitzky`;
+  const fit = (s, n) => { if (s.length <= n) return s; const c = s.slice(0, n - 1); return c.slice(0, c.lastIndexOf(' ')).replace(/[,:;]$/, '') + '…'; };
   const CRUMB = { dienstleistungen: 'Leistungen', unternehmen: 'Unternehmen', referenzen: 'Referenzen', mitarbeitende: 'Mitarbeitende', karriere: 'Karriere', kontakt: 'Kontakt', impressum: 'Impressum', datenschutz: 'Datenschutz' };
 
   function resolve(k) {
     if (!k) return null;
-    if (META[k]) return { key: k, ...META[k], html: META[k].fn() };
+    if (META[k]) return { key: k, ...META[k], t: ttl(META[k].t), html: META[k].fn() };
     const a = areaBy(k);
-    if (a) return { key: k, t: `${a.title} | W. Rokitzky AG`, d: a.lead, label: 'Leistungen', nav: 'dienstleistungen', html: pageArea(a), area: a };
-    if (k.startsWith('stelle-')) { const j = jobBy(k.slice(7)); if (j) return { key: k, t: `${j.title} | Karriere | W. Rokitzky AG`, d: j.lead || `${j.title}, ${j.pensum}, ${j.ort}.`, label: 'Karriere', nav: 'karriere', html: pageJob(j), job: j }; return null; }
+    if (a) return { key: k, t: ttl(a.seo || a.title), d: a.desc || fit(a.lead, 155), label: 'Leistungen', nav: 'dienstleistungen', html: pageArea(a), area: a };
+    if (k.startsWith('stelle-')) { const j = jobBy(k.slice(7)); if (j) return { key: k, t: [`${j.title} in ${j.ort} | Rokitzky`, `${j.title} | Rokitzky`].find(x => x.length <= 60) || fit(j.title, 49) + ' | Rokitzky', d: j.desc || fit(`${j.title} in ${j.ort}, ${j.pensum}. Bewerben Sie sich mit einer Kurzbewerbung, Unterlagen können Sie später nachreichen.`, 155), label: 'Karriere', nav: 'karriere', html: pageJob(j), job: j }; return null; }
     const f = focusBy(k);
-    if (f) return { key: k, t: `${f.title} in ${locNames} | W. Rokitzky AG`, d: f.lead, label: 'Leistungen', nav: 'dienstleistungen', html: pageFocus(k, f), focus: f };
+    if (f) return { key: k, t: ttl(f.seo || f.title), d: f.desc || fit(f.lead, 155), label: 'Leistungen', nav: 'dienstleistungen', html: pageFocus(k, f), focus: f };
     return null;
   }
   const isKey = (k) => !!k && k !== 'notfound' && (!!META[k] || !!areaBy(k) || !!focusBy(k) || (k.startsWith('stelle-') && !!jobBy(k.slice(7))));
