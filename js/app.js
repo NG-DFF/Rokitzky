@@ -120,8 +120,8 @@
     const P = S.portraits, cols = [[0, 3, 6], [1, 4], [2, 5]];
     return `<div class="pwall" data-pwall>${cols.map((c, k) => `<div class="pwall__col" data-parallax-y="${[-5, 4, -2][k]}">${c.filter(i => P[i]).map((i, j) => `<img class="pwall__img${j ? '' : ' is-on'}" src="${BASE}img/${P[i]}.webp" alt="Mitarbeiter von Rokitzky" loading="lazy">`).join('')}</div>`).join('')}</div>`;
   };
-  /* TODO K04 (B17): Zahl der Lernenden von Rokitzky bestätigen (pro Jahr neu oder gesamt). Vorkommen: teamBlock, Karriere (Hero, Lehre), Mitarbeitende (Band), META karriere. */
-  const teamBlock = (title = 'Über 80 Mitarbeitende.', lead = 'In Wallisellen, Winterthur, Hinwil und Zürich, in Projektleitung, Montage, Service und Administration. Dazu bilden wir jedes Jahr 15 bis 20 Lernende aus.', btns = true) => `
+  // Zahl der Lernenden: S.company.lernende (TODO K04 in content.js)
+  const teamBlock = (title = 'Über 80 Mitarbeitende.', lead = 'In Wallisellen, Winterthur, Hinwil und Zürich, in Projektleitung, Montage, Service und Administration. ' + S.company.lernende.satz, btns = true) => `
     <div class="wrap team">
       <div class="team__txt">
         ${ruleBox('Mitarbeitende')}
@@ -350,7 +350,7 @@
       </div>
       ${T.groups.map(g => `<div class="tgrp" data-tg="${g.id}" data-reveal><h3 class="tgrp__t">${svg.hex()}<span>${g.title}</span><i>${g.people.length}</i></h3><div class="people">${g.people.map(p => personCard(p)).join('')}</div></div>`).join('')}
     </div></section>
-    ${band('team-lachend', '50% 50%', 'Lehre bei Rokitzky', 'Jedes Jahr bilden wir 15 bis 20 Lernende aus.', 'team-lachend-t', '27% 50%')}
+    ${band('team-lachend', '50% 50%', 'Lehre bei Rokitzky', S.company.lernende.satz, 'team-lachend-t', '27% 50%')}
     <section class="sec sec--navy on-dark" aria-labelledby="jobs-t"><div class="wrap split">
       <div class="split__media" data-img>${img('weste-logo-nah-t', 'Monteur von Rokitzky in Warnweste mit Logo', '50% 40%')}</div>
       <div class="split__txt">
@@ -400,7 +400,7 @@
       ${applyGrid()}
     </div></section>
     <section class="sec sec--paper" aria-labelledby="le-t" id="lehre"><div class="wrap">
-      <div class="sec__head"><div>${ruleBox('Lehre bei Rokitzky', true)}<h2 class="h2" id="le-t">15 bis 20 Lernende pro Jahr</h2></div><div data-reveal><p class="lead">Als Toplehrbetrieb bilden wir in fünf Berufen aus. Ob Schnuppertag, Praktikum oder Berufslehre: Bei uns hast du viele Möglichkeiten, ins Berufsleben einzusteigen.</p>${marks(true)}</div></div>
+      <div class="sec__head"><div>${ruleBox('Lehre bei Rokitzky', true)}<h2 class="h2" id="le-t">${S.company.lernende.titel}</h2></div><div data-reveal><p class="lead">Als Toplehrbetrieb bilden wir in fünf Berufen aus. Ob Schnuppertag, Praktikum oder Berufslehre: Bei uns hast du viele Möglichkeiten, ins Berufsleben einzusteigen.</p>${marks(true)}</div></div>
       <div class="cards cards--jobs">${S.apprenticeships.map(b => `<div class="card card--lehre" data-reveal><span class="lbl">Lehrberuf</span><div><h3>${b}</h3></div><div class="card__acts"><button type="button" class="btn btn--solid" data-lehre="${b}" data-anliegen="Schnuppertag">Schnuppertag anfragen ${svg.arrow()}</button><button type="button" class="link" data-lehre="${b}" data-anliegen="Lehrstelle">Lehrstelle anfragen</button></div></div>`).join('')}</div>
       <div class="intro" style="margin-top:clamp(3rem,6vw,5rem)" id="lehre-anfrage">
         <div>${ruleBox('Schnuppertag oder Lehrstelle')}<p class="lead" data-reveal>Wähl deinen Lehrberuf und sag uns, ob du schnuppern möchtest oder dich für eine Lehrstelle bewirbst. Für die Bewerbung brauchen wir diese Unterlagen, gerne als PDF:</p><ul class="checks" data-reveal>${S.documents.map(d => `<li>${svg.hex()}${d}</li>`).join('')}</ul></div>

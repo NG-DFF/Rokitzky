@@ -8,7 +8,11 @@ window.SITE = {
     name: 'W. Rokitzky AG',
     phone: '044 312 34 41', phoneHref: '+41443123441',
     pikett: '076 434 17 17', pikettHref: '+41764341717',
-    mail: 'info@rokitzky.ch', serviceMail: 'service@rokitzky.ch'
+    mail: 'info@rokitzky.ch', serviceMail: 'service@rokitzky.ch',
+    /* TODO K04 (B17): Zahl der Lernenden von Rokitzky bestätigen (neu pro Jahr oder gesamt) und hier einheitlich formulieren,
+       z. B. satz: 'Aktuell bilden wir 26 Lernende in fünf Berufen aus.', titel: '26 Lernende in fünf Berufen'.
+       Verwendet auf Startseite und Mitarbeitende (Teamblock), Mitarbeitende (Band) und Karriere (Lehre). */
+    lernende: { satz: 'Jedes Jahr bilden wir 15 bis 20 Lernende aus.', titel: '15 bis 20 Lernende pro Jahr' }
   },
 
   locations: [
