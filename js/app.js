@@ -16,6 +16,7 @@
   const svg = {
     wordmark: () => `<svg viewBox="${B.wordmark.viewBox}" role="img" aria-label="rokitzky"><path fill="currentColor" fill-rule="evenodd" d="${B.wordmark.d}"/></svg>`,
     icon: () => `<svg viewBox="${B.icon.viewBox}" aria-hidden="true"><path fill="#4d6182" d="${B.icon.hex}"/><path fill="#fff" d="${B.icon.r}"/></svg>`,
+    burger: () => `<svg viewBox="${B.icon.viewBox}" aria-hidden="true"><path fill="#4d6182" d="${B.icon.hex}"/><g class="burg__lines" fill="#fff"><rect x="55" y="54" width="88" height="12" rx="6"/><rect x="55" y="81" width="88" height="12" rx="6"/><rect x="55" y="108" width="88" height="12" rx="6"/></g><path class="burg__x" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" d="M70 58 128 116M128 58 70 116"/></svg>`,
     iconWhite: () => `<svg viewBox="${B.icon.viewBox}" aria-hidden="true"><path fill="#fff" d="${B.icon.hex}"/><path fill="#4d6182" d="${B.icon.r}"/></svg>`,
     hex: () => `<svg class="hexmini" viewBox="${B.icon.viewBox}" aria-hidden="true"><path fill="currentColor" d="${B.icon.hex}"/></svg>`,
     mark: () => `<svg class="hexmini hexmini--mark" viewBox="${B.icon.viewBox}" aria-hidden="true"><path fill="#4d6182" d="${B.icon.hex}"/><path fill="#fff" d="${B.icon.r}"/></svg>`,
@@ -626,7 +627,7 @@
     $$('.hd__nav a[data-nav]').forEach(x => x.setAttribute('href', u(x.dataset.nav)));
     $$('[data-svg]').forEach(el => {
       const k = el.dataset.svg;
-      el.innerHTML = k === 'wordmark' ? svg.wordmark() : k === 'icon' ? svg.icon() : k === 'hexwhite' ? svg.hexFill() : k === 'ringlock' ? ringLock('hero__ring') : '';
+      el.innerHTML = k === 'wordmark' ? svg.wordmark() : k === 'burger' ? svg.burger() : k === 'icon' ? svg.icon() : k === 'hexwhite' ? svg.hexFill() : k === 'ringlock' ? ringLock('hero__ring') : '';
     });
     $('#megaAreas').innerHTML = S.areas.map(a => `<a href="${u(a.slug)}"><b>${a.title}</b><span>${a.short}</span></a>`).join('') + `<a class="mega__all" href="${u('dienstleistungen')}">Alle Leistungen im Überblick ${svg.arrow()}</a>`;
     $('#menuNav').innerHTML = `<a href="${u('dienstleistungen')}">Leistungen</a><div class="menu__sub">${S.areas.map(a => `<a href="${u(a.slug)}">${a.title}</a>`).join('')}</div><a href="${u('unternehmen')}">Unternehmen</a><a href="${u('mitarbeitende')}">Mitarbeitende</a><a href="${u('karriere')}">Karriere</a><a href="${u('kontakt')}">Kontakt</a>`;
@@ -641,8 +642,8 @@
     $('#burger').addEventListener('click', () => document.body.classList.contains('menu-open') ? closeMenu() : openMenu());
   }
   function closeMega() { const m = $('#mega'); if (m) { m.classList.remove('is-open'); $('.has-mega').setAttribute('aria-expanded', 'false'); } }
-  function openMenu() { document.body.classList.add('menu-open'); $('#burger').setAttribute('aria-expanded', 'true'); $('#menu').setAttribute('aria-hidden', 'false'); lenis && lenis.stop(); }
-  function closeMenu() { document.body.classList.remove('menu-open'); $('#burger').setAttribute('aria-expanded', 'false'); $('#menu').setAttribute('aria-hidden', 'true'); lenis && lenis.start(); }
+  function openMenu() { document.body.classList.add('menu-open'); $('#burger').setAttribute('aria-expanded', 'true'); $('#burger').setAttribute('aria-label', 'Menü schliessen'); $('#menu').setAttribute('aria-hidden', 'false'); lenis && lenis.stop(); }
+  function closeMenu() { document.body.classList.remove('menu-open'); $('#burger').setAttribute('aria-expanded', 'false'); $('#burger').setAttribute('aria-label', 'Menü öffnen'); $('#menu').setAttribute('aria-hidden', 'true'); lenis && lenis.start(); }
   function footer() {
     const [w, wi] = S.locations;
     return `<div class="wrap">

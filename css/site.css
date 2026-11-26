@@ -109,8 +109,13 @@ ul,ol{padding:0;list-style:none}
 .hd.is-solid .hd__pikett{border-color:var(--line-strong)}
 .hd.is-solid .hd__pikett:hover{background:var(--brand-100)}
 .hd__pikett-l{opacity:.75;font-weight:500}
-.hd__burger{display:none;width:46px;height:41px;color:currentColor}
-.hd__burger svg{width:100%;height:100%}
+.hd__burger{display:none;width:48px;height:48px;padding:4px 3px;margin:-4px -3px;color:currentColor;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hd__burger>span,.hd__burger svg{display:block;width:100%;height:100%}
+.hd__burger .burg__lines,.hd__burger .burg__x{transform-box:fill-box;transform-origin:center;transition:opacity .3s var(--ease),transform .45s var(--ease)}
+.hd__burger .burg__x{opacity:0;transform:rotate(-45deg) scale(.6)}
+body.menu-open .hd__burger .burg__lines{opacity:0;transform:scale(.6)}
+body.menu-open .hd__burger .burg__x{opacity:1;transform:none}
+.hd__burger:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 .hd__rule{position:relative;display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:.9rem;row-gap:.5rem;margin-top:-13px;padding-bottom:.9rem;transition:opacity .45s var(--ease),transform .45s var(--ease)}
 .hd__hex{display:block;width:30px;height:26px}
 .hd__hex svg{display:block;width:100%;height:100%}
@@ -639,7 +644,7 @@ button.tchip{font:inherit;font-weight:600;font-size:.95rem;cursor:pointer;color:
   .hd__logo{width:118px}
   .hd__act{gap:.55rem}
   .hd__pikett{gap:.5rem;padding:.55rem .75rem;font-size:.84rem}
-  .hd__burger{width:40px;height:36px}
+  .hd__burger{width:46px;height:46px}
 }
 
 /* ---------- v3: topics on the area pages, related links ---------- */
