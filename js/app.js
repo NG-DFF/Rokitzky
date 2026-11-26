@@ -1,4 +1,5 @@
-/* W. Rokitzky AG, Website Prototyp. Hash Router, Seitenvorlagen und Animationen (GSAP, ScrollTrigger, SplitText, Lenis). */
+/* W. Rokitzky AG, Website. Router mit eigenen Adressen (History API), Seitenvorlagen und Animationen (GSAP, ScrollTrigger, Lenis).
+   Jede Seite liegt zusätzlich als fertiges HTML vor (scripts/prerender.mjs). In der Artefakt-Vorschau läuft der Router über Anker (data-router="hash"). */
 (() => {
   const S = window.SITE, B = window.BRAND;
   const $ = (s, r = document) => r.querySelector(s);
@@ -34,21 +35,32 @@
   const btn = (href, label, cls = 'btn--solid', icon = svg.arrow(), extra = '') => `<a class="btn ${cls}" href="${href}" ${extra}>${label}${icon ? ' ' + icon : ''}</a>`;
   const tel = (cls = 'btn--ghost') => `<a class="btn ${cls} btn--tel" href="tel:${S.company.pikettHref}">Pikett 24/7: ${S.company.pikett}</a>`;
   const img = (name, alt = '', pos = '50% 50%', eager = false, m = null, mpos = null) => {
-    const tag = `<img class="ob" src="img/${name}.webp" alt="${alt}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="--op:${pos};--opm:${mpos || pos}">`;
-    return m ? `<picture><source media="(max-width: 820px)" srcset="img/${m}.webp">${tag}</picture>` : tag;
+    const tag = `<img class="ob" src="${BASE}img/${name}.webp" alt="${alt}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="--op:${pos};--opm:${mpos || pos}">`;
+    return m ? `<picture><source media="(max-width: 820px)" srcset="${BASE}img/${m}.webp">${tag}</picture>` : tag;
   };
   const ruleBox = (label, hex = false, light = false) => `<div class="rulebox ${hex ? 'rulebox--hex' : ''}" data-reveal><span class="rule"></span>${hex ? svg.mark() : ''}<span class="lbl ${light ? 'lbl--light' : ''}">${label}</span></div>`;
   const focusBy = (slug) => S.focus[slug];
   const groupOf = (gid) => S.groups.find(g => g.id === gid);
   const areaBy = (slug) => S.areas.find(a => a.slug === slug);
   const locNames = 'Wallisellen, Winterthur, Hinwil und Zürich';
+  const parentOf = (slug) => S.areas.find(a => a.related.includes(slug)) || S.areas[0];
+
+  /* ---------- Adressen ---------- */
+  const HASH = document.documentElement.dataset.router === 'hash';
+  const PRE = !!window.__PRERENDER__;
+  const BASE = (() => { const el = document.querySelector('script[src*="js/app.js"]'); return el ? new URL('../', el.src).pathname : '/'; })();
+  const SITE_URL = S.siteUrl.replace(/\/+$/, '');
+  const pathOf = (k) => k === 'start' ? '' : k === 'dienstleistungen' ? 'leistungen/' : (areaBy(k) || focusBy(k)) ? `leistungen/${k}/` : `${k}/`;
+  const u = (k = 'start') => HASH ? '#' + k : BASE + pathOf(k);
+  const abs = (k = 'start') => SITE_URL + '/' + pathOf(k);
+  let pageFaq = [];
 
   /* ---------- page parts ---------- */
   function hero(o) {
     const crumb = o.crumb ? `<nav class="hero__crumb" aria-label="Brotkrumen" data-hero="fade">${o.crumb.map((c, i) => (i ? '<span aria-hidden="true">/</span>' : '') + (c[1] ? `<a href="${c[1]}">${c[0]}</a>` : `<span aria-current="page">${c[0]}</span>`)).join('')}</nav>` : '';
     const slides = (o.slides || [{ src: o.img, m: o.m, pos: o.pos, mpos: o.mpos, alt: o.alt || '' }]).map((s, i) => s.m
-      ? `<picture class="hero__still" data-slide="${i}"><source media="(max-width: 820px)" srcset="img/${s.m}.webp"><img src="img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} class="ob" style="--op:${s.pos || '50% 50%'};--opm:${s.mpos || s.pos || '50% 50%'}"></picture>`
-      : `<img class="hero__still ob" data-slide="${i}" src="img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} style="--op:${s.pos || '50% 50%'};--opm:${s.mpos || s.pos || '50% 50%'}">`).join('');
+      ? `<picture class="hero__still" data-slide="${i}"><source media="(max-width: 820px)" srcset="${BASE}img/${s.m}.webp"><img src="${BASE}img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} class="ob" style="--op:${s.pos || '50% 50%'};--opm:${s.mpos || s.pos || '50% 50%'}"></picture>`
+      : `<img class="hero__still ob" data-slide="${i}" src="${BASE}img/${s.src}.webp" alt="${s.alt || ''}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} style="--op:${s.pos || '50% 50%'};--opm:${s.mpos || s.pos || '50% 50%'}">`).join('');
     const tArr = Array.isArray(o.title) ? o.title : [o.title];
     const longest = Math.max(...tArr.join(' ').replace(/<[^>]+>/g, ' ').split(/\s+/).map(w => w.length));
     const lines = tArr.map(l => `<span class="split-line ln"><span style="display:block">${l}</span></span>`).join('');
@@ -78,17 +90,17 @@
         ${ruleBox('So erreichen Sie uns', true, true)}
         <h2 class="h2" data-reveal>${swLast(title)}</h2>
         <p data-reveal>${text}</p>
-        <div class="btns" data-reveal>${btn('#kontakt', 'Kontakt aufnehmen', 'btn--white')}${btn('mailto:' + S.company.mail, S.company.mail, 'btn--ghost', svg.mail())}${tel()}</div>
+        <div class="btns" data-reveal>${btn(u('kontakt'), 'Kontakt aufnehmen', 'btn--white')}${btn('mailto:' + S.company.mail, S.company.mail, 'btn--ghost', svg.mail())}${tel()}</div>
       </div>
     </section>`;
   const band = (pic, pos, label, text, m = null, mpos = null) => `<section class="band on-dark" aria-label="${label}">${img(pic, '', pos, false, m, mpos)}<div class="wrap band__in">${ruleBox(label, true, true)}<p class="h2" data-reveal>${swKey(text)}</p></div></section>`;
 
 
-  const faqBlock = (items, title = 'Häufige Fragen') => `
+  const faqBlock = (items, title = 'Häufige Fragen') => (pageFaq.push(...items), `
     <section class="sec wrap" aria-labelledby="faq-t">
       <div class="sec__head"><div>${ruleBox('FAQ')}<h2 class="h2${Math.max(...title.split(' ').map(w => w.length)) > 14 ? ' h2--long' : ''}" id="faq-t">${title}</h2></div><p class="muted" data-reveal>Ihre Frage ist nicht dabei? Schreiben Sie uns an <a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a> oder rufen Sie an: ${S.company.phone}.</p></div>
       <div class="faq" data-reveal>${items.map(([q, a], i) => `<details ${i === 0 ? 'open' : ''}><summary>${q}<i>${svg.plus()}</i></summary><p class="a">${a}</p></details>`).join('')}</div>
-    </section>`;
+    </section>`);
 
   const generalFaq = [
     ['Arbeiten Sie auch an Anlagen, die Sie nicht selbst gebaut haben?', 'Ja. Wir reparieren und warten auch Anlagen anderer Installateure und planen ihre Servicezyklen.'],
@@ -96,11 +108,11 @@
     ['Wo sind Ihre Standorte?', `Unser Hauptsitz ist in Wallisellen, weitere Standorte haben wir in Winterthur, Hinwil und Zürich.`]
   ];
 
-  const markImgs = () => `<img class="mark" src="img/toplehrbetrieb.svg" alt="Toplehrbetrieb Gebäudetechnik" loading="lazy" width="350" height="108"><img class="mark" src="img/gebaeudetechniker.svg" alt="Wir, die Gebäudetechniker" loading="lazy" width="350" height="157"><img class="mark mark--seal" src="img/iso-9001.webp" alt="SQS Zertifiziertes Managementsystem ISO 9001" loading="lazy" width="240" height="240"><img class="mark mark--seal" src="img/iso-14001-45001.webp" alt="SQS Zertifiziertes Managementsystem ISO 14001 und 45001" loading="lazy" width="240" height="240">`;
+  const markImgs = () => `<img class="mark" src="${BASE}img/toplehrbetrieb.svg" alt="Toplehrbetrieb Gebäudetechnik" loading="lazy" width="350" height="108"><img class="mark" src="${BASE}img/gebaeudetechniker.svg" alt="Wir, die Gebäudetechniker" loading="lazy" width="350" height="157"><img class="mark mark--seal" src="${BASE}img/iso-9001.webp" alt="SQS Zertifiziertes Managementsystem ISO 9001" loading="lazy" width="240" height="240"><img class="mark mark--seal" src="${BASE}img/iso-14001-45001.webp" alt="SQS Zertifiziertes Managementsystem ISO 14001 und 45001" loading="lazy" width="240" height="240">`;
   const marks = (plain = false) => `<div class="marks ${plain ? 'marks--plain' : ''}" data-reveal>${plain ? '' : '<span class="marks__lbl">Ausgezeichnet und zertifiziert</span>'}<div class="marks__row">${markImgs()}</div></div>`;
   const portraitWall = () => {
     const P = S.portraits, cols = [[0, 3, 6], [1, 4], [2, 5]];
-    return `<div class="pwall" data-pwall>${cols.map((c, k) => `<div class="pwall__col" data-parallax-y="${[-5, 4, -2][k]}">${c.filter(i => P[i]).map((i, j) => `<img class="pwall__img${j ? '' : ' is-on'}" src="img/${P[i]}.webp" alt="Mitarbeiter von Rokitzky" loading="lazy">`).join('')}</div>`).join('')}</div>`;
+    return `<div class="pwall" data-pwall>${cols.map((c, k) => `<div class="pwall__col" data-parallax-y="${[-5, 4, -2][k]}">${c.filter(i => P[i]).map((i, j) => `<img class="pwall__img${j ? '' : ' is-on'}" src="${BASE}img/${P[i]}.webp" alt="Mitarbeiter von Rokitzky" loading="lazy">`).join('')}</div>`).join('')}</div>`;
   };
   const teamBlock = (title = 'Über 80 Mitarbeitende.', lead = 'In Wallisellen, Winterthur, Hinwil und Zürich, in Projektleitung, Montage, Service und Administration. Dazu bilden wir jedes Jahr 15 bis 20 Lernende aus.', btns = true) => `
     <div class="wrap team">
@@ -108,7 +120,7 @@
         ${ruleBox('Mitarbeitende')}
         <h2 class="h2">${title}</h2>
         <p class="lead" data-reveal style="margin-top:1.4rem">${lead}</p>
-        ${btns ? `<div class="btns" data-reveal>${btn('#mitarbeitende', 'Arbeiten bei Rokitzky')}${btn('#karriere', 'Offene Stellen und Lehre', 'btn--ghost')}</div>` : ''}
+        ${btns ? `<div class="btns" data-reveal>${btn(u('mitarbeitende'), 'Arbeiten bei Rokitzky')}${btn(u('karriere'), 'Offene Stellen und Lehre', 'btn--ghost')}</div>` : ''}
       </div>
       ${portraitWall()}
     </div>`;
@@ -127,7 +139,7 @@
       kicker: 'Heizung | Lüftung | Klima | Kälte | Sanitär',
       title: ['Persönlich &amp;', sw('verbindlich.')],
       sub: 'Wir verbauen, was wir besprechen. Seit 1970 planen, bauen, warten und sanieren wir Haustechnik, mit Pikettdienst rund um die Uhr.',
-      btns: btn('#dienstleistungen', 'Unsere Leistungen', 'btn--white') + tel()
+      btns: btn(u('dienstleistungen'), 'Unsere Leistungen', 'btn--white') + tel()
     })}
 
     <section class="stmt wrap" aria-label="Unser Anspruch">
@@ -137,7 +149,7 @@
         <p class="lead" data-reveal>Wir wissen, was wir können und was nicht, in der Planung ebenso wie bei der Ausführung.</p>
         <div class="stmt__facts" data-reveal>
           <p>Wir können Heizung und Kälte. Wir können Lüftung und Klima. Wir können Sanitär. Wir können Service und Unterhalt. Wir können erneuerbare Energien.</p>
-          <a class="link" href="#unternehmen">Mehr über Rokitzky ${svg.arrow()}</a>
+          <a class="link" href="${u('unternehmen')}">Mehr über Rokitzky ${svg.arrow()}</a>
         </div>
       </div>
     </section>
@@ -148,7 +160,7 @@
         <p class="lead" data-reveal>Heizung und Kälte, Lüftung und Klima, Sanitär und erneuerbare Energien. Nach der Inbetriebnahme kümmern wir uns um Service und Unterhalt.</p>
       </div>
       <div class="slist">${S.areas.map(a => `
-        <a class="srow" href="#${a.slug}" data-reveal>
+        <a class="srow" href="${u(a.slug)}" data-reveal>
           <span class="srow__t">${a.title}</span>
           <span class="srow__d">${a.short}</span>
           <span class="srow__a">${svg.arrow()}</span>
@@ -164,7 +176,7 @@
           <h2 class="h2" id="pk-t">Rund um die Uhr erreichbar.</h2>
           <a class="pk__num" href="tel:${S.company.pikettHref}" data-reveal>${S.company.pikett}</a>
           <p class="lead" data-reveal>Und wenn ausserplanmässig etwas nicht funktioniert, rufen Sie uns an. Unseren Pikettdienst gibt es seit 2013, rund um die Uhr.</p>
-          <div class="btns" data-reveal style="margin-top:2rem">${btn('tel:' + S.company.pikettHref, 'Jetzt anrufen', 'btn--white', svg.phone())}${btn('#stoerungsdienst-pikett', 'Mehr zum Pikettdienst', 'btn--ghost')}</div>
+          <div class="btns" data-reveal style="margin-top:2rem">${btn('tel:' + S.company.pikettHref, 'Jetzt anrufen', 'btn--white', svg.phone())}${btn(u('stoerungsdienst-pikett'), 'Mehr zum Pikettdienst', 'btn--ghost')}</div>
         </div>
         <div class="pk__media" data-img>${img('van-tall', 'Fahrzeuge von Rokitzky mit Logo und Ring Heizung Lüftung Sanitär', '50% 30%')}</div>
       </div>
@@ -184,7 +196,7 @@
             <div><b>2013</b><span>Pikettdienst 24/7</span></div>
             <div><b>2020</b><span>K3 Handwerkcity</span></div>
           </div>
-          <div class="btns" data-reveal>${btn('#unternehmen', 'Unsere Geschichte')}</div>
+          <div class="btns" data-reveal>${btn(u('unternehmen'), 'Unsere Geschichte')}</div>
         </div>
       </div>
     </section>
@@ -223,7 +235,7 @@
 
   function pageServices() {
     return `
-    ${hero({ img: 'montage-team', m: 'montage-team-t', pos: '50% 50%', mpos: '14% 50%', alt: 'Zwei Monteure von Rokitzky in Warnwesten montieren eine Kälteanlage', crumb: [['Home', '#start'], ['Leistungen']], kicker: 'Was wir können', title: ['Leistungen'], sub: 'Zu heiss? Zu kalt? Rokitzky! Wir können Heizung und Kälte, Lüftung und Klima, Sanitär, Service und Unterhalt sowie erneuerbare Energien.', btns: btn('#kontakt', 'Projekt besprechen', 'btn--white') + tel() })}
+    ${hero({ img: 'montage-team', m: 'montage-team-t', pos: '50% 50%', mpos: '14% 50%', alt: 'Zwei Monteure von Rokitzky in Warnwesten montieren eine Kälteanlage', crumb: [['Home', u()], ['Leistungen']], kicker: 'Was wir können', title: ['Leistungen'], sub: 'Zu heiss? Zu kalt? Rokitzky! Wir können Heizung und Kälte, Lüftung und Klima, Sanitär, Service und Unterhalt sowie erneuerbare Energien.', btns: btn(u('kontakt'), 'Projekt besprechen', 'btn--white') + tel() })}
     <section class="sec wrap intro intro--solo" aria-label="Einleitung">
       <div>${ruleBox('Was wir tun')}<p class="lead" data-reveal>Wir wissen, was wir können und was nicht, in der Planung ebenso wie bei der Ausführung. Deshalb sagen wir klar, was wir können, und verbauen, was wir besprochen haben.</p></div>
     </section>
@@ -235,7 +247,7 @@
             <h2 class="h2">${a.title}</h2>
             <p data-reveal>${a.lead}</p>
             <ul class="checks" data-reveal>${a.items.slice(0, 4).map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul>
-            <div class="btns" data-reveal>${btn('#' + a.slug, 'Mehr zu ' + a.title)}</div>
+            <div class="btns" data-reveal>${btn(u(a.slug), 'Mehr zu ' + a.title)}</div>
           </div>
         </article>`).join('')}
       </div>
@@ -247,7 +259,7 @@
   function pageArea(a) {
     const rel = a.related.map(s => [s, focusBy(s)]).filter(([, f]) => f);
     return `
-    ${hero({ img: a.img, pos: a.pos, alt: a.title, crumb: [['Home', '#start'], ['Leistungen', '#dienstleistungen'], [a.title]], kicker: 'Leistungen', title: [a.title], sub: a.short, btns: btn('#kontakt', 'Projekt besprechen', 'btn--white') + tel() })}
+    ${hero({ img: a.img, pos: a.pos, alt: a.title, crumb: [['Home', u()], ['Leistungen', u('dienstleistungen')], [a.title]], kicker: 'Leistungen', title: [a.title], sub: a.short, btns: btn(u('kontakt'), 'Projekt besprechen', 'btn--white') + tel() })}
     <section class="sec wrap intro" aria-label="Leistungen">
       <div>${ruleBox('Was wir tun')}<p class="lead" data-reveal>${a.lead}</p></div>
       <ul class="checks" data-reveal>${a.items.map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul>
@@ -260,7 +272,7 @@
           <div class="thema__b">
             <p>${f.lead}</p>
             <ul class="thema__l">${f.items.map(i => `<li>${i}</li>`).join('')}</ul>
-            <a class="link" href="#${s}">Mehr zu ${f.title} ${svg.arrow()}</a>
+            <a class="link" href="${u(s)}">Mehr zu ${f.title} ${svg.arrow()}</a>
           </div>
         </article>`).join('')}
       </div>
@@ -271,11 +283,11 @@
   }
 
   function pageFocus(slug, f) {
-    const parent = S.areas.find(a => a.related.includes(slug)) || S.areas[0];
+    const parent = parentOf(slug);
     const siblings = parent.related.filter(s => s !== slug).map(s => [s, focusBy(s)]).filter(([, x]) => x);
     const faq = slug === 'stoerungsdienst-pikett' ? [...f.faq] : [...f.faq, generalFaq[1]];
     return `
-    ${hero({ img: f.img, m: f.m, pos: f.pos, mpos: f.mpos, alt: f.title, crumb: [['Home', '#start'], ['Leistungen', '#dienstleistungen'], [parent.title, '#' + parent.slug], [f.title]], kicker: parent.title, title: [f.h1], sub: `${f.sub}. Von unseren Standorten in ${locNames}.`, btns: btn('#kontakt', 'Anfrage stellen', 'btn--white') + tel() })}
+    ${hero({ img: f.img, m: f.m, pos: f.pos, mpos: f.mpos, alt: f.title, crumb: [['Home', u()], ['Leistungen', u('dienstleistungen')], [parent.title, u(parent.slug)], [f.title]], kicker: parent.title, title: [f.h1], sub: `${f.sub}. Von unseren Standorten in ${locNames}.`, btns: btn(u('kontakt'), 'Anfrage stellen', 'btn--white') + tel() })}
     <section class="sec wrap intro" aria-label="Leistungen">
       <div>${ruleBox(f.title + ' bei Rokitzky')}<p class="lead" data-reveal>${f.lead}</p></div>
       <ul class="checks" data-reveal>${f.items.map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul>
@@ -283,14 +295,14 @@
     ${faqBlock(faq, 'Fragen zu ' + f.title)}
     <section class="sec sec--paper sec--tight" aria-labelledby="mo-t"><div class="wrap more">
       <div>${ruleBox(parent.title)}<h2 class="h2" id="mo-t">Weitere Themen</h2></div>
-      <ul class="more__l" data-reveal>${siblings.map(([s, x]) => `<li><a href="#${s}"><span>${x.title}</span>${svg.arrow()}</a></li>`).join('')}<li><a href="#${parent.slug}"><span>Zurück zu ${parent.title}</span>${svg.arrow()}</a></li></ul>
+      <ul class="more__l" data-reveal>${siblings.map(([s, x]) => `<li><a href="${u(s)}"><span>${x.title}</span>${svg.arrow()}</a></li>`).join('')}<li><a href="${u(parent.slug)}"><span>Zurück zu ${parent.title}</span>${svg.arrow()}</a></li></ul>
     </div></section>
     ${ctaBlock(undefined, undefined, f.cta)}`;
   }
 
   function pageCompany() {
     return `
-    ${hero({ img: 'team-dach', m: 'team-dach-m', pos: '35% 55%', alt: 'Monteure von Rokitzky besprechen sich auf dem Dach einer Baustelle', crumb: [['Home', '#start'], ['Unternehmen']], kicker: 'Unternehmen', title: ['Inhabergeführt', 'seit 1970.'], sub: 'Vom Einmannbetrieb in Embrach zum Handwerksbetrieb mit über 80 Mitarbeitenden und vier Standorten.', btns: btn('#kontakt', 'Kontakt', 'btn--white') + btn('#mitarbeitende', 'Mitarbeitende', 'btn--ghost') })}
+    ${hero({ img: 'team-dach', m: 'team-dach-m', pos: '35% 55%', alt: 'Monteure von Rokitzky besprechen sich auf dem Dach einer Baustelle', crumb: [['Home', u()], ['Unternehmen']], kicker: 'Unternehmen', title: ['Inhabergeführt', 'seit 1970.'], sub: 'Vom Einmannbetrieb in Embrach zum Handwerksbetrieb mit über 80 Mitarbeitenden und vier Standorten.', btns: btn(u('kontakt'), 'Kontakt', 'btn--white') + btn(u('mitarbeitende'), 'Mitarbeitende', 'btn--ghost') })}
     <section class="sec wrap intro intro--solo" aria-label="Über uns">
       <div>${ruleBox('Persönlich &amp; Verbindlich', true)}<p class="lead" data-reveal>Rokitzky ist ein inhabergeführter Handwerksbetrieb mit Tradition. Seit mehr als 50 Jahren sorgen wir für ein gutes Gebäudeklima. Auf dieser Erfahrung basieren unsere wichtigsten Werte: Verbindlichkeit und Kundennähe.</p></div>
     </section>
@@ -313,12 +325,12 @@
     ${ctaBlock(undefined, undefined, ['team-dach-himmel-t', '50% 71%', 'team-dach-himmel', '50% 50%'])}`;
   }
 
-  const personCard = ([n, r, slug], big = false) => `<figure class="person${big ? ' person--big' : ''}"${big ? ' data-reveal' : ''}><div class="person__img"><img src="img/team/${slug}${big ? '-xl' : ''}.webp" alt="${n}, ${r}" loading="lazy" decoding="async" width="${big ? 450 : 300}" height="${big ? 600 : 400}"></div><figcaption><b>${n}</b><span>${r}</span></figcaption></figure>`;
+  const personCard = ([n, r, slug], big = false) => `<figure class="person${big ? ' person--big' : ''}"${big ? ' data-reveal' : ''}><div class="person__img"><img src="${BASE}img/team/${slug}${big ? '-xl' : ''}.webp" alt="${n}, ${r}" loading="lazy" decoding="async" width="${big ? 450 : 300}" height="${big ? 600 : 400}"></div><figcaption><b>${n}</b><span>${r}</span></figcaption></figure>`;
 
   function pageTeam() {
     const T = S.team;
     return `
-    ${hero({ img: 'hero-dach', pos: '55% 45%', alt: 'Monteure von Rokitzky auf dem Dach einer Baustelle', crumb: [['Home', '#start'], ['Mitarbeitende']], kicker: 'Mitarbeitende', title: ['Unser Team.'], sub: 'Über 80 Mitarbeiterinnen und Mitarbeiter in Wallisellen, Winterthur, Hinwil und Zürich.', btns: btn('#karriere', 'Offene Stellen und Lehre', 'btn--white') })}
+    ${hero({ img: 'hero-dach', pos: '55% 45%', alt: 'Monteure von Rokitzky auf dem Dach einer Baustelle', crumb: [['Home', u()], ['Mitarbeitende']], kicker: 'Mitarbeitende', title: ['Unser Team.'], sub: 'Über 80 Mitarbeiterinnen und Mitarbeiter in Wallisellen, Winterthur, Hinwil und Zürich.', btns: btn(u('karriere'), 'Offene Stellen und Lehre', 'btn--white') })}
     <section class="sec" aria-labelledby="own-t"><div class="wrap">
       <div class="sec__head"><div>${ruleBox('Führung', true)}<h2 class="h2" id="own-t">Die Inhaber</h2></div><p class="lead" data-reveal>Michele Fiorito, Siniša Stojković und Vincenzo Aquilino führen die W. Rokitzky AG als Inhaber.</p></div>
       <div class="owners">${T.owners.map(p => personCard(p, true)).join('')}</div>
@@ -338,7 +350,7 @@
         ${ruleBox('Offene Stellen und Lehre', true, true)}
         <p class="bigquote" id="jobs-t" data-reveal>Gute Fachleute sind bei uns immer gefragt.</p>
         <p data-reveal>Ob Fachkraft oder Lernende: Schicken Sie uns Ihre Bewerbung per Mail an ${S.company.mail}.</p>
-        <div class="btns" data-reveal>${btn('#karriere', 'Offene Stellen und Lehre', 'btn--white')}${btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Bewerbung senden', 'btn--ghost', svg.mail())}</div>
+        <div class="btns" data-reveal>${btn(u('karriere'), 'Offene Stellen und Lehre', 'btn--white')}${btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Bewerbung senden', 'btn--ghost', svg.mail())}</div>
       </div>
     </div></section>
     ${ctaBlock(undefined, undefined, ['helm-logo-t', '50% 96%', 'helm-logo', '50% 50%'])}`;
@@ -346,7 +358,7 @@
 
   function pageCareer() {
     return `
-    ${hero({ img: 'action-team-wide', m: 'action-team-tall', pos: '55% 40%', alt: 'Mitarbeitende von Rokitzky in Warnwesten in einer Technikzentrale', crumb: [['Home', '#start'], ['Mitarbeitende', '#mitarbeitende'], ['Karriere']], kicker: 'Karriere und Lehre', title: ['Arbeiten und lernen', 'bei Rokitzky.'], sub: 'Offene Stellen für Fachleute und Lehrstellen in fünf Berufen. Jedes Jahr bilden wir 15 bis 20 Lernende aus.', btns: btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Jetzt bewerben', 'btn--white', svg.mail()) + btn('#mitarbeitende', 'Unser Team', 'btn--ghost') })}
+    ${hero({ img: 'action-team-wide', m: 'action-team-tall', pos: '55% 40%', alt: 'Mitarbeitende von Rokitzky in Warnwesten in einer Technikzentrale', crumb: [['Home', u()], ['Mitarbeitende', u('mitarbeitende')], ['Karriere']], kicker: 'Karriere und Lehre', title: ['Arbeiten und lernen', 'bei Rokitzky.'], sub: 'Offene Stellen für Fachleute und Lehrstellen in fünf Berufen. Jedes Jahr bilden wir 15 bis 20 Lernende aus.', btns: btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Jetzt bewerben', 'btn--white', svg.mail()) + btn(u('mitarbeitende'), 'Unser Team', 'btn--ghost') })}
     <section class="sec" aria-labelledby="os-t"><div class="wrap intro">
       <div>${ruleBox('Offene Stellen', true)}<h2 class="h2" id="os-t">Gute Fachleute sind bei uns immer gefragt.</h2><p class="lead" data-reveal style="margin-top:1.4rem">Sie haben Erfahrung in Heizung, Lüftung, Klima, Kälte oder Sanitär und möchten bei uns mitarbeiten? Dann schicken Sie uns Ihre Bewerbung.</p></div>
       <div class="ccard" data-reveal><span class="lbl">Bewerbung</span><h3>Bewerbung per Mail</h3><p>Lebenslauf, Zeugnisse und ein kurzes Anschreiben an ${S.company.mail}.</p><a class="btn btn--solid" href="mailto:${S.company.mail}?subject=Bewerbung" style="justify-self:start;margin-top:.6rem">Bewerbung senden ${svg.arrow()}</a></div>
@@ -365,7 +377,7 @@
   function pageContact() {
     const [w, wi] = S.locations;
     return `
-    ${hero({ dim: true, ring: false, img: 'van-wide', pos: '40% 50%', alt: 'Servicefahrzeug von Rokitzky', crumb: [['Home', '#start'], ['Kontakt']], kicker: 'Kontakt', title: ['So erreichen', 'Sie uns.'], sub: 'Persönlich und verbindlich, an vier Standorten und mit Pikettdienst rund um die Uhr.', btns: btn('mailto:' + S.company.mail, S.company.mail, 'btn--white', svg.mail()) + tel() })}
+    ${hero({ dim: true, ring: false, img: 'van-wide', pos: '40% 50%', alt: 'Servicefahrzeug von Rokitzky', crumb: [['Home', u()], ['Kontakt']], kicker: 'Kontakt', title: ['So erreichen', 'Sie uns.'], sub: 'Persönlich und verbindlich, an vier Standorten und mit Pikettdienst rund um die Uhr.', btns: btn('mailto:' + S.company.mail, S.company.mail, 'btn--white', svg.mail()) + tel() })}
     <section class="sec wrap" aria-label="Kontaktdaten">
       <div class="cgrid">
         <div class="ccard ccard--navy" data-reveal><span class="lbl lbl--light">Pikett 24/7</span><strong>${S.company.pikett}</strong><p>Störungsdienst rund um die Uhr, auch nachts und am Wochenende.</p><a href="tel:${S.company.pikettHref}">Jetzt anrufen</a></div>
@@ -393,7 +405,7 @@
 
   function legalPage(title, crumb, body) {
     return `
-    ${hero({ dim: true, img: 'helm-logo', m: 'helm-logo-t', pos: '50% 50%', mpos: '78% 50%', alt: '', crumb: [['Home', '#start'], [crumb]], kicker: 'W. Rokitzky AG', title: [title] })}
+    ${hero({ dim: true, img: 'helm-logo', m: 'helm-logo-t', pos: '50% 50%', mpos: '78% 50%', alt: '', crumb: [['Home', u()], [crumb]], kicker: 'W. Rokitzky AG', title: [title] })}
     <section class="sec wrap legal" aria-label="${title}">${body}</section>`;
   }
   function pageImprint() {
@@ -403,7 +415,7 @@
         <div><h2>Betreiberin</h2><p>W. Rokitzky AG<br>${w.street}<br>${w.city}<br>Schweiz</p><p>Telefon <a class="link" href="tel:${w.href}">${w.phone}</a><br><a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a></p></div>
         <div><h2>Registrierung</h2><p>Unternehmensidentifikationsnummer (UID)<br>CHE 102.966.397</p><p>Mehrwertsteuernummer<br>CHE102966397MWST</p></div>
         <div><h2>Pikettdienst</h2><p>Rund um die Uhr erreichbar<br><a class="link" href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
-        <div><h2>Richtlinien</h2><ul>${S.legal.map(([t, u]) => `<li><a class="link" href="${u}" target="_blank" rel="noopener">${t} (PDF)</a></li>`).join('')}<li><a class="link" href="#datenschutz">Datenschutz</a></li></ul></div>
+        <div><h2>Richtlinien</h2><ul>${S.legal.map(([t, u]) => `<li><a class="link" href="${u}" target="_blank" rel="noopener">${t} (PDF)</a></li>`).join('')}<li><a class="link" href="${u('datenschutz')}">Datenschutz</a></li></ul></div>
       </div>`);
   }
   function pagePrivacy() {
@@ -427,6 +439,15 @@
         <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:<br>W. Rokitzky AG, ${w.street}, ${w.city}<br><a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a></p>
       </div>`);
   }
+  function pageNotFound() {
+    return `
+    ${hero({ dim: true, img: 'helm-logo', m: 'helm-logo-t', pos: '50% 50%', mpos: '78% 50%', alt: '', kicker: 'Seite nicht gefunden', title: ['Diese Seite', 'gibt es nicht.'], sub: 'Die Adresse ist falsch oder die Seite wurde verschoben.', btns: btn(u(), 'Zur Startseite', 'btn--white') + btn(u('dienstleistungen'), 'Leistungen', 'btn--ghost') + btn(u('kontakt'), 'Kontakt', 'btn--ghost') })}
+    <section class="sec wrap" aria-labelledby="nf-t">
+      <div class="sec__head"><div>${ruleBox('Leistungen')}<h2 class="h2" id="nf-t">Wohin möchten Sie?</h2></div></div>
+      <ul class="more__l" data-reveal>${S.areas.map(a => `<li><a href="${u(a.slug)}"><span>${a.title}</span>${svg.arrow()}</a></li>`).join('')}<li><a href="${u('kontakt')}"><span>Kontakt</span>${svg.arrow()}</a></li></ul>
+    </section>`;
+  }
+
   /* ---------- routing ---------- */
   const META = {
     start: { t: 'W. Rokitzky AG | Heizung, Lüftung, Klima, Kälte und Sanitär | Wallisellen, Winterthur, Hinwil, Zürich', d: 'Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Pikettdienst 24/7. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Gebäudetechnik seit 1970', nav: 'start', fn: pageHome },
@@ -438,8 +459,11 @@
     datenschutz: { t: 'Datenschutz | W. Rokitzky AG', d: 'Datenschutzerklärung der W. Rokitzky AG.', label: 'Datenschutz', nav: '', fn: pagePrivacy },
     kontakt: { t: 'Kontakt | W. Rokitzky AG | Pikett 24/7 076 434 17 17', d: 'Kontakt W. Rokitzky AG: Wallisellen 044 312 34 41, Winterthur 052 551 88 99, Pikettdienst 24/7 076 434 17 17.', label: 'Persönlich & Verbindlich', nav: 'kontakt', fn: pageContact }
   };
-  function resolve(hash) {
-    const k = (hash || '').replace(/^#/, '') || 'start';
+  META.notfound = { t: 'Seite nicht gefunden | W. Rokitzky AG', d: 'Diese Adresse gibt es nicht oder nicht mehr.', label: 'Gebäudetechnik seit 1970', nav: '', fn: pageNotFound, noindex: true };
+  const CRUMB = { dienstleistungen: 'Leistungen', unternehmen: 'Unternehmen', mitarbeitende: 'Mitarbeitende', karriere: 'Karriere', kontakt: 'Kontakt', impressum: 'Impressum', datenschutz: 'Datenschutz' };
+
+  function resolve(k) {
+    if (!k) return null;
     if (META[k]) return { key: k, ...META[k], html: META[k].fn() };
     const a = areaBy(k);
     if (a) return { key: k, t: `${a.title} | W. Rokitzky AG`, d: a.lead, label: 'Fachwissen & Service', nav: 'dienstleistungen', html: pageArea(a), area: a };
@@ -447,23 +471,65 @@
     if (f) return { key: k, t: `${f.title} in ${locNames} | W. Rokitzky AG`, d: f.lead, label: 'Fachwissen & Service', nav: 'dienstleistungen', html: pageFocus(k, f), focus: f };
     return null;
   }
+  const isKey = (k) => !!k && k !== 'notfound' && (!!META[k] || !!areaBy(k) || !!focusBy(k));
+  function keyOf(pathname) {
+    let p = pathname || '/';
+    if (BASE !== '/' && p.startsWith(BASE)) p = '/' + p.slice(BASE.length);
+    const seg = p.replace(/index\.html$/, '').split('/').filter(Boolean);
+    if (!seg.length) return 'start';
+    if (seg[0] === 'leistungen') return seg.length === 1 ? 'dienstleistungen' : seg.length === 2 && (areaBy(seg[1]) || focusBy(seg[1])) ? seg[1] : null;
+    return seg.length === 1 && CRUMB[seg[0]] && seg[0] !== 'dienstleistungen' ? seg[0] : null;
+  }
+  const routes = () => ['start', 'dienstleistungen', ...S.areas.map(a => a.slug), ...Object.keys(S.focus), 'unternehmen', 'mitarbeitende', 'karriere', 'kontakt', 'impressum', 'datenschutz'];
+
+  function trail(r) {
+    const t = [['Home', 'start']];
+    if (r.key === 'start' || r.key === 'notfound') return t;
+    if (r.area || r.focus || r.key === 'dienstleistungen') t.push(['Leistungen', 'dienstleistungen']);
+    if (r.area) t.push([r.area.title, r.key]);
+    else if (r.focus) { const p = parentOf(r.key); t.push([p.title, p.slug], [r.focus.title, r.key]); }
+    else if (r.key === 'karriere') t.push(['Mitarbeitende', 'mitarbeitende'], ['Karriere', 'karriere']);
+    else if (r.key !== 'dienstleistungen') t.push([CRUMB[r.key], r.key]);
+    return t;
+  }
+  const plain = (s) => String(s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
   function ldFor(r) {
-    const base = 'https://www.rokitzky.ch/';
-    const crumbs = [{ '@type': 'ListItem', position: 1, name: 'Home', item: base }];
-    if (r.key !== 'start') crumbs.push({ '@type': 'ListItem', position: 2, name: r.t.split(' | ')[0], item: base + r.key });
-    const g = [{ '@type': 'BreadcrumbList', itemListElement: crumbs }];
-    if (r.focus) {
-      g.push({ '@type': 'Service', name: r.focus.title, serviceType: r.focus.title, description: r.focus.lead, provider: { '@id': base + '#organisation' }, areaServed: ['Wallisellen', 'Winterthur', 'Hinwil', 'Zürich'] });
-      g.push({ '@type': 'FAQPage', mainEntity: [...r.focus.faq].map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
-    }
+    const org = { '@id': 'https://www.rokitzky.ch/#organisation' };
+    const g = [{ '@type': 'WebPage', '@id': abs(r.key) + '#webpage', url: abs(r.key), name: plain(r.t), description: plain(r.d), inLanguage: 'de-CH', publisher: org }];
+    const tr = trail(r);
+    if (tr.length > 1) g.push({ '@type': 'BreadcrumbList', itemListElement: tr.map(([n, k], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: abs(k) })) });
+    const sv = r.focus || r.area;
+    if (sv) g.push({ '@type': 'Service', name: sv.title, serviceType: sv.title, description: plain(sv.lead), provider: org, areaServed: ['Wallisellen', 'Winterthur', 'Hinwil', 'Zürich'], url: abs(r.key) });
+    if (pageFaq.length) g.push({ '@type': 'FAQPage', mainEntity: pageFaq.map(([q, a]) => ({ '@type': 'Question', name: plain(q), acceptedAnswer: { '@type': 'Answer', text: plain(a) } })) });
     return JSON.stringify({ '@context': 'https://schema.org', '@graph': g });
+  }
+  function setMeta(attr, key, val) {
+    let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+    if (val == null) { if (el) el.remove(); return; }
+    if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
+    el.setAttribute('content', val);
+  }
+  function setHead(r) {
+    const url = r.noindex ? null : abs(r.key);
+    document.title = plain(r.t);
+    setMeta('name', 'description', plain(r.d));
+    setMeta('name', 'robots', r.noindex ? 'noindex' : null);
+    setMeta('property', 'og:title', plain(r.t));
+    setMeta('property', 'og:description', plain(r.d));
+    setMeta('property', 'og:url', url);
+    setMeta('property', 'og:image', SITE_URL + '/img/og.jpg');
+    let c = document.head.querySelector('link[rel="canonical"]');
+    if (!url) { if (c) c.remove(); return; }
+    if (!c) { c = document.createElement('link'); c.rel = 'canonical'; document.head.appendChild(c); }
+    c.href = url;
   }
 
   const main = $('#main'), hd = $('#hd'), wipe = $('#wipe');
-  let lenis = null, ctx = null, busy = false, current = '';
+  let lenis = null, ctx = null, busy = false, current = '', skipHash = false;
 
-  function render(hash, opts = {}) {
-    const r = resolve(hash) || resolve('#start');
+  function render(key, opts = {}) {
+    pageFaq = [];
+    const r = resolve(key) || resolve('notfound');
     current = r.key;
     if (cycle) { cycle.kill(); cycle = null; }
     timers.forEach(clearTimeout); timers = [];
@@ -471,8 +537,7 @@
     if (window.ScrollTrigger) ScrollTrigger.getAll().forEach(t => t.kill());
     main.innerHTML = r.html;
     document.body.dataset.page = r.key;
-    document.title = r.t;
-    let md = $('meta[name="description"]'); md.setAttribute('content', r.d);
+    setHead(r);
     $('#ld-page').textContent = ldFor(r);
     $('#hdLabel').textContent = r.label;
     $$('.hd__nav a').forEach(a => a.classList.toggle('is-active', a.dataset.nav === r.nav));
@@ -480,8 +545,11 @@
     closeMenu(); closeMega();
     if (lenis) lenis.scrollTo(0, { immediate: true, force: true }); else window.scrollTo(0, 0);
     bindPage();
-    animatePage(opts);
+    if (PRE) $$('[data-morph]', main).forEach(m => m.style.setProperty('--m', 400));
+    else animatePage(opts);
     if (!opts.initial) main.focus({ preventScroll: true });
+    document.documentElement.classList.remove('rk-wait');
+    window.__RK_READY__ = r.key;
   }
 
   /* ---------- page transition (hexagon wipe) ---------- */
@@ -489,10 +557,14 @@
     const p = []; for (let i = 0; i < 6; i++) { const a = Math.PI / 3 * i; p.push(`${(cx + r * Math.cos(a)).toFixed(1)}px ${(cy + r * Math.sin(a)).toFixed(1)}px`); }
     return `polygon(${p.join(',')})`;
   }
-  function go(hash, x = innerWidth / 2, y = innerHeight / 2) {
+  function navigate(k) {
+    if (HASH) { skipHash = true; location.hash = k; }
+    else history.pushState(null, '', u(k));
+  }
+  function go(k, x = innerWidth / 2, y = innerHeight / 2) {
     if (busy) return;
-    if (hash === '#' + current) { lenis ? lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    if (!HAS_GSAP || REDUCE) { location.hash = hash; return; }
+    if (k === current) { lenis ? lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (!HAS_GSAP || REDUCE) { navigate(k); render(k); return; }
     busy = true;
     const o = { r: 0 }, R = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y)) * 1.2;
     const icon = $('.wipe__icon', wipe);
@@ -500,30 +572,41 @@
     gsap.timeline()
       .to(o, { r: R, duration: .62, ease: 'power3.inOut', onUpdate: () => { wipe.style.clipPath = hexPoly(x, y, o.r); } })
       .to(icon, { opacity: 1, scale: 1, duration: .25, ease: 'power2.out' }, .3)
-      .add(() => { location.hash = hash; render(hash, { fromWipe: true }); })
+      .add(() => { navigate(k); render(k, { fromWipe: true }); })
       .to(icon, { opacity: 0, duration: .2 }, '+=.04')
       .to(wipe, { yPercent: -100, duration: .66, ease: 'power3.inOut' }, '<')
       .add(() => { wipe.style.clipPath = hexPoly(innerWidth / 2, innerHeight / 2, 0); gsap.set(wipe, { yPercent: 0 }); busy = false; });
   }
-  window.addEventListener('hashchange', () => { if (!busy) render(location.hash); });
+  addEventListener('popstate', () => { if (!HASH && !busy) render(keyOf(location.pathname) || 'notfound'); });
+  addEventListener('hashchange', () => {
+    if (!HASH) return;
+    if (skipHash) { skipHash = false; return; }
+    const k = location.hash.slice(1);
+    if (!busy && isKey(k)) render(k);
+  });
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
-    const h = a.getAttribute('href');
-    if (h === '#main' || h === '#') return;
-    if (!resolve(h)) return;
+    const a = e.target.closest('a[href]');
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if ((a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+    const h = a.getAttribute('href') || '';
+    let k = null;
+    if (HASH) { if (h.startsWith('#')) k = h.slice(1); }
+    else if (!h.startsWith('#')) { const url = new URL(h, location.href); if (url.origin === location.origin && /^https?:$/.test(url.protocol)) k = keyOf(url.pathname); }
+    if (!isKey(k)) return;
     e.preventDefault();
-    go(h, e.clientX || innerWidth / 2, e.clientY || innerHeight / 2);
+    go(k, e.clientX || innerWidth / 2, e.clientY || innerHeight / 2);
   });
 
   /* ---------- header, mega menu, mobile menu ---------- */
   function buildChrome() {
+    $('.hd__logo').setAttribute('href', u());
+    $$('.hd__nav a[data-nav]').forEach(x => x.setAttribute('href', u(x.dataset.nav)));
     $$('[data-svg]').forEach(el => {
       const k = el.dataset.svg;
       el.innerHTML = k === 'wordmark' ? svg.wordmark() : k === 'icon' ? svg.icon() : k === 'hexwhite' ? svg.hexFill() : k === 'ringlock' ? ringLock('hero__ring') : '';
     });
-    $('#megaAreas').innerHTML = S.areas.map(a => `<a href="#${a.slug}"><b>${a.title}</b><span>${a.short}</span></a>`).join('') + `<a class="mega__all" href="#dienstleistungen">Alle Leistungen im Überblick ${svg.arrow()}</a>`;
-    $('#menuNav').innerHTML = `<a href="#dienstleistungen">Leistungen</a><div class="menu__sub">${S.areas.map(a => `<a href="#${a.slug}">${a.title}</a>`).join('')}</div><a href="#unternehmen">Unternehmen</a><a href="#mitarbeitende">Mitarbeitende</a><a href="#karriere">Karriere</a><a href="#kontakt">Kontakt</a>`;
+    $('#megaAreas').innerHTML = S.areas.map(a => `<a href="${u(a.slug)}"><b>${a.title}</b><span>${a.short}</span></a>`).join('') + `<a class="mega__all" href="${u('dienstleistungen')}">Alle Leistungen im Überblick ${svg.arrow()}</a>`;
+    $('#menuNav').innerHTML = `<a href="${u('dienstleistungen')}">Leistungen</a><div class="menu__sub">${S.areas.map(a => `<a href="${u(a.slug)}">${a.title}</a>`).join('')}</div><a href="${u('unternehmen')}">Unternehmen</a><a href="${u('mitarbeitende')}">Mitarbeitende</a><a href="${u('karriere')}">Karriere</a><a href="${u('kontakt')}">Kontakt</a>`;
     $('#ft').innerHTML = footer();
     const trig = $('.has-mega'), mega = $('#mega'); let t;
     const open = () => { clearTimeout(t); mega.classList.add('is-open'); trig.setAttribute('aria-expanded', 'true'); hd.classList.add('is-solid'); };
@@ -541,15 +624,15 @@
     const [w, wi] = S.locations;
     return `<div class="wrap">
       <div class="ft__top">
-        <div class="ft__brand"><a class="ft__logo" href="#start" aria-label="Zur Startseite">${svg.wordmark()}</a><p class="ft__claim">Persönlich &amp;<br>Verbindlich</p><p>Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.</p></div>
-        <div><h4>Leistungen</h4><ul>${S.areas.map(a => `<li><a href="#${a.slug}">${a.title}</a></li>`).join('')}<li><a href="#stoerungsdienst-pikett">Pikettdienst 24/7</a></li></ul></div>
-        <div><h4>Unternehmen</h4><ul><li><a href="#unternehmen">Unternehmen</a></li><li><a href="#mitarbeitende">Mitarbeitende</a></li><li><a href="#karriere">Karriere und Lehre</a></li><li><a href="#kontakt">Kontakt</a></li>${S.social.map(([n, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul></div>
+        <div class="ft__brand"><a class="ft__logo" href="${u()}" aria-label="Zur Startseite">${svg.wordmark()}</a><p class="ft__claim">Persönlich &amp;<br>Verbindlich</p><p>Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.</p></div>
+        <div><h4>Leistungen</h4><ul>${S.areas.map(a => `<li><a href="${u(a.slug)}">${a.title}</a></li>`).join('')}<li><a href="${u('stoerungsdienst-pikett')}">Pikettdienst 24/7</a></li></ul></div>
+        <div><h4>Unternehmen</h4><ul><li><a href="${u('unternehmen')}">Unternehmen</a></li><li><a href="${u('mitarbeitende')}">Mitarbeitende</a></li><li><a href="${u('karriere')}">Karriere und Lehre</a></li><li><a href="${u('kontakt')}">Kontakt</a></li>${S.social.map(([n, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join('')}</ul></div>
         <div><h4>Kontakt</h4><p>W. Rokitzky AG<br>${w.street}, ${w.city}<br><a href="tel:${w.href}">${w.phone}</a></p><p style="margin-top:.8rem">${wi.street}, ${wi.city}<br><a href="tel:${wi.href}">${wi.phone}</a></p><p style="margin-top:.8rem"><a href="mailto:${S.company.mail}">${S.company.mail}</a><br><a href="mailto:${S.company.serviceMail}">${S.company.serviceMail}</a></p><p style="margin-top:.8rem">Pikett 24/7: <a href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
       </div>
       <div class="ft__big">
         <div class="ft__bl">
         <div class="ft__aw"><span class="ft__awl">Ausgezeichnet und zertifiziert</span><div class="ft__marks">${markImgs()}</div></div>
-        <div class="ft__legal"><span>© W. Rokitzky AG</span><a href="#impressum">Impressum</a><a href="#datenschutz">Datenschutz</a>${S.legal.map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`).join('')}</div>
+        <div class="ft__legal"><span>© W. Rokitzky AG</span><a href="${u('impressum')}">Impressum</a><a href="${u('datenschutz')}">Datenschutz</a>${S.legal.map(([t, u]) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`).join('')}</div>
         </div>
         ${ringLock('ft__ring hero__ring')}
       </div>
@@ -714,7 +797,7 @@
   buildChrome();
   if (HAS_GSAP) {
     gsap.registerPlugin(ScrollTrigger);
-    if (!REDUCE && window.Lenis) {
+    if (!REDUCE && !PRE && window.Lenis) {
       lenis = new Lenis({ lerp: .09, wheelMultiplier: 1, smoothWheel: true });
       lenis.on('scroll', (e) => { ScrollTrigger.update(); syncHeader(e.scroll); hideCimgOnScroll && hideCimgOnScroll(); });
       gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -723,6 +806,13 @@
   }
   if (!lenis) addEventListener('scroll', () => syncHeader(scrollY), { passive: true });
   addEventListener('resize', () => { const h = $('[data-hero]', main); heroBottom = h ? h.offsetHeight : 0; });
-  const start = () => render(location.hash, { initial: true });
+  function initialKey() {
+    const h = decodeURIComponent(location.hash.slice(1));
+    if (HASH) return isKey(h) ? h : 'start';
+    if (isKey(h)) { history.replaceState(null, '', u(h)); return h; }
+    return keyOf(location.pathname) || 'notfound';
+  }
+  if (PRE) window.__RK__ = { siteUrl: SITE_URL, routes: () => routes().map(k => ({ key: k, path: u(k) })) };
+  const start = () => render(initialKey(), { initial: true });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(start); else start();
 })();

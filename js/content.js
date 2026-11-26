@@ -1,5 +1,9 @@
 /* Inhalte W. Rokitzky AG. Fakten aus rokitzky.ch und den Unterlagen von Rokitzky, keine erfundenen Angaben. */
 window.SITE = {
+  /* Adresse für canonical, og:url, og:image, JSON-LD und sitemap.xml. Beim Livegang auf https://www.rokitzky.ch setzen
+     und danach scripts/prerender.mjs laufen lassen (README). */
+  siteUrl: 'https://rokitzky-website.vercel.app',
+
   company: {
     name: 'W. Rokitzky AG',
     phone: '044 312 34 41', phoneHref: '+41443123441',

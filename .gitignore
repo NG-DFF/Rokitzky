@@ -1,2 +1,4 @@
 .DS_Store
 Thumbs.db
+scripts/node_modules/
+.artifact/

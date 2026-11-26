@@ -1,21 +1,47 @@
-# W. Rokitzky AG, Website Prototyp
+# W. Rokitzky AG, Website
 
-Statische Seite ohne Build. Alles liegt in diesem Ordner: index.html, css, js, img.
+Statische Website ohne Build. Vercel veröffentlicht den Ordner so, wie er im Repository liegt.
 
-## Auf Vercel veröffentlichen
+## Aufbau
 
-Variante A, über GitHub (empfohlen, danach geht jede Änderung automatisch online):
-1. Repo in GitHub anlegen und diesen Ordner hineinlegen.
-2. In Vercel auf «Add New Project», das Repo importieren, Framework «Other», keine Build Einstellungen nötig.
-3. Deploy. Die Adresse lautet dann zum Beispiel rokitzky-website.vercel.app.
+| Pfad | Inhalt |
+| --- | --- |
+| `js/content.js` | Alle Texte und Daten (Bereiche, Schwerpunkte, Standorte, Fragen) |
+| `js/app.js` | Seitenvorlagen, Router, Animationen |
+| `css/site.css` | Gestaltung |
+| `scripts/shell.html` | Vorlage für Kopf, Navigation und Footer aller Seiten |
+| `scripts/prerender.mjs` | Erzeugt aus Vorlage und Inhalten das fertige HTML jeder Seite |
+| `index.html`, `leistungen/…`, `unternehmen/…` usw. | Fertiges HTML, erzeugt von `scripts/prerender.mjs`. Nicht von Hand ändern. |
+| `404.html`, `sitemap.xml`, `robots.txt` | Ebenfalls erzeugt |
 
-Variante B, direkt vom Mac:
-1. Ordner entpacken, im Terminal in den Ordner wechseln.
-2. `npx vercel --prod` ausführen und dem Dialog folgen (Login mit dem Neroli Vercel Konto).
+## Adressen
 
-## Hinweise
+`/`, `/leistungen/`, `/leistungen/<bereich>/`, `/leistungen/<schwerpunkt>/`, `/unternehmen/`, `/mitarbeitende/`, `/karriere/`, `/kontakt/`, `/impressum/`, `/datenschutz/`.
+Alte Ankeradressen wie `/#retrofit` leitet `app.js` auf die neue Adresse weiter.
 
-* Die Datei vercel.json setzt «noindex», damit Google den Prototyp nicht indexiert. Vor dem Livegang auf rokitzky.ch diesen Eintrag entfernen.
-* Navigation über Anker (#dienstleistungen, #kontakt usw.), dadurch funktioniert jede Seite ohne Server Regeln.
-* Schrift Afacad Flux kommt von Google Fonts, GSAP und Lenis von jsDelivr.
-* Das Kontaktformular sendet im Prototyp nichts.
+Jede Seite liegt als fertiges HTML vor (Titel, Beschreibung, canonical, Open Graph, JSON-LD, Inhalt). Suchmaschinen und KI-Crawler lesen den Inhalt ohne JavaScript. Mit JavaScript übernimmt `app.js` die Seite und wechselt danach ohne Neuladen zwischen den Seiten.
+
+## Nach jeder Änderung an Texten, Vorlagen oder `scripts/shell.html`
+
+```bash
+cd scripts
+npm install                      # einmalig
+npx playwright install chromium  # einmalig
+node prerender.mjs
+```
+
+Danach alle geänderten Dateien committen. Kopf, Navigation und Footer immer in `scripts/shell.html` ändern, nie in den erzeugten Dateien.
+
+## Lokal ansehen
+
+```bash
+python3 -m http.server 8080
+```
+
+Dann http://localhost:8080/ öffnen.
+
+## Livegang
+
+* `siteUrl` in `js/content.js` auf die Hauptadresse setzen (z. B. `https://www.rokitzky.ch`), danach `node prerender.mjs`. Damit stimmen canonical, og:url, og:image, JSON-LD, `sitemap.xml` und `robots.txt`.
+* In `vercel.json` den Header `X-Robots-Tag: noindex, nofollow` entfernen.
+* Übrige Punkte: Checkliste Livegang im Prüfdokument vom 26.11.2026.
