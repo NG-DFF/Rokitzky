@@ -249,7 +249,7 @@
             <h2 class="h2">${a.title}</h2>
             <p data-reveal>${a.lead}</p>
             <ul class="checks" data-reveal>${a.items.slice(0, 4).map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul>
-            <div class="btns" data-reveal>${btn(u(a.slug), 'Mehr zu ' + a.title)}</div>
+            <div class="btns" data-reveal>${btn(u(a.slug), 'Mehr ' + a.zu)}</div>
           </div>
         </article>`).join('')}
       </div>
@@ -274,13 +274,13 @@
           <div class="thema__b">
             <p>${f.lead}</p>
             <ul class="thema__l">${f.items.map(i => `<li>${i}</li>`).join('')}</ul>
-            <a class="link" href="${u(s)}">Mehr zu ${f.title} ${svg.arrow()}</a>
+            <a class="link" href="${u(s)}">Mehr ${f.zu} ${svg.arrow()}</a>
           </div>
         </article>`).join('')}
       </div>
     </div></section>
     ${band(a.bandImg, '50% 50%', 'Persönlich und verbindlich', a.band, a.bandImg + '-t', a.bandMpos)}
-    ${faqBlock([...rel.map(([, f]) => f.faq[0]), generalFaq[1]], 'Fragen zu ' + a.title)}
+    ${faqBlock([...rel.map(([, f]) => f.faq[0]), generalFaq[1]], 'Fragen ' + a.zu)}
     ${ctaBlock(undefined, undefined, a.cta)}`;
   }
 
@@ -294,10 +294,10 @@
       <div>${ruleBox(f.title + ' bei Rokitzky')}<p class="lead" data-reveal>${f.lead}</p></div>
       <ul class="checks" data-reveal>${f.items.map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul>
     </section>
-    ${faqBlock(faq, 'Fragen zu ' + f.title)}
+    ${faqBlock(faq, 'Fragen ' + f.zu)}
     <section class="sec sec--paper sec--tight" aria-labelledby="mo-t"><div class="wrap more">
       <div>${ruleBox(parent.title)}<h2 class="h2" id="mo-t">Weitere Themen</h2></div>
-      <ul class="more__l" data-reveal>${siblings.map(([s, x]) => `<li><a href="${u(s)}"><span>${x.title}</span>${svg.arrow()}</a></li>`).join('')}<li><a href="${u(parent.slug)}"><span>Zurück zu ${parent.title}</span>${svg.arrow()}</a></li></ul>
+      <ul class="more__l" data-reveal>${siblings.map(([s, x]) => `<li><a href="${u(s)}"><span>${x.title}</span>${svg.arrow()}</a></li>`).join('')}<li><a href="${u(parent.slug)}"><span>Zurück ${parent.zu}</span>${svg.arrow()}</a></li></ul>
     </div></section>
     ${ctaBlock(undefined, undefined, f.cta)}`;
   }

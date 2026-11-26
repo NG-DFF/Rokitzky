@@ -21,35 +21,35 @@ window.SITE = {
   /* Die fünf Bereiche der bisherigen Website */
   areas: [
     {
-      slug: 'heizung-kaelte', no: '01', band: 'Wir reparieren auch Anlagen, die nicht von uns sind.', title: 'Heizung und Kälte', img: 'heizung-schweissen', pos: '62% 72%', bandImg: 'heli-dach', bandMpos: '76% 50%', cta: ['weste-anschlagen-t', '50% 76%', 'weste-anschlagen', '50% 50%'],
+      slug: 'heizung-kaelte', zu: 'zu Heizung und Kälte', no: '01', band: 'Wir reparieren auch Anlagen, die nicht von uns sind.', title: 'Heizung und Kälte', img: 'heizung-schweissen', pos: '62% 72%', bandImg: 'heli-dach', bandMpos: '76% 50%', cta: ['weste-anschlagen-t', '50% 76%', 'weste-anschlagen', '50% 50%'],
       short: 'Wir planen, bauen, warten und sanieren Heizungsanlagen und Kälteanlagen.',
       lead: 'Ob Neubau oder Sanierung: Wir planen und bauen Heizungsanlagen und Kälteanlagen, halten sie instand und ersetzen bestehende Anlagen. Planern stehen wir als Experten und Berater zur Seite.',
       items: ['Wir planen und bauen neue Heizungsanlagen und Kälteanlagen', 'Wir halten Heizungsanlagen und Kälteanlagen instand', 'Wir sanieren und ersetzen bestehende Anlagen', 'Wir konzipieren Heizsysteme und stehen Planern als Experten und Berater zur Seite', 'Wir reparieren alle Anlagen für Heizung, Lüftung und Klima, auch die, die nicht von uns installiert wurden'],
       related: ['kaelteanlagen', 'sanierungen', 'retrofit', 'waermepumpen-service']
     },
     {
-      slug: 'lueftung-klima', no: '02', band: 'Seit über 50 Jahren für ein gutes Gebäudeklima.', title: 'Lüftung und Klima', img: 'lueftung-montage', pos: '50% 40%', bandImg: 'holzdecke', bandMpos: '100% 50%', cta: ['lueftung-service-t', '50% 37%', 'lueftung-service', '50% 50%'],
+      slug: 'lueftung-klima', zu: 'zu Lüftung und Klima', no: '02', band: 'Seit über 50 Jahren für ein gutes Gebäudeklima.', title: 'Lüftung und Klima', img: 'lueftung-montage', pos: '50% 40%', bandImg: 'holzdecke', bandMpos: '100% 50%', cta: ['lueftung-service-t', '50% 37%', 'lueftung-service', '50% 50%'],
       short: 'Lüftungsanlagen und Klimaanlagen für ein gutes Raumklima.',
       lead: 'Wir konzipieren und bauen Lüftungsanlagen und Klimaanlagen, sanieren und warten sie und verbessern das Raumklima in bestehenden Gebäuden. Zudem beraten wir und erstellen Expertisen.',
       items: ['Wir konzipieren und bauen Lüftungsanlagen und Klimaanlagen', 'Wir sanieren und warten Lüftungsanlagen', 'Wir überprüfen und verbessern das Raumklima', 'Wir beraten und erstellen Expertisen'],
       related: ['lueftungsanlagen', 'klimaanlagen', 'lueftungsreinigung', 'brandschutzklappen']
     },
     {
-      slug: 'sanitaer', no: '03', band: 'Wir planen, installieren und unterhalten Sanitäranlagen.', title: 'Sanitär', img: 'sanitaer-flex', pos: '50% 40%', bandImg: 'pressfittings', bandMpos: '51% 50%', cta: ['rohrgang-team-t', '50% 55%', 'rohrgang-team', '50% 50%'],
+      slug: 'sanitaer', zu: 'zu Sanitär', no: '03', band: 'Wir planen, installieren und unterhalten Sanitäranlagen.', title: 'Sanitär', img: 'sanitaer-flex', pos: '50% 40%', bandImg: 'pressfittings', bandMpos: '51% 50%', cta: ['rohrgang-team-t', '50% 55%', 'rohrgang-team', '50% 50%'],
       short: 'Vom Einfamilienhaus bis zum ganzen Quartier.',
       lead: 'Wir planen Sanitäranlagen für ein Einfamilienhaus oder ein ganzes Quartier und installieren sie in einer einzelnen Nasszelle oder in einer ganzen Überbauung. Danach unterhalten wir die Systeme.',
       items: ['Wir planen und konzipieren Sanitäranlagen für ein Einfamilienhaus oder ein ganzes Quartier', 'Wir installieren Sanitäranlagen in einer einzigen Nasszelle oder in einer ganzen Überbauung', 'Wir sorgen für Warmwasser, Kaltwasser und Abwasser', 'Wir unterhalten die Systeme', 'Wir erstellen Gutachten und überprüfen Konzepte'],
       related: ['sanierungen', 'umbauten', 'service-wartung']
     },
     {
-      slug: 'erneuerbare-energien', no: '04', band: 'Erneuerbare Energien für neue und bestehende Anlagen.', title: 'Erneuerbare Energien', img: 'speicher', pos: '50% 50%', bandImg: 'photovoltaik', bandMpos: '28% 50%', cta: ['weste-dach-t', '50% 58%', 'weste-dach', '50% 50%'],
+      slug: 'erneuerbare-energien', zu: 'zu erneuerbaren Energien', no: '04', band: 'Erneuerbare Energien für neue und bestehende Anlagen.', title: 'Erneuerbare Energien', img: 'speicher', pos: '50% 50%', bandImg: 'photovoltaik', bandMpos: '28% 50%', cta: ['weste-dach-t', '50% 58%', 'weste-dach', '50% 50%'],
       short: 'Wärmepumpen, Speicher und thermische Solaranlagen in der Haustechnik.',
       lead: 'Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein und ergänzen bestehende Systeme. Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus, bauen Anlagen zur Energierückgewinnung und erstellen Energiesimulationen und Gebäudesimulationen.',
       items: ['Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein', 'Wir ergänzen bestehende Systeme für Heizung, Lüftung und Klima', 'Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus', 'Wir bauen Anlagen zur Energierückgewinnung', 'Wir konzipieren und stehen beratend zur Seite', 'Wir erstellen Energiesimulationen und Gebäudesimulationen'],
       related: ['energetische-modernisierung', 'waermepumpen-service', 'retrofit']
     },
     {
-      slug: 'service-unterhalt', no: '05', band: 'Pikettdienst rund um die Uhr: 076 434 17 17.', title: 'Service und Unterhalt', img: 'service-check', pos: '62% 45%', bandImg: 'service-tablet', bandMpos: '30% 50%', cta: ['abstimmung-t', '50% 71%', 'abstimmung', '50% 50%'],
+      slug: 'service-unterhalt', zu: 'zu Service und Unterhalt', no: '05', band: 'Pikettdienst rund um die Uhr: 076 434 17 17.', title: 'Service und Unterhalt', img: 'service-check', pos: '62% 45%', bandImg: 'service-tablet', bandMpos: '30% 50%', cta: ['abstimmung-t', '50% 71%', 'abstimmung', '50% 50%'],
       short: 'Wartung, Service und Pikettdienst rund um die Uhr.',
       lead: 'Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt Ihrer Anlagen für Heizung, Lüftung, Klima und Sanitär, kennen die Servicezyklen und planen die regelmässigen Wartungen über die gesamte Lebensdauer, auch bei Anlagen, die nicht wir installiert haben.',
       items: ['Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt', 'Wir kennen die Servicezyklen und planen die regelmässigen Wartungen', 'Wir betreuen auch Anlagen, die nicht wir installiert haben', 'Unser Pikettdienst ist 24/7 erreichbar: 076 434 17 17'],
@@ -67,7 +67,7 @@ window.SITE = {
 
   focus: {
     'klimaanlagen': {
-      title: 'Klimaanlagen', group: 'klima', img: 'klima-kleber', m: 'klima-kleber-t', pos: '50% 50%', mpos: '20% 50%', cta: ['klima-kran-t', '50% 71%', 'klima-kran', '50% 50%'],
+      title: 'Klimaanlagen', zu: 'zu Klimaanlagen', group: 'klima', img: 'klima-kleber', m: 'klima-kleber-t', pos: '50% 50%', mpos: '20% 50%', cta: ['klima-kran-t', '50% 71%', 'klima-kran', '50% 50%'],
       h1: 'Klimaanlagen', sub: 'Planung, Einbau und Service',
       lead: 'Wir konzipieren und bauen Klimaanlagen, warten sie und verbessern das Raumklima in bestehenden Gebäuden.',
       items: ['Beratung und Planung', 'Einbau und Inbetriebnahme', 'Wartung und Service', 'Ersatz und Modernisierung bestehender Anlagen', 'Störungsbehebung über den Pikettdienst'],
@@ -77,7 +77,7 @@ window.SITE = {
       ]
     },
     'kaelteanlagen': {
-      title: 'Kälteanlagen', group: 'klima', img: 'kaelte-kran', m: 'kaelte-kran-t', pos: '50% 50%', mpos: '34% 50%', cta: ['kran-fuehren-t', '50% 65%', 'kran-fuehren', '50% 50%'],
+      title: 'Kälteanlagen', zu: 'zu Kälteanlagen', group: 'klima', img: 'kaelte-kran', m: 'kaelte-kran-t', pos: '50% 50%', mpos: '34% 50%', cta: ['kran-fuehren-t', '50% 65%', 'kran-fuehren', '50% 50%'],
       h1: 'Kälteanlagen', sub: 'Planung, Bau, Wartung und Sanierung',
       lead: 'Wir planen, bauen, warten und sanieren Kälteanlagen und reparieren auch Anlagen, die nicht von uns stammen.',
       items: ['Planung und Bau', 'Wartung und Service', 'Sanierung bestehender Kälteanlagen', 'Reparaturen an Fremdanlagen', 'Pikettdienst rund um die Uhr'],
@@ -87,7 +87,7 @@ window.SITE = {
       ]
     },
     'retrofit': {
-      title: 'Retrofit', group: 'klima', img: 'monteur-himmel', m: 'monteur-himmel-t', pos: '50% 50%', mpos: '100% 50%', cta: ['weste-kranlast-t', '50% 76%', 'weste-kranlast', '50% 50%'],
+      title: 'Retrofit', zu: 'zu Retrofit', group: 'klima', img: 'monteur-himmel', m: 'monteur-himmel-t', pos: '50% 50%', mpos: '100% 50%', cta: ['weste-kranlast-t', '50% 76%', 'weste-kranlast', '50% 50%'],
       h1: 'Retrofit', sub: 'Bestehende Anlagen modernisieren',
       lead: 'Nicht jede Anlage muss ersetzt werden. Wir prüfen den Bestand, erweitern bestehende Haustechnik gezielt und binden neue Komponenten und erneuerbare Energien sauber ein.',
       items: ['Analyse der bestehenden Anlage', 'Gezielte Erweiterung bestehender Haustechnik', 'Einbindung erneuerbarer Energien', 'Service nach dem Umbau'],
@@ -97,7 +97,7 @@ window.SITE = {
       ]
     },
     'lueftungsanlagen': {
-      title: 'Lüftungsanlagen', group: 'lueftung', img: 'halle-geraete', m: 'halle-geraete-t', pos: '50% 50%', mpos: '28% 50%', cta: ['halle-team-t', '50% 76%', 'halle-team', '50% 50%'],
+      title: 'Lüftungsanlagen', zu: 'zu Lüftungsanlagen', group: 'lueftung', img: 'halle-geraete', m: 'halle-geraete-t', pos: '50% 50%', mpos: '28% 50%', cta: ['halle-team-t', '50% 76%', 'halle-team', '50% 50%'],
       h1: 'Lüftungsanlagen', sub: 'Planung, Bau und Service',
       lead: 'Wir planen und bauen Lüftungsanlagen, betreuen sie im Service und verbessern das Raumklima in bestehenden Gebäuden. Dazu beraten wir und erstellen Gutachten.',
       items: ['Planung und Bau', 'Service und Wartung', 'Verbesserung des Raumklimas', 'Beratung und Gutachten', 'Wärmerückgewinnung'],
@@ -107,7 +107,7 @@ window.SITE = {
       ]
     },
     'lueftungsreinigung': {
-      title: 'Lüftungsreinigung', group: 'lueftung', img: 'rohre-detail', m: 'rohre-detail-t', pos: '50% 50%', mpos: '88% 50%', cta: ['geraet-oeffnen-team-t', '50% 71%', 'geraet-oeffnen-team', '50% 50%'],
+      title: 'Lüftungsreinigung', zu: 'zur Lüftungsreinigung', group: 'lueftung', img: 'rohre-detail', m: 'rohre-detail-t', pos: '50% 50%', mpos: '88% 50%', cta: ['geraet-oeffnen-team-t', '50% 71%', 'geraet-oeffnen-team', '50% 50%'],
       h1: 'Lüftungsreinigung', sub: 'Reinigung, Filterwechsel und Dokumentation',
       lead: 'Wir reinigen Lüftungsanlagen, wechseln Filter und dokumentieren den Zustand Ihrer Anlage.',
       items: ['Reinigung von Lüftungsanlagen', 'Filterwechsel', 'Kontrolle und Dokumentation', 'Empfehlungen für die nächsten Servicezyklen'],
@@ -117,7 +117,7 @@ window.SITE = {
       ]
     },
     'brandschutzklappen': {
-      title: 'Brandschutzklappen', group: 'lueftung', img: 'decke-installationen', m: 'decke-installationen-t', pos: '50% 50%', mpos: '42% 50%', cta: ['begehung-decke-t', '50% 65%', 'begehung-decke', '50% 50%'],
+      title: 'Brandschutzklappen', zu: 'zu Brandschutzklappen', group: 'lueftung', img: 'decke-installationen', m: 'decke-installationen-t', pos: '50% 50%', mpos: '42% 50%', cta: ['begehung-decke-t', '50% 65%', 'begehung-decke', '50% 50%'],
       h1: 'Brandschutzklappen', sub: 'Kontrolle und Instandhaltung',
       lead: 'Brandschutzklappen müssen im Ernstfall funktionieren. Wir kontrollieren Brandschutzklappen in Lüftungsanlagen, dokumentieren den Zustand und beheben Mängel.',
       items: ['Funktionskontrolle', 'Dokumentation', 'Instandsetzung bei Mängeln', 'Abstimmung mit Service und Lüftungsreinigung'],
@@ -127,7 +127,7 @@ window.SITE = {
       ]
     },
     'service-wartung': {
-      title: 'Service und Wartung', group: 'service', img: 'steuerung-service', m: 'steuerung-service-t', pos: '50% 50%', mpos: '82% 50%', cta: ['monteur-kniend-t', '50% 37%', 'monteur-kniend', '50% 50%'],
+      title: 'Service und Wartung', zu: 'zu Service und Wartung', group: 'service', img: 'steuerung-service', m: 'steuerung-service-t', pos: '50% 50%', mpos: '82% 50%', cta: ['monteur-kniend-t', '50% 37%', 'monteur-kniend', '50% 50%'],
       h1: 'Service und Wartung', sub: 'Für Heizung, Lüftung, Klima, Kälte und Sanitär',
       lead: 'Nach der Inbetriebnahme kümmern wir uns um Service und Unterhalt. Wir warten Ihre Anlagen regelmässig, planen die Servicezyklen über die ganze Lebensdauer und sind bei Störungen rund um die Uhr erreichbar.',
       items: ['Regelmässige Wartung', 'Servicezyklen über die ganze Lebensdauer', 'Service auch für Fremdanlagen', 'Pikettdienst 24/7'],
@@ -137,7 +137,7 @@ window.SITE = {
       ]
     },
     'wartungsvertraege': {
-      title: 'Wartungsverträge', group: 'service', img: 'service-kleber', m: 'service-kleber-t', pos: '50% 50%', mpos: '20% 50%', cta: ['tablet-weste-t', '50% 37%', 'tablet-weste', '50% 50%'],
+      title: 'Wartungsverträge', zu: 'zu Wartungsverträgen', group: 'service', img: 'service-kleber', m: 'service-kleber-t', pos: '50% 50%', mpos: '20% 50%', cta: ['tablet-weste-t', '50% 37%', 'tablet-weste', '50% 50%'],
       h1: 'Wartungsverträge', sub: 'Servicezyklen über die ganze Lebensdauer',
       lead: 'Mit einem Wartungsvertrag planen wir die Servicezyklen Ihrer Anlage über die ganze Lebensdauer. Die Wartungen führen wir regelmässig nach Plan durch.',
       items: ['Regelmässige Wartung nach Plan', 'Persönliche Betreuung', 'Auch für Anlagen anderer Installateure', 'Pikettdienst rund um die Uhr'],
@@ -147,7 +147,7 @@ window.SITE = {
       ]
     },
     'stoerungsdienst-pikett': {
-      title: 'Störungsdienst und Pikett', group: 'service', img: 'speicher-steuerung', m: 'speicher-steuerung-t', pos: '50% 50%', mpos: '0% 50%', cta: ['westen-tuer-t', '50% 63%', 'westen-tuer', '50% 50%'],
+      title: 'Störungsdienst und Pikett', zu: 'zu Störungsdienst und Pikett', group: 'service', img: 'speicher-steuerung', m: 'speicher-steuerung-t', pos: '50% 50%', mpos: '0% 50%', cta: ['westen-tuer-t', '50% 63%', 'westen-tuer', '50% 50%'],
       h1: 'Pikettdienst 24/7', sub: 'Störungsdienst rund um die Uhr',
       lead: 'Seit 2013 erreichen Sie unseren Pikettdienst rund um die Uhr, auch nachts und am Wochenende.',
       items: ['Erreichbar 24/7 unter 076 434 17 17', 'Für Heizung, Lüftung, Klima, Kälte und Sanitär', 'Auch nachts und am Wochenende', 'Den Pikettdienst gibt es seit 2013'],
@@ -157,7 +157,7 @@ window.SITE = {
       ]
     },
     'waermepumpen-service': {
-      title: 'Wärmepumpenservice', group: 'service', img: 'waermepumpe-service', m: 'waermepumpe-service-t', pos: '50% 50%', mpos: '30% 50%', cta: ['aussengeraet-team-t', '50% 32%', 'aussengeraet-team', '50% 50%'],
+      title: 'Wärmepumpenservice', zu: 'zum Wärmepumpenservice', group: 'service', img: 'waermepumpe-service', m: 'waermepumpe-service-t', pos: '50% 50%', mpos: '30% 50%', cta: ['aussengeraet-team-t', '50% 32%', 'aussengeraet-team', '50% 50%'],
       h1: 'Wärmepumpenservice', sub: 'Einbindung, Wartung und Störungsbehebung',
       lead: 'Wir binden Wärmepumpen in bestehende und neue Anlagen ein, warten sie und sind bei Störungen über den Pikettdienst rund um die Uhr erreichbar.',
       items: ['Einbindung von Wärmepumpen und Speichern', 'Wartung und Service', 'Störungsbehebung 24/7', 'Erweiterung bestehender Anlagen'],
@@ -167,7 +167,7 @@ window.SITE = {
       ]
     },
     'sanierungen': {
-      title: 'Sanierungen', group: 'sanierung', img: 'technikgang', m: 'technikgang-t', pos: '50% 50%', mpos: '40% 50%', cta: ['installationen-schacht-t', '50% 76%', 'installationen-schacht', '50% 50%'],
+      title: 'Sanierungen', zu: 'zu Sanierungen', group: 'sanierung', img: 'technikgang', m: 'technikgang-t', pos: '50% 50%', mpos: '40% 50%', cta: ['installationen-schacht-t', '50% 76%', 'installationen-schacht', '50% 50%'],
       h1: 'Sanierungen', sub: 'Heizung, Lüftung, Klima, Kälte und Sanitär',
       lead: 'Wir sanieren Heizungsanlagen, Kälteanlagen, Lüftungsanlagen und Sanitäranlagen. Zuerst prüfen wir den Bestand, dann besprechen wir mit Ihnen die Möglichkeiten.',
       items: ['Heizungssanierung', 'Sanierung von Kälteanlagen', 'Lüftungssanierung', 'Sanitärsanierung', 'Umstieg auf erneuerbare Energien'],
@@ -177,7 +177,7 @@ window.SITE = {
       ]
     },
     'umbauten': {
-      title: 'Umbauten', group: 'sanierung', img: 'decke-klima', pos: '50% 20%', cta: ['umbau-jacken-t', '50% 50%', 'umbau-jacken', '50% 50%'],
+      title: 'Umbauten', zu: 'zu Umbauten', group: 'sanierung', img: 'decke-klima', pos: '50% 20%', cta: ['umbau-jacken-t', '50% 50%', 'umbau-jacken', '50% 50%'],
       h1: 'Umbauten', sub: 'Haustechnik bei Umbau und Erweiterung',
       lead: 'Bei Umbauten passen wir die Haustechnik an: Wir erweitern bestehende Anlagen, planen neue Installationen und führen alles sauber aus.',
       items: ['Erweiterung bestehender Haustechnik', 'Neue Installationen für Heizung, Lüftung und Sanitär', 'Planung und Ausführung', 'Service nach dem Umbau'],
@@ -187,7 +187,7 @@ window.SITE = {
       ]
     },
     'energetische-modernisierung': {
-      title: 'Energetische Modernisierung', group: 'sanierung', img: 'heizung-rohre', m: 'heizung-rohre-t', pos: '50% 50%', mpos: '27% 50%', cta: ['umbau-team-t', '50% 63%', 'umbau-team', '50% 50%'],
+      title: 'Energetische Modernisierung', zu: 'zur energetischen Modernisierung', group: 'sanierung', img: 'heizung-rohre', m: 'heizung-rohre-t', pos: '50% 50%', mpos: '27% 50%', cta: ['umbau-team-t', '50% 63%', 'umbau-team', '50% 50%'],
       h1: 'Energetische Modernisierung', sub: 'Erneuerbare Energien und Wärmerückgewinnung',
       lead: 'Wir modernisieren Haustechnik energetisch: mit Wärmepumpen, Speichern und Solarthermie, mit Wärmerückgewinnung und der Anbindung an Wärmeverbünde. Energiesimulationen und Gebäudesimulationen zeigen, was sich lohnt.',
       items: ['Wärmepumpen, Speicher und Solarthermie', 'Wärmerückgewinnung', 'Anbindung an Wärmeverbünde', 'Energiesimulation und Gebäudesimulation'],
