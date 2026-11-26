@@ -325,7 +325,7 @@
       <div class="owners">${T.owners.map(p => personCard(p, true)).join('')}</div>
     </div></section>
     <section class="sec sec--paper" aria-labelledby="tm-t"><div class="wrap">
-      <div class="sec__head"><div>${ruleBox('Mitarbeitende')}<h2 class="h2" id="tm-t">Das sind wir</h2></div><p class="lead" data-reveal>Alle Mitarbeiterinnen und Mitarbeiter mit Namen und Funktion.</p></div>
+      <div class="sec__head"><div>${ruleBox('Mitarbeitende')}<h2 class="h2" id="tm-t">Das ist Rokitzky</h2></div><p class="lead" data-reveal>Alle Mitarbeiterinnen und Mitarbeiter mit Namen und Funktion.</p></div>
       <div class="tfilter" aria-label="Team nach Bereich filtern" data-reveal>
         <button type="button" class="tchip is-on" data-tf="all" aria-pressed="true">Alle</button>
         ${T.groups.map(g => `<button type="button" class="tchip" data-tf="${g.id}" aria-pressed="false">${g.title}</button>`).join('')}
