@@ -461,12 +461,14 @@
     ${hero({ dim: true, img: 'helm-logo', m: 'helm-logo-t', pos: '50% 50%', mpos: '78% 50%', alt: '', crumb: [['Home', u()], [crumb]], kicker: 'W. Rokitzky AG', title: [title] })}
     <section class="sec wrap legal" aria-label="${title}">${body}</section>`;
   }
+  /* B16: UID und MWST im amtlichen Format (Ausnahme vom Bindestrichverbot). TODO K05: MWST-Nummer bei Rokitzky bestätigen,
+     laut Registerdaten der Zweigniederlassung ist die Firma Mitglied einer MWST-Gruppe. */
   function pageImprint() {
     const [w] = S.locations;
     return legalPage('Impressum', 'Impressum', `
       <div class="legal__grid">
         <div><h2>Betreiberin</h2><p>W. Rokitzky AG<br>${w.street}<br>${w.city}<br>Schweiz</p><p>Telefon <a class="link" href="tel:${w.href}">${w.phone}</a><br><a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a></p></div>
-        <div><h2>Registrierung</h2><p>Unternehmensidentifikationsnummer (UID)<br>CHE 102.966.397</p><p>Mehrwertsteuernummer<br>CHE102966397MWST</p></div>
+        <div><h2>Registrierung</h2><p>Unternehmensidentifikationsnummer (UID)<br>CHE-102.966.397</p><p>Mehrwertsteuernummer<br>CHE-102.966.397 MWST</p></div>
         <div><h2>Pikettdienst</h2><p>Rund um die Uhr erreichbar<br><a class="link" href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
         <div><h2>Richtlinien</h2><ul>${S.legal.map(([t, u]) => `<li><a class="link" href="${u}" target="_blank" rel="noopener">${t} (PDF)</a></li>`).join('')}<li><a class="link" href="${u('datenschutz')}">Datenschutz</a></li></ul></div>
       </div>`);
