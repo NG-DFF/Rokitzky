@@ -432,7 +432,7 @@
     ${hero({ dim: true, ring: false, img: 'van-wide', pos: '40% 50%', alt: 'Servicefahrzeug von Rokitzky', crumb: [['Home', u()], ['Kontakt']], kicker: 'Kontakt', title: ['So erreichen', 'Sie uns.'], sub: 'Persönlich und verbindlich, an vier Standorten und mit Pikettdienst rund um die Uhr.', btns: btn('mailto:' + S.company.mail, S.company.mail, 'btn--white', svg.mail()) + tel() })}
     <section class="sec wrap" aria-label="Kontaktdaten">
       <div class="cgrid">
-        <div class="ccard ccard--navy" data-reveal><span class="lbl lbl--light">Pikett 24/7</span><strong>${S.company.pikett}</strong><p>Störungsdienst rund um die Uhr, auch nachts und am Wochenende.</p><a href="tel:${S.company.pikettHref}">Jetzt anrufen</a></div>
+        <div class="ccard ccard--navy" data-reveal><span class="lbl lbl--light">Pikett 24/7</span><strong>${S.company.pikett}</strong><p>Störungsdienst rund um die Uhr, auch nachts und am Wochenende.</p>${btn('tel:' + S.company.pikettHref, 'Jetzt anrufen', 'btn--white', svg.phone())}</div>
         <div class="ccard" data-reveal><span class="lbl">Hauptsitz</span><h3>${w.name}</h3><p>W. Rokitzky AG<br>${w.street}<br>${w.city}</p><a href="tel:${w.href}">${w.phone}</a></div>
         <div class="ccard" data-reveal><span class="lbl">Standort</span><h3>${wi.name}</h3><p>W. Rokitzky AG<br>${wi.street}<br>${wi.city}</p><a href="tel:${wi.href}">${wi.phone}</a></div>
         <div class="ccard" data-reveal><span class="lbl">Allgemein</span><h3>Mail</h3><p>Für Anfragen, Offerten und Bewerbungen.</p><a href="mailto:${S.company.mail}">${S.company.mail}</a></div>

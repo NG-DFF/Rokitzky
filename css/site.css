@@ -186,6 +186,7 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 44px) 42px)}
 .hero__media img,.hero__media video{width:100%;height:100%;object-fit:cover;transform-origin:center 60%}
 .hero__media .hero__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero__shade{position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(180deg,rgba(15,21,34,.62) 0,rgba(15,21,34,.28) 120px,rgba(15,21,34,0) 210px),
   linear-gradient(128deg,rgba(38,64,107,.94) 0%,rgba(38,64,107,.62) 26%,rgba(38,64,107,.08) 55%,rgba(38,64,107,0) 70%),
   linear-gradient(0deg,rgba(15,21,34,.86) 0%,rgba(30,44,70,.5) 28%,rgba(77,97,130,0) 58%)}
 .hero__in{position:relative;padding-top:calc(var(--hd-h) + 7rem);padding-bottom:clamp(2rem,4vw,3.4rem);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end}
@@ -353,7 +354,7 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 44px) 42px)}
 .card:hover .card__go svg{transform:translateX(5px)}
 .cards--jobs{grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr))}
 .cards--jobs h3{font-size:clamp(1.25rem,1.6vw,1.7rem);overflow-wrap:anywhere}
-.hero--dim .hero__shade{background:linear-gradient(100deg,rgba(20,28,44,.95) 0%,rgba(38,64,107,.86) 34%,rgba(38,64,107,.25) 62%,rgba(38,64,107,0) 78%),linear-gradient(0deg,rgba(15,21,34,.86) 0%,rgba(30,44,70,.45) 28%,rgba(77,97,130,0) 58%)}
+.hero--dim .hero__shade{background:linear-gradient(180deg,rgba(15,21,34,.62) 0,rgba(15,21,34,.28) 120px,rgba(15,21,34,0) 210px),linear-gradient(100deg,rgba(20,28,44,.95) 0%,rgba(38,64,107,.86) 34%,rgba(38,64,107,.25) 62%,rgba(38,64,107,0) 78%),linear-gradient(0deg,rgba(15,21,34,.86) 0%,rgba(30,44,70,.45) 28%,rgba(77,97,130,0) 58%)}
 .card--img{color:#fff;background:var(--navy-900);overflow:hidden;min-height:360px;border:0}
 .card--img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;transition:transform 1s var(--ease),opacity .6s}
 .card--img:hover img{opacity:.45}
@@ -439,7 +440,8 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 44px) 42px)}
 .ccard a:not(.btn){font-weight:600;color:var(--brand)}
 .ccard--navy{background:var(--navy-900);color:#fff;border:0}
 .ccard--navy p{color:rgba(255,255,255,.78)}
-.ccard--navy a{color:#fff}
+.ccard--navy a:not(.btn){color:#fff}
+.ccard--navy .btn{justify-self:start;margin-top:.4rem}
 .ccard--navy strong{font-size:2rem;font-weight:800;line-height:1}
 
 /* marquee */
@@ -621,7 +623,7 @@ button.tchip{font:inherit;font-weight:600;font-size:.95rem;cursor:pointer;color:
 .tgrp[hidden]{display:none}
 .tgrp__t{display:flex;align-items:center;gap:.6rem;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:600;padding-bottom:.9rem;margin-bottom:clamp(1rem,2vw,1.4rem);border-bottom:1px solid var(--line-strong)}
 .tgrp__t .hexmini{width:18px;height:16px}
-.tgrp__t i{margin-left:auto;font-style:normal;letter-spacing:.04em;opacity:.7}
+.tgrp__t i{margin-left:auto;font-style:normal;letter-spacing:.04em}
 @media (max-width:1100px){.people{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media (max-width:820px){.people{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){
