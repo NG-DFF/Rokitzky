@@ -71,7 +71,7 @@
     </section>`;
   }
 
-  const ctaBlock = (title = 'Persönlich &amp; Verbindlich', text = 'Sprechen wir über Ihr Projekt. Wir hören zu, schauen genau hin und verbauen, was wir besprochen haben.', pic = ['action-team', '45% 45%']) => `
+  const ctaBlock = (title = 'Persönlich &amp; Verbindlich', text = `Für Anfragen und Offerten erreichen Sie uns unter ${S.company.phone} oder per Mail. Bei Störungen hilft unser Pikettdienst rund um die Uhr.`, pic = ['action-team', '45% 45%']) => `
     <section class="cta on-dark" aria-label="Kontakt">
       <div class="cta__media">${img(pic[0], '', pic[1], false, pic[2], pic[3])}</div>
       <div class="cta__txt">
@@ -86,7 +86,7 @@
 
   const faqBlock = (items, title = 'Häufige Fragen') => `
     <section class="sec wrap" aria-labelledby="faq-t">
-      <div class="sec__head"><div>${ruleBox('Gut zu wissen')}<h2 class="h2${Math.max(...title.split(' ').map(w => w.length)) > 14 ? ' h2--long' : ''}" id="faq-t">${title}</h2></div><p class="muted" data-reveal>Ihre Frage ist nicht dabei? Schreiben Sie uns an <a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a> oder rufen Sie an: ${S.company.phone}.</p></div>
+      <div class="sec__head"><div>${ruleBox('FAQ')}<h2 class="h2${Math.max(...title.split(' ').map(w => w.length)) > 14 ? ' h2--long' : ''}" id="faq-t">${title}</h2></div><p class="muted" data-reveal>Ihre Frage ist nicht dabei? Schreiben Sie uns an <a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a> oder rufen Sie an: ${S.company.phone}.</p></div>
       <div class="faq" data-reveal>${items.map(([q, a], i) => `<details ${i === 0 ? 'open' : ''}><summary>${q}<i>${svg.plus()}</i></summary><p class="a">${a}</p></details>`).join('')}</div>
     </section>`;
 
@@ -98,19 +98,16 @@
 
   const markImgs = () => `<img class="mark" src="img/toplehrbetrieb.svg" alt="Toplehrbetrieb Gebäudetechnik" loading="lazy" width="350" height="108"><img class="mark" src="img/gebaeudetechniker.svg" alt="Wir, die Gebäudetechniker" loading="lazy" width="350" height="157"><img class="mark mark--seal" src="img/iso-9001.webp" alt="SQS Zertifiziertes Managementsystem ISO 9001" loading="lazy" width="240" height="240"><img class="mark mark--seal" src="img/iso-14001-45001.webp" alt="SQS Zertifiziertes Managementsystem ISO 14001 und 45001" loading="lazy" width="240" height="240">`;
   const marks = (plain = false) => `<div class="marks ${plain ? 'marks--plain' : ''}" data-reveal>${plain ? '' : '<span class="marks__lbl">Ausgezeichnet und zertifiziert</span>'}<div class="marks__row">${markImgs()}</div></div>`;
-  const quoteRotator = () => `<div class="qrot" data-qrot data-reveal>${S.quotes.map(([q, a], i) => `<figure class="qrot__item${i ? '' : ' is-on'}"><blockquote>«${q}»</blockquote><figcaption>${a}</figcaption></figure>`).join('')}<div class="qrot__dots" aria-hidden="true">${S.quotes.map((_, i) => `<i class="${i ? '' : 'is-on'}"></i>`).join('')}</div></div>`;
   const portraitWall = () => {
     const P = S.portraits, cols = [[0, 3, 6], [1, 4], [2, 5]];
     return `<div class="pwall" data-pwall>${cols.map((c, k) => `<div class="pwall__col" data-parallax-y="${[-5, 4, -2][k]}">${c.filter(i => P[i]).map((i, j) => `<img class="pwall__img${j ? '' : ' is-on'}" src="img/${P[i]}.webp" alt="Mitarbeiter von Rokitzky" loading="lazy">`).join('')}</div>`).join('')}</div>`;
   };
-  const valuesGrid = () => `<div class="values">${S.values.map(([t, d], i) => `<div class="value" data-reveal><h3>${t}</h3><p>${d}</p></div>`).join('')}</div>`;
-  const teamBlock = (title = 'Ziemlich viele Rokitzkys.', lead = 'Über 80 Mitarbeiterinnen und Mitarbeiter in Wallisellen, Winterthur, Hinwil und Zürich, die alle genau wissen, was sie tun und weshalb sie es tun.', btns = true) => `
+  const teamBlock = (title = 'Über 80 Mitarbeitende.', lead = 'In Wallisellen, Winterthur, Hinwil und Zürich, in Projektleitung, Montage, Service und Administration. Dazu bilden wir jedes Jahr 15 bis 20 Lernende aus.', btns = true) => `
     <div class="wrap team">
       <div class="team__txt">
-        ${ruleBox('Mitarbeiter &amp; Unternehmenskultur')}
+        ${ruleBox('Mitarbeitende')}
         <h2 class="h2">${title}</h2>
         <p class="lead" data-reveal style="margin-top:1.4rem">${lead}</p>
-        ${quoteRotator()}
         ${btns ? `<div class="btns" data-reveal>${btn('#mitarbeitende', 'Arbeiten bei Rokitzky')}${btn('#karriere', 'Offene Stellen und Lehre', 'btn--ghost')}</div>` : ''}
       </div>
       ${portraitWall()}
@@ -140,7 +137,6 @@
         <p class="lead" data-reveal>Wir wissen, was wir können und was nicht, in der Planung ebenso wie bei der Ausführung.</p>
         <div class="stmt__facts" data-reveal>
           <p>Wir können Heizung und Kälte. Wir können Lüftung und Klima. Wir können Sanitär. Wir können Service und Unterhalt. Wir können erneuerbare Energien.</p>
-          <p>Wir haben keine Ahnung, wie die energetische Zukunft aussieht. Wir wissen bloss: Ist sie da, werden wir Bescheid wissen.</p>
           <a class="link" href="#unternehmen">Mehr über Rokitzky ${svg.arrow()}</a>
         </div>
       </div>
@@ -165,7 +161,7 @@
       <div class="wrap pk__grid">
         <div>
           ${ruleBox('Störungsdienst und Pikett', true, true)}
-          <h2 class="h2" id="pk-t">24/7 persönlich für Sie da.</h2>
+          <h2 class="h2" id="pk-t">Rund um die Uhr erreichbar.</h2>
           <a class="pk__num" href="tel:${S.company.pikettHref}" data-reveal>${S.company.pikett}</a>
           <p class="lead" data-reveal>Und wenn ausserplanmässig etwas nicht funktioniert, rufen Sie uns an. Unseren Pikettdienst gibt es seit 2013, rund um die Uhr.</p>
           <div class="btns" data-reveal style="margin-top:2rem">${btn('tel:' + S.company.pikettHref, 'Jetzt anrufen', 'btn--white', svg.phone())}${btn('#stoerungsdienst-pikett', 'Mehr zum Pikettdienst', 'btn--ghost')}</div>
@@ -180,8 +176,8 @@
         <div class="split__media morph" data-morph>${img('service-check-tall', 'Servicetechniker von Rokitzky kontrolliert ein Thermometer an einer Anlage', '50% 40%')}</div>
         <div class="split__txt">
           ${ruleBox('Unternehmen')}
-          <h2 class="h2" id="un-t">Seit 1970 persönlich geblieben.</h2>
-          <p data-reveal>Was 1970 als Einmannbetrieb in Embrach begann, ist heute ein inhabergeführter Handwerksbetrieb mit über 80 Mitarbeitenden. Unsere wichtigsten Werte sind geblieben: Verbindlichkeit und Kundennähe.</p>
+          <h2 class="h2" id="un-t">Seit 1970 im Kanton Zürich.</h2>
+          <p data-reveal>Was 1970 als Einmannbetrieb in Embrach begann, ist heute ein inhabergeführter Handwerksbetrieb mit über 80 Mitarbeitenden. Unsere wichtigsten Werte: Verbindlichkeit und Kundennähe.</p>
           <div class="mini-tl" data-reveal>
             <div><b>1970</b><span>Start in Embrach</span></div>
             <div><b>1987</b><span>W. Rokitzky AG</span></div>
@@ -196,7 +192,7 @@
     <section class="sec sec--paper" aria-label="Mitarbeitende">${teamBlock()}<div class="wrap">${marks()}</div></section>
 
     ${mapSection()}
-    ${ctaBlock('Sprechen wir über Ihr Projekt.', 'Wir hören zu, schauen genau hin und verbauen, was wir besprochen haben.', ['team-logo-t', '50% 32%', 'team-logo', '50% 50%'])}`;
+    ${ctaBlock('Sprechen wir über Ihr Projekt.', undefined, ['team-logo-t', '50% 32%', 'team-logo', '50% 50%'])}`;
   }
 
   function mapSection(heading = 'Vier Standorte im Kanton Zürich') {
@@ -253,7 +249,7 @@
     return `
     ${hero({ img: a.img, pos: a.pos, alt: a.title, crumb: [['Home', '#start'], ['Leistungen', '#dienstleistungen'], [a.title]], kicker: 'Leistungen', title: [a.title], sub: a.short, btns: btn('#kontakt', 'Projekt besprechen', 'btn--white') + tel() })}
     <section class="sec wrap intro" aria-label="Leistungen">
-      <div>${ruleBox('Was wir für Sie tun')}<p class="lead" data-reveal>${a.lead}</p></div>
+      <div>${ruleBox('Was wir tun')}<p class="lead" data-reveal>${a.lead}</p></div>
       <ul class="checks" data-reveal>${a.items.map(i => `<li>${svg.hex()}${i}</li>`).join('')}</ul>
     </section>
     <section class="sec sec--paper" aria-labelledby="th-t"><div class="wrap">
@@ -294,7 +290,7 @@
 
   function pageCompany() {
     return `
-    ${hero({ img: 'team-dach', m: 'team-dach-m', pos: '35% 55%', alt: 'Monteure von Rokitzky besprechen sich auf dem Dach einer Baustelle', crumb: [['Home', '#start'], ['Unternehmen']], kicker: 'Unternehmen seit 1970', title: ['Wir sind', 'schon lange gut.'], sub: 'Vom Einmannbetrieb in Embrach zum inhabergeführten Handwerksbetrieb mit über 80 Mitarbeitenden und vier Standorten.', btns: btn('#kontakt', 'Kontakt', 'btn--white') + btn('#mitarbeitende', 'Mitarbeitende', 'btn--ghost') })}
+    ${hero({ img: 'team-dach', m: 'team-dach-m', pos: '35% 55%', alt: 'Monteure von Rokitzky besprechen sich auf dem Dach einer Baustelle', crumb: [['Home', '#start'], ['Unternehmen']], kicker: 'Unternehmen', title: ['Inhabergeführt', 'seit 1970.'], sub: 'Vom Einmannbetrieb in Embrach zum Handwerksbetrieb mit über 80 Mitarbeitenden und vier Standorten.', btns: btn('#kontakt', 'Kontakt', 'btn--white') + btn('#mitarbeitende', 'Mitarbeitende', 'btn--ghost') })}
     <section class="sec wrap intro intro--solo" aria-label="Über uns">
       <div>${ruleBox('Persönlich &amp; Verbindlich', true)}<p class="lead" data-reveal>Rokitzky ist ein inhabergeführter Handwerksbetrieb mit Tradition. Seit mehr als 50 Jahren sorgen wir für ein gutes Gebäudeklima. Auf dieser Erfahrung basieren unsere wichtigsten Werte: Verbindlichkeit und Kundennähe.</p></div>
     </section>
@@ -306,10 +302,10 @@
     </div></section>
     ${mapSection('Vier Standorte im Kanton Zürich')}
     <section class="sec wrap" aria-labelledby="zp-t">
-      <div class="sec__head"><div>${ruleBox('Qualität und Partner')}<h2 class="h2" id="zp-t">Geprüft, bewährt und gut vernetzt</h2></div></div>
+      <div class="sec__head"><div>${ruleBox('Qualität und Partner')}<h2 class="h2" id="zp-t">Zertifikate, Referenzen und Partner</h2></div></div>
       <div class="cgrid">
-        <div class="ccard" data-reveal><span class="lbl">Zertifikate</span><h3>Geprüfte Qualität</h3><p>Dass wir Qualität nicht nur versprechen, sondern einhalten, dafür stehen zahlreiche Zertifikate, nach denen wir unseren Betrieb regelmässig überprüfen lassen.</p></div>
-        <div class="ccard" data-reveal><span class="lbl">Referenzen</span><h3>Klein, gross und sehr gross</h3><p>Wir haben zahlreiche kleine, grosse und sehr grosse Projekte geplant und ausgeführt.</p><a href="https://referenz-verwaltung.ch/preview/embed?i=gYTzvHf1JRGq" target="_blank" rel="noopener">Referenzobjekte ansehen</a></div>
+        <div class="ccard" data-reveal><span class="lbl">Zertifikate</span><h3>ISO 9001, 14001 und 45001</h3><p>Unser Managementsystem ist von der SQS nach ISO 9001, ISO 14001 und ISO 45001 zertifiziert. Wir lassen unseren Betrieb regelmässig überprüfen.</p></div>
+        <div class="ccard" data-reveal><span class="lbl">Referenzen</span><h3>Ausgeführte Projekte</h3><p>Wir haben zahlreiche kleine, grosse und sehr grosse Projekte geplant und ausgeführt.</p><a href="https://referenz-verwaltung.ch/preview/embed?i=gYTzvHf1JRGq" target="_blank" rel="noopener">Referenzobjekte ansehen</a></div>
         <div class="ccard" data-reveal><span class="lbl">Wärmeverbund</span><h3>Holz AG für Energie</h3><p>2011 gebaut: ein Wärmeverbund mit 2 MW Holzschnitzelheizung.</p><a href="https://www.holzag.ch" target="_blank" rel="noopener">Zur Holz AG für Energie</a></div>
       </div>
       ${marks()}
@@ -323,31 +319,26 @@
   function pageTeam() {
     const T = S.team;
     return `
-    ${hero({ img: 'hero-dach', pos: '55% 45%', alt: 'Monteure von Rokitzky auf dem Dach einer Baustelle', crumb: [['Home', '#start'], ['Mitarbeitende']], kicker: 'Mitarbeiter &amp; Unternehmenskultur', title: ['Wir sind nur', 'so gut wie sie.'], sub: 'Über 80 Mitarbeiterinnen und Mitarbeiter, die alle genau wissen, was sie tun und weshalb sie es tun. Sie leben unseren Anspruch jeden Tag: Wir verbauen, was wir besprechen.', btns: btn('#karriere', 'Offene Stellen und Lehre', 'btn--white') })}
+    ${hero({ img: 'hero-dach', pos: '55% 45%', alt: 'Monteure von Rokitzky auf dem Dach einer Baustelle', crumb: [['Home', '#start'], ['Mitarbeitende']], kicker: 'Mitarbeitende', title: ['Unser Team.'], sub: 'Über 80 Mitarbeiterinnen und Mitarbeiter in Wallisellen, Winterthur, Hinwil und Zürich.', btns: btn('#karriere', 'Offene Stellen und Lehre', 'btn--white') })}
     <section class="sec" aria-labelledby="own-t"><div class="wrap">
-      <div class="sec__head"><div>${ruleBox('Rokitzky persönlich', true)}<h2 class="h2" id="own-t">Die Inhaber</h2></div><p class="lead" data-reveal>Michele Fiorito, Siniša Stojković und Vincenzo Aquilino führen die W. Rokitzky AG als Inhaber.</p></div>
+      <div class="sec__head"><div>${ruleBox('Führung', true)}<h2 class="h2" id="own-t">Die Inhaber</h2></div><p class="lead" data-reveal>Michele Fiorito, Siniša Stojković und Vincenzo Aquilino führen die W. Rokitzky AG als Inhaber.</p></div>
       <div class="owners">${T.owners.map(p => personCard(p, true)).join('')}</div>
     </div></section>
     <section class="sec sec--paper" aria-labelledby="tm-t"><div class="wrap">
-      <div class="sec__head"><div>${ruleBox('Mitarbeitende')}<h2 class="h2" id="tm-t">Unser Team</h2></div><p class="lead" data-reveal>Das beste Unternehmen ist nichts ohne die Mitarbeiterinnen und Mitarbeiter, die es zum besten Unternehmen machen. Hier sind sie, mit Namen und Funktion.</p></div>
+      <div class="sec__head"><div>${ruleBox('Mitarbeitende')}<h2 class="h2" id="tm-t">Nach Bereichen</h2></div><p class="lead" data-reveal>Alle Mitarbeiterinnen und Mitarbeiter mit Namen und Funktion.</p></div>
       <div class="tfilter" aria-label="Team nach Bereich filtern" data-reveal>
         <button type="button" class="tchip is-on" data-tf="all" aria-pressed="true">Alle</button>
         ${T.groups.map(g => `<button type="button" class="tchip" data-tf="${g.id}" aria-pressed="false">${g.title}</button>`).join('')}
       </div>
       ${T.groups.map(g => `<div class="tgrp" data-tg="${g.id}" data-reveal><h3 class="tgrp__t">${svg.hex()}<span>${g.title}</span><i>${g.people.length}</i></h3><div class="people">${g.people.map(p => personCard(p)).join('')}</div></div>`).join('')}
     </div></section>
-    <section class="sec" aria-labelledby="ab-t"><div class="wrap">
-      <div class="sec__head"><div>${ruleBox('Arbeiten bei Rokitzky', true)}<h2 class="h2" id="ab-t">Was uns im Alltag trägt</h2></div>${quoteRotator()}</div>
-      ${valuesGrid()}
-      ${marks()}
-    </div></section>
-    ${band('team-lachend', '50% 50%', 'Aus dem Team', 'Wer zusammen lachen kann, kann auch zusammen anpacken.', 'team-lachend-t', '27% 50%')}
+    ${band('team-lachend', '50% 50%', 'Lehre bei Rokitzky', 'Jedes Jahr bilden wir 15 bis 20 Lernende aus.', 'team-lachend-t', '27% 50%')}
     <section class="sec sec--navy on-dark" aria-labelledby="jobs-t"><div class="wrap split">
       <div class="split__media" data-img>${img('weste-logo-nah-t', 'Monteur von Rokitzky in Warnweste mit Logo', '50% 40%')}</div>
       <div class="split__txt">
         ${ruleBox('Offene Stellen und Lehre', true, true)}
         <p class="bigquote" id="jobs-t" data-reveal>Gute Fachleute sind bei uns immer gefragt.</p>
-        <p data-reveal>Bei Rokitzky steht das Handwerk an erster Stelle. Ob Fachkraft oder Lernende: Ihre Bewerbung erreicht uns persönlich und verbindlich.</p>
+        <p data-reveal>Ob Fachkraft oder Lernende: Schicken Sie uns Ihre Bewerbung per Mail an ${S.company.mail}.</p>
         <div class="btns" data-reveal>${btn('#karriere', 'Offene Stellen und Lehre', 'btn--white')}${btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Bewerbung senden', 'btn--ghost', svg.mail())}</div>
       </div>
     </div></section>
@@ -356,24 +347,20 @@
 
   function pageCareer() {
     return `
-    ${hero({ img: 'action-team-wide', m: 'action-team-tall', pos: '55% 40%', alt: 'Mitarbeitende von Rokitzky in Warnwesten in einer Technikzentrale', crumb: [['Home', '#start'], ['Mitarbeitende', '#mitarbeitende'], ['Karriere']], kicker: 'Karriere und Lehre bei Rokitzky', title: ['Wir waren alle', 'einmal neu.'], sub: 'Ob erfahrene Fachkraft oder Lernende: Bei uns übernehmen Sie Verantwortung und lernen jeden Tag dazu. Jedes Jahr bilden wir 15 bis 20 Lernende in fünf Berufen aus.', btns: btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Jetzt bewerben', 'btn--white', svg.mail()) + btn('#mitarbeitende', 'Unser Team', 'btn--ghost') })}
+    ${hero({ img: 'action-team-wide', m: 'action-team-tall', pos: '55% 40%', alt: 'Mitarbeitende von Rokitzky in Warnwesten in einer Technikzentrale', crumb: [['Home', '#start'], ['Mitarbeitende', '#mitarbeitende'], ['Karriere']], kicker: 'Karriere und Lehre', title: ['Arbeiten und lernen', 'bei Rokitzky.'], sub: 'Offene Stellen für Fachleute und Lehrstellen in fünf Berufen. Jedes Jahr bilden wir 15 bis 20 Lernende aus.', btns: btn('mailto:' + S.company.mail + '?subject=Bewerbung', 'Jetzt bewerben', 'btn--white', svg.mail()) + btn('#mitarbeitende', 'Unser Team', 'btn--ghost') })}
     <section class="sec" aria-labelledby="os-t"><div class="wrap intro">
-      <div>${ruleBox('Offene Stellen', true)}<h2 class="h2" id="os-t">Gute Fachleute sind bei uns immer gefragt.</h2><p class="lead" data-reveal style="margin-top:1.4rem">Bei Rokitzky steht das Handwerk an erster Stelle. Sie bringen Erfahrung in Heizung, Lüftung, Klima, Kälte oder Sanitär mit? Nehmen Sie mit uns Kontakt auf, wenn Sie an der Zukunft unseres Unternehmens mitarbeiten möchten. Wir bieten ein attraktives Arbeitsumfeld und individuelle Entwicklungsmöglichkeiten.</p></div>
-      <div class="ccard" data-reveal><span class="lbl">Bewerbung</span><h3>Online bewerben</h3><p>Schicken Sie uns Ihre Unterlagen per Mail. Wir freuen uns, Sie kennenzulernen.</p><a class="btn btn--solid" href="mailto:${S.company.mail}?subject=Bewerbung" style="justify-self:start;margin-top:.6rem">Bewerbung senden ${svg.arrow()}</a></div>
+      <div>${ruleBox('Offene Stellen', true)}<h2 class="h2" id="os-t">Gute Fachleute sind bei uns immer gefragt.</h2><p class="lead" data-reveal style="margin-top:1.4rem">Sie haben Erfahrung in Heizung, Lüftung, Klima, Kälte oder Sanitär und möchten bei uns mitarbeiten? Dann schicken Sie uns Ihre Bewerbung.</p></div>
+      <div class="ccard" data-reveal><span class="lbl">Bewerbung</span><h3>Bewerbung per Mail</h3><p>Lebenslauf, Zeugnisse und ein kurzes Anschreiben an ${S.company.mail}.</p><a class="btn btn--solid" href="mailto:${S.company.mail}?subject=Bewerbung" style="justify-self:start;margin-top:.6rem">Bewerbung senden ${svg.arrow()}</a></div>
     </div></section>
     <section class="sec sec--paper" aria-labelledby="le-t"><div class="wrap">
-      <div class="sec__head"><div>${ruleBox('Lehre bei Rokitzky', true)}<h2 class="h2" id="le-t">15 bis 20 Lernende pro Jahr</h2></div><div data-reveal><p class="lead">Damit auch die künftigen Fachleute verstehen, was sie machen, engagieren wir uns jeden Tag. Als Toplehrbetrieb bilden wir in fünf Berufen aus. Ob Schnuppertag, Praktikum oder Berufslehre: Bei uns gibt es viele Möglichkeiten, ins Berufsleben einzusteigen.</p>${marks(true)}</div></div>
+      <div class="sec__head"><div>${ruleBox('Lehre bei Rokitzky', true)}<h2 class="h2" id="le-t">15 bis 20 Lernende pro Jahr</h2></div><div data-reveal><p class="lead">Als Toplehrbetrieb bilden wir in fünf Berufen aus. Ob Schnuppertag, Praktikum oder Berufslehre: Bei uns gibt es viele Möglichkeiten, ins Berufsleben einzusteigen.</p>${marks(true)}</div></div>
       <div class="cards cards--jobs">${S.apprenticeships.map((b, i) => `<a class="card" href="mailto:${S.company.mail}?subject=Lehrstelle%20${encodeURIComponent(b)}" data-reveal><span class="lbl">Lehrberuf</span><div><h3>${b}</h3></div><span class="card__go">Lehrstelle anfragen ${svg.arrow()}</span></a>`).join('')}</div>
-      <div class="tips">
-        <div>${ruleBox('Was wir Berufseinsteigern raten')}<p class="bigquote bigquote--ink" data-reveal>Niemand muss am ersten Tag alles können.</p></div>
-        <div class="tips__list">${S.tips.map(([t, d]) => `<div class="tip" data-reveal><h3>${t}</h3><p>${d}</p></div>`).join('')}</div>
-      </div>
       <div class="intro" style="margin-top:clamp(3rem,6vw,5rem)">
         <div>${ruleBox('Bewerbungsunterlagen')}<p class="lead" data-reveal>Interessiert an einer Lehrstelle? Schick uns deine Unterlagen als PDF an <a class="link" href="mailto:${S.company.mail}?subject=Bewerbung%20Lehrstelle">${S.company.mail}</a>.</p></div>
         <ul class="checks" data-reveal>${S.documents.map(d => `<li>${svg.hex()}${d}</li>`).join('')}</ul>
       </div>
     </div></section>
-    ${ctaBlock('Persönlich &amp; Verbindlich', 'Fragen zur Lehre oder zu offenen Stellen? Wir nehmen uns Zeit für Sie.', ['lernende-t', '50% 63%', 'lernende', '50% 50%'])}`;
+    ${ctaBlock('Persönlich &amp; Verbindlich', `Fragen zur Lehre oder zu offenen Stellen? Rufen Sie uns an: ${S.company.phone}.`, ['lernende-t', '50% 63%', 'lernende', '50% 50%'])}`;
   }
 
   function pageContact() {
@@ -382,7 +369,7 @@
     ${hero({ dim: true, ring: false, img: 'van-wide', pos: '40% 50%', alt: 'Servicefahrzeug von Rokitzky', crumb: [['Home', '#start'], ['Kontakt']], kicker: 'Kontakt', title: ['So erreichen', 'Sie uns.'], sub: 'Persönlich und verbindlich, an vier Standorten und mit Pikettdienst rund um die Uhr.', btns: btn('mailto:' + S.company.mail, S.company.mail, 'btn--white', svg.mail()) + tel() })}
     <section class="sec wrap" aria-label="Kontaktdaten">
       <div class="cgrid">
-        <div class="ccard ccard--navy" data-reveal><span class="lbl lbl--light">Pikett 24/7</span><strong>${S.company.pikett}</strong><p>Störungsdienst rund um die Uhr, persönlich für Sie da.</p><a href="tel:${S.company.pikettHref}">Jetzt anrufen</a></div>
+        <div class="ccard ccard--navy" data-reveal><span class="lbl lbl--light">Pikett 24/7</span><strong>${S.company.pikett}</strong><p>Störungsdienst rund um die Uhr, auch nachts und am Wochenende.</p><a href="tel:${S.company.pikettHref}">Jetzt anrufen</a></div>
         <div class="ccard" data-reveal><span class="lbl">Hauptsitz</span><h3>${w.name}</h3><p>W. Rokitzky AG<br>${w.street}<br>${w.city}</p><a href="tel:${w.href}">${w.phone}</a></div>
         <div class="ccard" data-reveal><span class="lbl">Standort</span><h3>${wi.name}</h3><p>W. Rokitzky AG<br>${wi.street}<br>${wi.city}</p><a href="tel:${wi.href}">${wi.phone}</a></div>
         <div class="ccard" data-reveal><span class="lbl">Allgemein</span><h3>Mail</h3><p>Für Anfragen, Offerten und Bewerbungen.</p><a href="mailto:${S.company.mail}">${S.company.mail}</a></div>
@@ -416,7 +403,7 @@
       <div class="legal__grid">
         <div><h2>Betreiberin</h2><p>W. Rokitzky AG<br>${w.street}<br>${w.city}<br>Schweiz</p><p>Telefon <a class="link" href="tel:${w.href}">${w.phone}</a><br><a class="link" href="mailto:${S.company.mail}">${S.company.mail}</a></p></div>
         <div><h2>Registrierung</h2><p>Unternehmensidentifikationsnummer (UID)<br>CHE 102.966.397</p><p>Mehrwertsteuernummer<br>CHE102966397MWST</p></div>
-        <div><h2>Pikettdienst</h2><p>Rund um die Uhr für Sie da<br><a class="link" href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
+        <div><h2>Pikettdienst</h2><p>Rund um die Uhr erreichbar<br><a class="link" href="tel:${S.company.pikettHref}">${S.company.pikett}</a></p></div>
         <div><h2>Richtlinien</h2><ul>${S.legal.map(([t, u]) => `<li><a class="link" href="${u}" target="_blank" rel="noopener">${t} (PDF)</a></li>`).join('')}<li><a class="link" href="#datenschutz">Datenschutz</a></li></ul></div>
       </div>`);
   }
@@ -446,7 +433,7 @@
     start: { t: 'W. Rokitzky AG | Heizung, Lüftung, Klima, Kälte und Sanitär | Wallisellen, Winterthur, Hinwil, Zürich', d: 'Heizung, Kälte, Lüftung, Klima, Sanitär, Service und erneuerbare Energien seit 1970. Pikettdienst 24/7. Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Gebäudetechnik seit 1970', nav: 'start', fn: pageHome },
     dienstleistungen: { t: 'Leistungen | W. Rokitzky AG', d: 'Zu heiss? Zu kalt? Rokitzky! Heizung und Kälte, Lüftung und Klima, Sanitär, erneuerbare Energien sowie Service und Unterhalt.', label: 'Was wir können', nav: 'dienstleistungen', fn: pageServices },
     unternehmen: { t: 'Unternehmen | W. Rokitzky AG seit 1970', d: 'Inhabergeführter Handwerksbetrieb mit Tradition: seit 1970, über 80 Mitarbeitende und Standorte in Wallisellen, Winterthur, Hinwil und Zürich.', label: 'Unternehmen seit 1970', nav: 'unternehmen', fn: pageCompany },
-    mitarbeitende: { t: 'Mitarbeitende | W. Rokitzky AG', d: 'Über 80 Mitarbeiterinnen und Mitarbeiter. Rokitzky persönlich, offene Stellen und Lehre.', label: 'Mitarbeiter & Unternehmenskultur', nav: 'mitarbeitende', fn: pageTeam },
+    mitarbeitende: { t: 'Mitarbeitende | W. Rokitzky AG', d: 'Über 80 Mitarbeiterinnen und Mitarbeiter in Wallisellen, Winterthur, Hinwil und Zürich. Inhaber, Team, offene Stellen und Lehre.', label: 'Mitarbeiter & Unternehmenskultur', nav: 'mitarbeitende', fn: pageTeam },
     karriere: { t: 'Karriere und Lehre | W. Rokitzky AG', d: 'Offene Stellen und Lehre bei Rokitzky: 15 bis 20 Lernende pro Jahr in fünf Berufen der Gebäudetechnik.', label: 'Mitarbeiter & Unternehmenskultur', nav: 'karriere', fn: pageCareer },
     impressum: { t: 'Impressum | W. Rokitzky AG', d: 'Impressum der W. Rokitzky AG, Kriesbachstrasse 3b, 8304 Wallisellen.', label: 'Impressum', nav: '', fn: pageImprint },
     datenschutz: { t: 'Datenschutz | W. Rokitzky AG', d: 'Datenschutzerklärung der W. Rokitzky AG.', label: 'Datenschutz', nav: '', fn: pagePrivacy },

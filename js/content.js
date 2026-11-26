@@ -26,29 +26,29 @@ window.SITE = {
     {
       slug: 'lueftung-klima', no: '02', band: 'Seit über 50 Jahren für ein gutes Gebäudeklima.', title: 'Lüftung und Klima', img: 'lueftung-montage', pos: '50% 40%', bandImg: 'holzdecke', bandMpos: '100% 50%', cta: ['lueftung-service-t', '50% 37%', 'lueftung-service', '50% 50%'],
       short: 'Lüftungsanlagen und Klimaanlagen für ein gutes Raumklima.',
-      lead: 'Wir konzipieren und bauen Lüftungsanlagen und Klimaanlagen, sanieren und warten sie und verbessern das Raumklima in bestehenden Gebäuden. Wenn es darauf ankommt, beraten wir und erstellen Expertisen.',
+      lead: 'Wir konzipieren und bauen Lüftungsanlagen und Klimaanlagen, sanieren und warten sie und verbessern das Raumklima in bestehenden Gebäuden. Zudem beraten wir und erstellen Expertisen.',
       items: ['Wir konzipieren und bauen Lüftungsanlagen und Klimaanlagen', 'Wir sanieren und warten Lüftungsanlagen', 'Wir überprüfen und verbessern das Raumklima', 'Wir beraten und erstellen Expertisen'],
       related: ['lueftungsanlagen', 'klimaanlagen', 'lueftungsreinigung', 'brandschutzklappen']
     },
     {
-      slug: 'sanitaer', no: '03', band: 'Damit alles im Fluss bleibt.', title: 'Sanitär', img: 'sanitaer-flex', pos: '50% 40%', bandImg: 'pressfittings', bandMpos: '51% 50%', cta: ['rohrgang-team-t', '50% 55%', 'rohrgang-team', '50% 50%'],
+      slug: 'sanitaer', no: '03', band: 'Wir planen, installieren und unterhalten Sanitäranlagen.', title: 'Sanitär', img: 'sanitaer-flex', pos: '50% 40%', bandImg: 'pressfittings', bandMpos: '51% 50%', cta: ['rohrgang-team-t', '50% 55%', 'rohrgang-team', '50% 50%'],
       short: 'Vom Einfamilienhaus bis zum ganzen Quartier.',
       lead: 'Wir planen Sanitäranlagen für ein Einfamilienhaus oder ein ganzes Quartier und installieren sie in einer einzelnen Nasszelle oder in einer ganzen Überbauung. Danach unterhalten wir die Systeme.',
-      items: ['Wir planen und konzipieren Sanitäranlagen für ein Einfamilienhaus oder ein ganzes Quartier', 'Wir installieren Sanitäranlagen in einer einzigen Nasszelle oder in einer ganzen Überbauung', 'Wir sorgen dafür, dass alles im Fluss bleibt: Warmwasser, Kaltwasser und Abwasser', 'Wir unterhalten die Systeme', 'Wir erstellen Gutachten und überprüfen Konzepte'],
+      items: ['Wir planen und konzipieren Sanitäranlagen für ein Einfamilienhaus oder ein ganzes Quartier', 'Wir installieren Sanitäranlagen in einer einzigen Nasszelle oder in einer ganzen Überbauung', 'Wir sorgen für Warmwasser, Kaltwasser und Abwasser', 'Wir unterhalten die Systeme', 'Wir erstellen Gutachten und überprüfen Konzepte'],
       related: ['sanierungen', 'umbauten', 'service-wartung']
     },
     {
-      slug: 'erneuerbare-energien', no: '04', band: 'Ist die energetische Zukunft da, wissen wir Bescheid.', title: 'Erneuerbare Energien', img: 'speicher', pos: '50% 50%', bandImg: 'photovoltaik', bandMpos: '28% 50%', cta: ['weste-dach-t', '50% 58%', 'weste-dach', '50% 50%'],
+      slug: 'erneuerbare-energien', no: '04', band: 'Erneuerbare Energien für neue und bestehende Anlagen.', title: 'Erneuerbare Energien', img: 'speicher', pos: '50% 50%', bandImg: 'photovoltaik', bandMpos: '28% 50%', cta: ['weste-dach-t', '50% 58%', 'weste-dach', '50% 50%'],
       short: 'Wärmepumpen, Speicher und thermische Solaranlagen in der Haustechnik.',
       lead: 'Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein und ergänzen bestehende Systeme. Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus, bauen Anlagen zur Energierückgewinnung und erstellen Energiesimulationen und Gebäudesimulationen.',
       items: ['Wir binden Wärmepumpen, Speicher und thermische Solaranlagen in die Haustechnik ein', 'Wir ergänzen bestehende Systeme für Heizung, Lüftung und Klima', 'Wir kennen uns mit Nahwärmeverbunden und Spezialanlagen aus', 'Wir bauen Anlagen zur Energierückgewinnung', 'Wir konzipieren und stehen beratend zur Seite', 'Wir erstellen Energiesimulationen und Gebäudesimulationen'],
       related: ['energetische-modernisierung', 'waermepumpen-service', 'retrofit']
     },
     {
-      slug: 'service-unterhalt', no: '05', band: '24/7 persönlich für Sie da.', title: 'Service und Unterhalt', img: 'service-check', pos: '62% 45%', bandImg: 'service-tablet', bandMpos: '30% 50%', cta: ['abstimmung-t', '50% 71%', 'abstimmung', '50% 50%'],
-      short: 'Nach der Inbetriebnahme sind wir weiter für Sie da. Rund um die Uhr.',
-      lead: 'Eine Anlage für Heizung, Lüftung oder Sanitär ist nur so gut, wie sie gewartet und instand gehalten wird. Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt, kennen die Servicezyklen und planen die regelmässigen Wartungen über die gesamte Lebensdauer, auch bei Anlagen, die nicht wir installiert haben.',
-      items: ['Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt', 'Wir kennen die Servicezyklen und planen die regelmässigen Wartungen', 'Wir betreuen auch Anlagen, die nicht wir installiert haben', 'Unser Pikettdienst ist 24/7 für Sie da: 076 434 17 17'],
+      slug: 'service-unterhalt', no: '05', band: 'Pikettdienst rund um die Uhr: 076 434 17 17.', title: 'Service und Unterhalt', img: 'service-check', pos: '62% 45%', bandImg: 'service-tablet', bandMpos: '30% 50%', cta: ['abstimmung-t', '50% 71%', 'abstimmung', '50% 50%'],
+      short: 'Wartung, Service und Pikettdienst rund um die Uhr.',
+      lead: 'Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt Ihrer Anlagen für Heizung, Lüftung, Klima und Sanitär, kennen die Servicezyklen und planen die regelmässigen Wartungen über die gesamte Lebensdauer, auch bei Anlagen, die nicht wir installiert haben.',
+      items: ['Wir kümmern uns nach der Inbetriebnahme um Service und Unterhalt', 'Wir kennen die Servicezyklen und planen die regelmässigen Wartungen', 'Wir betreuen auch Anlagen, die nicht wir installiert haben', 'Unser Pikettdienst ist 24/7 erreichbar: 076 434 17 17'],
       related: ['service-wartung', 'wartungsvertraege', 'stoerungsdienst-pikett', 'waermepumpen-service']
     }
   ],
@@ -65,7 +65,7 @@ window.SITE = {
     'klimaanlagen': {
       title: 'Klimaanlagen', group: 'klima', img: 'klima-kleber', m: 'klima-kleber-t', pos: '50% 50%', mpos: '20% 50%', cta: ['klima-kran-t', '50% 71%', 'klima-kran', '50% 50%'],
       h1: 'Klimaanlagen', sub: 'Planung, Einbau und Service',
-      lead: 'Wir konzipieren und bauen Klimaanlagen, warten sie und verbessern das Raumklima. Was wir mit Ihnen besprechen, verbauen wir auch.',
+      lead: 'Wir konzipieren und bauen Klimaanlagen, warten sie und verbessern das Raumklima in bestehenden Gebäuden.',
       items: ['Beratung und Planung', 'Einbau und Inbetriebnahme', 'Wartung und Service', 'Ersatz und Modernisierung bestehender Anlagen', 'Störungsbehebung über den Pikettdienst'],
       faq: [
         ['Übernehmen Sie Planung, Einbau und Service?', 'Ja. Wir konzipieren, bauen und warten Klimaanlagen und begleiten die Anlage über die ganze Lebensdauer.'],
@@ -75,7 +75,7 @@ window.SITE = {
     'kaelteanlagen': {
       title: 'Kälteanlagen', group: 'klima', img: 'kaelte-kran', m: 'kaelte-kran-t', pos: '50% 50%', mpos: '34% 50%', cta: ['kran-fuehren-t', '50% 65%', 'kran-fuehren', '50% 50%'],
       h1: 'Kälteanlagen', sub: 'Planung, Bau, Wartung und Sanierung',
-      lead: 'Kälte gehört bei uns zur Haustechnik dazu. Wir planen, bauen, warten und sanieren Kälteanlagen und reparieren auch Anlagen, die nicht von uns stammen.',
+      lead: 'Wir planen, bauen, warten und sanieren Kälteanlagen und reparieren auch Anlagen, die nicht von uns stammen.',
       items: ['Planung und Bau', 'Wartung und Service', 'Sanierung bestehender Kälteanlagen', 'Reparaturen an Fremdanlagen', 'Pikettdienst rund um die Uhr'],
       faq: [
         ['Reparieren Sie auch Kälteanlagen anderer Installateure?', 'Ja. Wir reparieren und warten auch Anlagen, die nicht von uns gebaut wurden.'],
@@ -95,7 +95,7 @@ window.SITE = {
     'lueftungsanlagen': {
       title: 'Lüftungsanlagen', group: 'lueftung', img: 'halle-geraete', m: 'halle-geraete-t', pos: '50% 50%', mpos: '28% 50%', cta: ['halle-team-t', '50% 76%', 'halle-team', '50% 50%'],
       h1: 'Lüftungsanlagen', sub: 'Planung, Bau und Service',
-      lead: 'Wir planen und bauen Lüftungsanlagen, betreuen sie im Service und verbessern das Raumklima in bestehenden Gebäuden. Mit Beratung und Gutachten, wenn es darauf ankommt.',
+      lead: 'Wir planen und bauen Lüftungsanlagen, betreuen sie im Service und verbessern das Raumklima in bestehenden Gebäuden. Dazu beraten wir und erstellen Gutachten.',
       items: ['Planung und Bau', 'Service und Wartung', 'Verbesserung des Raumklimas', 'Beratung und Gutachten', 'Wärmerückgewinnung'],
       faq: [
         ['Können Sie das Raumklima in einem bestehenden Gebäude verbessern?', 'Ja. Die Verbesserung des Raumklimas in bestehenden Gebäuden gehört zu unseren Aufgaben, inklusive Beratung und Gutachten.'],
@@ -104,8 +104,8 @@ window.SITE = {
     },
     'lueftungsreinigung': {
       title: 'Lüftungsreinigung', group: 'lueftung', img: 'rohre-detail', m: 'rohre-detail-t', pos: '50% 50%', mpos: '88% 50%', cta: ['geraet-oeffnen-team-t', '50% 71%', 'geraet-oeffnen-team', '50% 50%'],
-      h1: 'Lüftungsreinigung', sub: 'Für saubere Anlagen und gute Raumluft',
-      lead: 'Eine Lüftungsanlage ist nur so gut wie ihr Zustand. Wir reinigen Lüftungsanlagen, wechseln Filter und halten den Zustand Ihrer Anlage nachvollziehbar fest.',
+      h1: 'Lüftungsreinigung', sub: 'Reinigung, Filterwechsel und Dokumentation',
+      lead: 'Wir reinigen Lüftungsanlagen, wechseln Filter und dokumentieren den Zustand Ihrer Anlage.',
       items: ['Reinigung von Lüftungsanlagen', 'Filterwechsel', 'Kontrolle und Dokumentation', 'Empfehlungen für die nächsten Servicezyklen'],
       faq: [
         ['Kann die Reinigung mit der Wartung kombiniert werden?', 'Ja. Wir stimmen Reinigung und Wartung aufeinander ab.'],
@@ -125,7 +125,7 @@ window.SITE = {
     'service-wartung': {
       title: 'Service und Wartung', group: 'service', img: 'steuerung-service', m: 'steuerung-service-t', pos: '50% 50%', mpos: '82% 50%', cta: ['monteur-kniend-t', '50% 37%', 'monteur-kniend', '50% 50%'],
       h1: 'Service und Wartung', sub: 'Für Heizung, Lüftung, Klima, Kälte und Sanitär',
-      lead: 'Nach der Inbetriebnahme fängt unsere Arbeit erst richtig an. Wir warten Ihre Anlagen regelmässig, planen die Servicezyklen über die ganze Lebensdauer und sind bei Störungen rund um die Uhr erreichbar.',
+      lead: 'Nach der Inbetriebnahme kümmern wir uns um Service und Unterhalt. Wir warten Ihre Anlagen regelmässig, planen die Servicezyklen über die ganze Lebensdauer und sind bei Störungen rund um die Uhr erreichbar.',
       items: ['Regelmässige Wartung', 'Servicezyklen über die ganze Lebensdauer', 'Service auch für Fremdanlagen', 'Pikettdienst 24/7'],
       faq: [
         ['Warten Sie auch Anlagen, die Sie nicht selbst gebaut haben?', 'Ja. Wir planen Servicezyklen auch für Anlagen anderer Installateure.'],
@@ -134,8 +134,8 @@ window.SITE = {
     },
     'wartungsvertraege': {
       title: 'Wartungsverträge', group: 'service', img: 'service-kleber', m: 'service-kleber-t', pos: '50% 50%', mpos: '20% 50%', cta: ['tablet-weste-t', '50% 37%', 'tablet-weste', '50% 50%'],
-      h1: 'Wartungsverträge', sub: 'Planbarer Service über die ganze Lebensdauer',
-      lead: 'Mit einem Wartungsvertrag planen wir die Servicezyklen Ihrer Anlage über die ganze Lebensdauer. Sie wissen, wann wir kommen, und wir kennen Ihre Anlage.',
+      h1: 'Wartungsverträge', sub: 'Servicezyklen über die ganze Lebensdauer',
+      lead: 'Mit einem Wartungsvertrag planen wir die Servicezyklen Ihrer Anlage über die ganze Lebensdauer. Die Wartungen führen wir regelmässig nach Plan durch.',
       items: ['Regelmässige Wartung nach Plan', 'Persönliche Betreuung', 'Auch für Anlagen anderer Installateure', 'Pikettdienst rund um die Uhr'],
       faq: [
         ['Gibt es Wartungsverträge auch für bestehende Anlagen?', 'Ja. Wir übernehmen den Service auch für Anlagen, die nicht von uns gebaut wurden.'],
@@ -145,11 +145,11 @@ window.SITE = {
     'stoerungsdienst-pikett': {
       title: 'Störungsdienst und Pikett', group: 'service', img: 'speicher-steuerung', m: 'speicher-steuerung-t', pos: '50% 50%', mpos: '0% 50%', cta: ['westen-tuer-t', '50% 63%', 'westen-tuer', '50% 50%'],
       h1: 'Pikettdienst 24/7', sub: 'Störungsdienst rund um die Uhr',
-      lead: 'Seit 2013 sind wir mit unserem Pikettdienst rund um die Uhr für unsere Kundinnen und Kunden da. Persönlich, auch nachts und am Wochenende.',
-      items: ['Erreichbar 24/7 unter 076 434 17 17', 'Für Heizung, Lüftung, Klima, Kälte und Sanitär', 'Persönlich für Sie da, auch nachts und am Wochenende', 'Den Pikettdienst gibt es seit 2013'],
+      lead: 'Seit 2013 erreichen Sie unseren Pikettdienst rund um die Uhr, auch nachts und am Wochenende.',
+      items: ['Erreichbar 24/7 unter 076 434 17 17', 'Für Heizung, Lüftung, Klima, Kälte und Sanitär', 'Auch nachts und am Wochenende', 'Den Pikettdienst gibt es seit 2013'],
       faq: [
         ['Wann ist der Pikettdienst erreichbar?', 'Rund um die Uhr, 24/7, unter 076 434 17 17.'],
-        ['Seit wann gibt es den Pikettdienst?', 'Seit 2013 ist unser Pikettdienst rund um die Uhr für Sie da.']
+        ['Seit wann gibt es den Pikettdienst?', 'Seit 2013, rund um die Uhr unter 076 434 17 17.']
       ]
     },
     'waermepumpen-service': {
@@ -165,7 +165,7 @@ window.SITE = {
     'sanierungen': {
       title: 'Sanierungen', group: 'sanierung', img: 'technikgang', m: 'technikgang-t', pos: '50% 50%', mpos: '40% 50%', cta: ['installationen-schacht-t', '50% 76%', 'installationen-schacht', '50% 50%'],
       h1: 'Sanierungen', sub: 'Heizung, Lüftung, Klima, Kälte und Sanitär',
-      lead: 'Wir sanieren Heizungsanlagen, Kälteanlagen, Lüftungsanlagen und Sanitäranlagen. Wir prüfen den Bestand, besprechen die Möglichkeiten und verbauen, was wir besprochen haben.',
+      lead: 'Wir sanieren Heizungsanlagen, Kälteanlagen, Lüftungsanlagen und Sanitäranlagen. Zuerst prüfen wir den Bestand, dann besprechen wir mit Ihnen die Möglichkeiten.',
       items: ['Heizungssanierung', 'Sanierung von Kälteanlagen', 'Lüftungssanierung', 'Sanitärsanierung', 'Umstieg auf erneuerbare Energien'],
       faq: [
         ['Begleiten Sie die Sanierung von der Planung bis zum Service?', 'Ja. Wir planen, führen aus und übernehmen danach den Service.'],
@@ -195,36 +195,19 @@ window.SITE = {
   },
 
   timeline: [
-    ['1970', 'Hier beginnt unsere Geschichte', 'Werner Rokitzky startet als Einmannbetrieb in Embrach.'],
-    ['1972', 'Aus eins wird zwei', 'Aus dem Einmannbetrieb wird ein Zweimannbetrieb: Ein Sanitärinstallateur wird eingestellt.'],
-    ['1985', 'Für Nachwuchs sorgen', 'Der erste Lehrling als Sanitärinstallateur beginnt seine Lehre bei Rokitzky.'],
-    ['1987', 'Die Firma wächst', 'Aus der Einzelfirma wird die Aktiengesellschaft W. Rokitzky AG.'],
+    ['1970', 'Gründung in Embrach', 'Werner Rokitzky startet als Einmannbetrieb in Embrach.'],
+    ['1972', 'Erster Mitarbeiter', 'Aus dem Einmannbetrieb wird ein Zweimannbetrieb: Ein Sanitärinstallateur wird eingestellt.'],
+    ['1985', 'Erster Lehrling', 'Der erste Lehrling als Sanitärinstallateur beginnt seine Lehre bei Rokitzky.'],
+    ['1987', 'W. Rokitzky AG', 'Aus der Einzelfirma wird die Aktiengesellschaft W. Rokitzky AG.'],
     ['2011', 'Generationenwechsel', 'Werner Rokitzky verkauft seine AG an die nächste Generation. Im gleichen Jahr entsteht mit der Holz AG für Energie ein Wärmeverbund mit 2 MW Holzschnitzelheizung.'],
-    ['2013', 'Rund um die Uhr da', 'Dank dem neuen Pikettdienst sind wir rund um die Uhr für unsere Kunden da. Den gibt es bis heute: 076 434 17 17.'],
-    ['2019', 'Ziemlich viele Rokitzkys', 'Wir zählen mehr als fünfzig festangestellte Mitarbeiterinnen und Mitarbeiter.'],
+    ['2013', 'Pikettdienst', 'Wir führen den Pikettdienst ein. Seither sind wir rund um die Uhr erreichbar: 076 434 17 17.'],
+    ['2019', 'Über 50 Mitarbeitende', 'Wir zählen mehr als fünfzig festangestellte Mitarbeiterinnen und Mitarbeiter.'],
     ['2020', 'K3 Handwerkcity', 'Wir beziehen unsere neuen Büroräume in der K3 Handwerkcity in Wallisellen.'],
     ['2023', 'Winterthur', 'Wir beziehen unsere neuen Büroräume im Gewerbehaus Taggenberg in Winterthur.'],
-    ['Heute', 'Über 80 Mitarbeitende', 'Vier Standorte: Wallisellen, Winterthur, Hinwil und Zürich. So sind wir überall nah bei unseren Kunden.']
+    ['Heute', 'Über 80 Mitarbeitende', 'Vier Standorte: Wallisellen, Winterthur, Hinwil und Zürich.']
   ],
 
 
-  /* Stimmen aus den Instagram Posts (Montag: Mitarbeiter & Unternehmenskultur) */
-  quotes: [
-    ['Ich arbeite gern dort, wo man mir vertraut. Hier bekomme ich Aufgaben, bei denen ich selber denken muss und Entscheidungen treffen kann.', 'Mitarbeiter/in, W. Rokitzky AG'],
-    ['Auf der Baustelle ist niemand fertig ausgelernt, und wir waren alle einmal neu.', 'Aus dem Rokitzky Team'],
-    ['Wenn ein Handgriff misslingt, lachen wir kurz, sprechen es an und machen es besser.', 'Aus dem Rokitzky Team'],
-    ['Wir messen lieber zweimal, bevor wir einmal schneiden.', 'Aus dem Rokitzky Team']
-  ],
-  values: [
-    ['Vertrauen', 'Wir geben Verantwortung ab und trauen einander etwas zu. Wer bei uns arbeitet, bekommt Aufgaben, bei denen man selber denkt und entscheidet.'],
-    ['Lernen', 'Auf der Baustelle ist niemand fertig ausgelernt. Fehler gehören dazu, solange wir daraus lernen, und Wissen teilen wir im Team.'],
-    ['Zusammenhalt', 'Auf der Baustelle ist es oft laut, kalt und eng. Ein guter Spruch zur richtigen Zeit bringt uns durch den Tag. Wer zusammen lachen kann, kann auch zusammen anpacken.'],
-    ['Sorgfalt', 'Genauigkeit fängt bei den kleinen Dingen an. Wir messen lieber zweimal, dokumentieren sauber und halten Absprachen ein.']
-  ],
-  tips: [
-    ['Frag nach', 'Auch wenn die Frage klein scheint. Wer früh fragt, spart sich später Fehler und versteht schneller, wie alles zusammenhängt.'],
-    ['Hab Geduld mit dir', 'Ein sauberer Handgriff braucht Wiederholung, und jeder Fehler gehört zum Lernen dazu. Wer zuhört, genau hinschaut und dranbleibt, wird schneller sicher als gedacht. Wir helfen dir dabei.']
-  ],
   portraits: ['portrait-1', 'portrait-2', 'portrait-3', 'portrait-4', 'portrait-5', 'portrait-6', 'portrait-7'],
   apprenticeships: ['Heizungsinstallateur/in', 'Sanitärinstallateur/in', 'Gebäudetechnikplaner/in', 'Lüftungsanlagenbauer/in', 'Kaufmann/Kauffrau'],
   documents: ['Bewerbungsschreiben', 'Lebenslauf', 'Alle Zeugnisse'],
